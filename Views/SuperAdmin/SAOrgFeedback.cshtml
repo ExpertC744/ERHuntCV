@@ -1,0 +1,476 @@
+﻿@model IEnumerable<ERHuntCV.Models.SAOrgFeedbackM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Organization Feedback Details";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+@section Styles {
+
+    <link rel="stylesheet"
+          href="~/css/SAOrgFeedback.css"
+          asp-append-version="true" />
+
+}
+<style>
+
+    .feedback-page {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .feedback-title {
+        font-size: 34px;
+        font-weight: 400;
+        color: #111;
+        margin: 0 0 10px 0;
+    }
+
+    .organization-name {
+        font-size: 21px;
+        color: #555;
+        margin-bottom: 38px;
+    }
+
+    .feedback-card {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 9px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .feedback-card-header {
+        height: 57px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 22px;
+        background: #f7f7f7;
+        border-bottom: 1px solid #d5d5d5;
+        font-size: 22px;
+        color: #263238;
+    }
+
+        .feedback-card-header i {
+            font-size: 22px;
+        }
+
+    .feedback-card-body {
+        padding: 22px;
+    }
+
+    /* DataTable */
+
+    #feedbackTable {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: fixed;
+    }
+
+        #feedbackTable thead th {
+            background: #fff;
+            color: #111;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #dfe4e8 !important;
+            padding: 16px 10px;
+            height: 82px;
+        }
+
+        #feedbackTable tbody td {
+            background: #fff;
+            color: #222;
+            font-size: 18px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #dfe4e8 !important;
+            padding: 14px 10px;
+            line-height: 1.55;
+            word-break: break-word;
+        }
+
+        /* Question columns */
+
+        #feedbackTable th:nth-child(1),
+        #feedbackTable td:nth-child(1) {
+            width: 16%;
+        }
+
+        #feedbackTable th:nth-child(2),
+        #feedbackTable td:nth-child(2) {
+            width: 5%;
+        }
+
+        #feedbackTable th:nth-child(3),
+        #feedbackTable td:nth-child(3) {
+            width: 20%;
+        }
+
+        #feedbackTable th:nth-child(4),
+        #feedbackTable td:nth-child(4) {
+            width: 5%;
+        }
+
+        #feedbackTable th:nth-child(5),
+        #feedbackTable td:nth-child(5) {
+            width: 15%;
+        }
+
+        #feedbackTable th:nth-child(6),
+        #feedbackTable td:nth-child(6) {
+            width: 5%;
+        }
+
+        #feedbackTable th:nth-child(7),
+        #feedbackTable td:nth-child(7) {
+            width: 15%;
+        }
+
+        #feedbackTable th:nth-child(8),
+        #feedbackTable td:nth-child(8) {
+            width: 5%;
+        }
+
+        #feedbackTable th:nth-child(9),
+        #feedbackTable td:nth-child(9) {
+            width: 15%;
+        }
+
+        #feedbackTable th:nth-child(10),
+        #feedbackTable td:nth-child(10) {
+            width: 5%;
+        }
+
+        #feedbackTable th:nth-child(11),
+        #feedbackTable td:nth-child(11) {
+            width: 7%;
+        }
+
+    /* Action */
+
+    .action-icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .view-icon,
+    .edit-icon {
+        text-decoration: none !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 27px;
+        transition: 0.2s ease;
+    }
+
+    .view-icon,
+    .edit-icon {
+        color: #1677ff;
+    }
+
+        .view-icon:hover,
+        .edit-icon:hover {
+            transform: scale(1.12);
+            opacity: 0.8;
+        }
+
+    /* DataTables */
+
+    .dataTables_length {
+        margin-bottom: 40px !important;
+    }
+
+        .dataTables_length label {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .dataTables_length select {
+            width: 140px !important;
+            height: 52px;
+            padding: 8px 30px 8px 15px;
+            border: 1px solid #cfcfcf;
+            border-radius: 5px;
+            background: #fff;
+            font-size: 18px;
+        }
+
+    .dataTables_filter {
+        margin-bottom: 24px !important;
+    }
+
+        .dataTables_filter label {
+            font-size: 0;
+        }
+
+        .dataTables_filter input {
+            width: 292px !important;
+            height: 52px;
+            padding: 10px 16px;
+            border: 1px solid #d6dce2;
+            border-radius: 9px;
+            font-size: 18px;
+            outline: none;
+        }
+
+            .dataTables_filter input::placeholder {
+                color: #718096;
+            }
+
+    .dataTables_info {
+        font-size: 18px;
+        color: #333;
+        padding-top: 28px !important;
+    }
+
+    .dataTables_paginate {
+        padding-top: 20px !important;
+    }
+
+    @@media (max-width: 1200px) {
+
+        .feedback-card-body {
+            overflow-x: auto;
+        }
+
+        #feedbackTable {
+            min-width: 1400px;
+        }
+    }
+
+</style>
+
+
+<div class="feedback-page">
+
+    <!-- TITLE -->
+
+    <h1 class="feedback-title">
+        Organization Feedback Details
+    </h1>
+
+
+    <!-- ORGANIZATION NAME -->
+
+    <div class="organization-name">
+        @ViewBag.OrganizationName
+    </div>
+
+
+    <!-- CARD -->
+
+    <div class="feedback-card">
+
+        <!-- CARD HEADER -->
+
+        <div class="feedback-card-header">
+
+            <i class="fas fa-table"></i>
+
+            <span>
+                Feedback
+            </span>
+
+        </div>
+
+
+        <!-- CARD BODY -->
+
+        <div class="feedback-card-body">
+
+            <table id="feedbackTable"
+                   class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Que 1</th>
+
+                        <th>Ans 1</th>
+
+                        <th>Que 2</th>
+
+                        <th>Ans 2</th>
+
+                        <th>Que 3</th>
+
+                        <th>Ans 3</th>
+
+                        <th>Que 4</th>
+
+                        <th>Ans 4</th>
+
+                        <th>Que 5</th>
+
+                        <th>Ans 5</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.Que1
+                                </td>
+
+                                <td>
+                                    @item.Ans1
+                                </td>
+
+                                <td>
+                                    @item.Que2
+                                </td>
+
+                                <td>
+                                    @item.Ans2
+                                </td>
+
+                                <td>
+                                    @item.Que3
+                                </td>
+
+                                <td>
+                                    @item.Ans3
+                                </td>
+
+                                <td>
+                                    @item.Que4
+                                </td>
+
+                                <td>
+                                    @item.Ans4
+                                </td>
+
+                                <td>
+                                    @item.Que5
+                                </td>
+
+                                <td>
+                                    @item.Ans5
+                                </td>
+
+                                <td>
+
+                                    <div class="action-icons">
+
+                                        <!-- VIEW -->
+
+                                        <a asp-controller="SuperAdmin"
+                                           asp-action="DetailsSAOrgFeedback"
+                                           asp-route-id="@item.nID"
+                                           class="view-icon"
+                                           title="View">
+
+                                            <i class="fas fa-eye"></i>
+
+                                        </a>
+
+
+                                        <!-- EDIT -->
+
+                                        <a asp-controller="SuperAdmin"
+                                           asp-action="EditSAOrgFeedback"
+                                           asp-route-id="@item.nID"
+                                           class="edit-icon"
+                                           title="Edit">
+
+                                            <i class="fas fa-edit"></i>
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="11"
+                                class="text-center">
+
+                                No feedback found.
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+        $('#feedbackTable').DataTable({
+
+        pageLength: 25,
+
+        lengthMenu: [
+        [10, 25, 50, 100, -1],
+        [10, 25, 50, 100, "All"]
+        ],
+
+        ordering: true,
+
+        searching: true,
+
+        paging: true,
+
+        info: true,
+
+        autoWidth: false,
+
+        language: {
+
+        search: "",
+
+        searchPlaceholder: "Search..."
+
+        }
+
+        });
+
+        });
+
+    </script>
+
+}

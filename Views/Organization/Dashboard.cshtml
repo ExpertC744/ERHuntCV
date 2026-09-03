@@ -1,0 +1,2936 @@
+﻿@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Organization Dashboard";
+    ViewData["Panel"] = "Organization";
+    //ViewData["UserName"] = "Organization";
+}
+
+<!-- =========================================================
+     DATATABLE CSS
+========================================================= -->
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/2.3.3/css/dataTables.dataTables.min.css" />
+
+<style>
+
+    /* =========================================================
+                       GLOBAL
+                    ========================================================= */
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .organization-dashboard {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        color: #344054;
+        overflow-x: hidden;
+    }
+
+
+    /* =========================================================
+                       PAGE HEADER
+                    ========================================================= */
+
+    .org-page-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+
+    .org-page-title {
+        min-width: 0;
+    }
+
+        .org-page-title h2 {
+            margin: 0;
+            color: #1f2937;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .org-page-title p {
+            margin: 7px 0 0;
+            color: #98a2b3;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+    .post-job-btn {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 12px 19px;
+        background: #1e7b67;
+        color: #ffffff;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 7px 20px rgba(30,123,103,.18);
+        transition: all .25s ease;
+        white-space: nowrap;
+    }
+
+        .post-job-btn:hover {
+            background: #176553;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+
+    /* =========================================================
+                       STAT CARDS
+                    ========================================================= */
+
+    .org-stat-card {
+        position: relative;
+        height: 100%;
+        min-height: 210px;
+        padding: 21px;
+        background: #ffffff;
+        border: 1px solid #edf0f2;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,.035);
+        transition: all .3s ease;
+    }
+
+        .org-stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #d5e9e3;
+            box-shadow: 0 15px 35px rgba(30,123,103,.10);
+        }
+
+        .org-stat-card::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            right: -45px;
+            bottom: -45px;
+            border-radius: 50%;
+            background: #f1faf7;
+            pointer-events: none;
+        }
+
+    .stat-top {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        font-size: 20px;
+    }
+
+        .stat-icon.green {
+            background: #e8f5f1;
+            color: #1e7b67;
+        }
+
+        .stat-icon.blue {
+            background: #edf5ff;
+            color: #3978c8;
+        }
+
+        .stat-icon.purple {
+            background: #f2edff;
+            color: #7655c9;
+        }
+
+        .stat-icon.orange {
+            background: #fff3e8;
+            color: #d77b2b;
+        }
+
+    .stat-growth {
+        padding: 5px 9px;
+        border-radius: 20px;
+        background: #e8f7f2;
+        color: #1e7b67;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .stat-label {
+        display: block;
+        position: relative;
+        z-index: 2;
+        margin-top: 19px;
+        color: #667085;
+        font-size: 15px;
+    }
+
+    .stat-number {
+        position: relative;
+        z-index: 2;
+        margin-top: 3px;
+        color: #1f2937;
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .stat-description {
+        position: relative;
+        z-index: 2;
+        margin-top: 2px;
+        color: #98a2b3;
+        font-size: 13px;
+    }
+
+    .stat-link {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 17px;
+        color: #1e7b67;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+        .stat-link:hover {
+            color: #145c4c;
+        }
+
+
+    /* =========================================================
+                       COMMON PANEL
+                    ========================================================= */
+
+    .org-panel {
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        border: 1px solid #edf0f2;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0,0,0,.035);
+        overflow: hidden;
+    }
+
+    .panel-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 19px 21px;
+        border-bottom: 1px solid #edf0f2;
+        background: #ffffff;
+    }
+
+        .panel-header > div {
+            min-width: 0;
+        }
+
+        .panel-header h5 {
+            margin: 0;
+            color: #1f2937;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .panel-header p {
+            margin: 5px 0 0;
+            color: #98a2b3;
+            font-size: 13px;
+        }
+
+    .view-all {
+        flex-shrink: 0;
+        color: #1e7b67;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+        .view-all:hover {
+            color: #145c4c;
+        }
+
+
+    /* =========================================================
+                       RECENT APPLICATIONS
+                    ========================================================= */
+
+    .application-list {
+        width: 100%;
+        padding: 4px 21px;
+    }
+
+    .application-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f2f4;
+    }
+
+        .application-item:last-child {
+            border-bottom: 0;
+        }
+
+    .candidate-avatar {
+        width: 43px;
+        height: 43px;
+        min-width: 43px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: #e8f5f1;
+        color: #1e7b67;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .candidate-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+        .candidate-info h6 {
+            margin: 0;
+            color: #344054;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .candidate-info span {
+            display: block;
+            margin-top: 4px;
+            color: #98a2b3;
+            font-size: 12px;
+        }
+
+    .applied-job {
+        min-width: 140px;
+    }
+
+        .applied-job small {
+            display: block;
+            margin-bottom: 3px;
+            color: #98a2b3;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .applied-job strong {
+            color: #475467;
+            font-size: 13px;
+        }
+
+    .application-status {
+        min-width: 82px;
+        padding: 6px 9px;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .status-new {
+        background: #edf5ff;
+        color: #3978c8;
+    }
+
+    .status-reviewing {
+        background: #fff4e8;
+        color: #d77b2b;
+    }
+
+    .status-shortlisted {
+        background: #e8f5f1;
+        color: #1e7b67;
+    }
+
+
+    /* =========================================================
+                       QUICK ACTIONS
+                    ========================================================= */
+
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+        padding: 17px;
+    }
+
+    .quick-action {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 68px;
+        padding: 11px;
+        border: 1px solid #edf0f2;
+        border-radius: 11px;
+        text-decoration: none;
+        transition: all .25s ease;
+        min-width: 0;
+    }
+
+        .quick-action:hover {
+            background: #f8fcfa;
+            border-color: #cde5de;
+            transform: translateY(-2px);
+        }
+
+    .quick-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #e8f5f1;
+        color: #1e7b67;
+        font-size: 15px;
+    }
+
+    .quick-action > div:last-child {
+        min-width: 0;
+    }
+
+    .quick-action strong {
+        display: block;
+        color: #344054;
+        font-size: 13px;
+    }
+
+    .quick-action small {
+        display: block;
+        margin-top: 3px;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+
+    /* =========================================================
+                       JOB TABLE CONTAINER
+                    ========================================================= */
+
+    .jobs-table-container {
+        width: 100%;
+        padding: 20px;
+        background: #ffffff;
+        box-sizing: border-box;
+    }
+
+    .jobs-table-scroll {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        background: #ffffff;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #organizationJobsTable_wrapper {
+        width: 100%;
+        max-width: 100%;
+        background: #ffffff !important;
+    }
+
+
+        /* =========================================================
+                       DATATABLE TOP TOOLBAR
+                    ========================================================= */
+
+        #organizationJobsTable_wrapper .dt-layout-row:first-child {
+            width: 100%;
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 0 0 16px 0 !important;
+            padding: 0 !important;
+            background: #ffffff !important;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-start,
+        #organizationJobsTable_wrapper .dt-layout-end {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-start {
+            justify-content: flex-start;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-end {
+            justify-content: flex-end;
+            margin-left: auto;
+        }
+
+
+        /* =========================================================
+                       LENGTH / ENTRIES
+                    ========================================================= */
+
+        #organizationJobsTable_wrapper .dt-length {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0 !important;
+            color: #667085;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+            #organizationJobsTable_wrapper .dt-length label {
+                color: #667085;
+                font-size: 13px;
+            }
+
+            #organizationJobsTable_wrapper .dt-length select {
+                width: 70px !important;
+                min-width: 70px !important;
+                height: 38px !important;
+                margin: 0 !important;
+                padding: 0 8px !important;
+                border: 1px solid #dfe5e8 !important;
+                border-radius: 9px !important;
+                background: #ffffff !important;
+                color: #344054 !important;
+                outline: none !important;
+                font-size: 13px !important;
+                cursor: pointer;
+            }
+
+                #organizationJobsTable_wrapper .dt-length select:hover {
+                    border-color: #c7d8d3 !important;
+                }
+
+                #organizationJobsTable_wrapper .dt-length select:focus {
+                    border-color: #1e7b67 !important;
+                    box-shadow: 0 0 0 3px rgba(30,123,103,.07) !important;
+                }
+
+
+        /* =========================================================
+                       SEARCH
+                    ========================================================= */
+
+        #organizationJobsTable_wrapper .dt-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 280px;
+            margin: 0 !important;
+        }
+
+            #organizationJobsTable_wrapper .dt-search label {
+                display: none !important;
+            }
+
+            #organizationJobsTable_wrapper .dt-search::before {
+                content: "\f002";
+                position: absolute;
+                left: 13px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900;
+                color: #98a2b3;
+                font-size: 13px;
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            #organizationJobsTable_wrapper .dt-search input {
+                width: 100% !important;
+                height: 38px !important;
+                margin: 0 !important;
+                padding: 0 13px 0 35px !important;
+                border: 1px solid #dfe5e8 !important;
+                border-radius: 9px !important;
+                background: #ffffff !important;
+                color: #344054 !important;
+                font-size: 13px !important;
+                outline: none !important;
+                box-shadow: none !important;
+                box-sizing: border-box !important;
+            }
+
+                #organizationJobsTable_wrapper .dt-search input::placeholder {
+                    color: #98a2b3;
+                    opacity: 1;
+                }
+
+                #organizationJobsTable_wrapper .dt-search input:focus {
+                    border-color: #1e7b67 !important;
+                    box-shadow: 0 0 0 3px rgba(30,123,103,.08) !important;
+                }
+
+
+    /* =========================================================
+                       TABLE
+                    ========================================================= */
+
+    #organizationJobsTable,
+    #organizationJobsTable.dataTable {
+        width: 100% !important;
+        min-width: 760px !important;
+        margin: 0 !important;
+        border-collapse: separate !important;
+        border-spacing: 0;
+        border: 1px solid #edf0f2 !important;
+        border-radius: 11px;
+        background: #ffffff !important;
+        overflow: hidden;
+    }
+
+
+        /* =========================================================
+                       TABLE HEADER
+                    ========================================================= */
+
+        #organizationJobsTable thead,
+        #organizationJobsTable.dataTable thead,
+        #organizationJobsTable thead tr,
+        #organizationJobsTable.dataTable thead tr {
+            background: #ffffff !important;
+        }
+
+            #organizationJobsTable thead th,
+            #organizationJobsTable.dataTable thead th {
+                height: 48px !important;
+                padding: 0 14px !important;
+                background: #ffffff !important;
+                background-image: none !important;
+                border-bottom: 1px solid #edf0f2 !important;
+                color: #667085 !important;
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                text-align: center !important;
+                vertical-align: middle !important;
+                text-transform: uppercase;
+                letter-spacing: .4px;
+                white-space: nowrap;
+            }
+
+
+        /* =========================================================
+                       TABLE BODY
+                    ========================================================= */
+
+        #organizationJobsTable tbody,
+        #organizationJobsTable.dataTable tbody {
+            background: #ffffff !important;
+        }
+
+            #organizationJobsTable tbody tr,
+            #organizationJobsTable.dataTable tbody tr,
+            #organizationJobsTable tbody tr.odd,
+            #organizationJobsTable tbody tr.even {
+                background: #ffffff !important;
+                background-image: none !important;
+                box-shadow: none !important;
+            }
+
+            #organizationJobsTable tbody td,
+            #organizationJobsTable.dataTable tbody td {
+                height: 65px !important;
+                padding: 10px 14px !important;
+                background: #ffffff !important;
+                background-image: none !important;
+                border-bottom: 1px solid #f0f2f4 !important;
+                color: #475467 !important;
+                font-size: 13px !important;
+                text-align: center !important;
+                vertical-align: middle !important;
+                white-space: nowrap;
+            }
+
+
+        /* =========================================================
+                       REMOVE STRIPING
+                    ========================================================= */
+
+        #organizationJobsTable.dataTable > tbody > tr:nth-child(odd),
+        #organizationJobsTable.dataTable > tbody > tr:nth-child(even),
+        #organizationJobsTable.dataTable > tbody > tr:nth-child(odd) > td,
+        #organizationJobsTable.dataTable > tbody > tr:nth-child(even) > td {
+            background-color: #ffffff !important;
+            background-image: none !important;
+        }
+
+
+        /* =========================================================
+                       TABLE HOVER
+                    ========================================================= */
+
+        #organizationJobsTable tbody tr:hover td,
+        #organizationJobsTable.dataTable tbody tr:hover td {
+            background: #fafffd !important;
+        }
+
+
+        /* =========================================================
+                       FIRST COLUMN
+                    ========================================================= */
+
+        #organizationJobsTable thead th:first-child,
+        #organizationJobsTable.dataTable thead th:first-child,
+        #organizationJobsTable tbody td:first-child,
+        #organizationJobsTable.dataTable tbody td:first-child {
+            text-align: left !important;
+        }
+
+
+        /* =========================================================
+                       LAST ROW
+                    ========================================================= */
+
+        #organizationJobsTable tbody tr:last-child td,
+        #organizationJobsTable.dataTable tbody tr:last-child td {
+            border-bottom: none !important;
+        }
+
+
+    /* =========================================================
+                       JOB INFORMATION
+                    ========================================================= */
+
+    .job-info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        min-width: 220px;
+        text-align: left;
+    }
+
+    .job-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #e8f5f1;
+        color: #1e7b67;
+        font-size: 15px;
+    }
+
+    .job-info > div:last-child {
+        min-width: 0;
+    }
+
+    .job-info strong {
+        display: block;
+        color: #344054;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .job-info small {
+        display: block;
+        margin-top: 3px;
+        color: #98a2b3;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+                       STATUS
+                    ========================================================= */
+
+    .job-status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-width: 70px;
+        padding: 6px 10px;
+        border-radius: 20px;
+        background: #e8f5f1;
+        color: #1e7b67;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+        .job-status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            min-width: 6px;
+            border-radius: 50%;
+            background: #1e7b67;
+        }
+
+
+    /* =========================================================
+                       BOTTOM DATATABLE AREA
+                    ========================================================= */
+
+    #organizationJobsTable_wrapper .dt-layout-row:last-child {
+        width: 100%;
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 18px !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+    }
+
+    #organizationJobsTable_wrapper .dt-info {
+        padding: 0 !important;
+        margin: 0 !important;
+        color: #98a2b3;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+                       PAGINATION
+                    ========================================================= */
+
+    #organizationJobsTable_wrapper .dt-paging {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 5px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        white-space: nowrap;
+    }
+
+        #organizationJobsTable_wrapper .dt-paging .dt-paging-button {
+            position: relative !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 34px !important;
+            width: auto !important;
+            height: 34px !important;
+            margin: 0 !important;
+            padding: 0 10px !important;
+            border: 1px solid #e1e6e8 !important;
+            border-radius: 8px !important;
+            background: #ffffff !important;
+            background-image: none !important;
+            color: #667085 !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            line-height: 1 !important;
+            text-align: center !important;
+            box-shadow: none !important;
+            outline: none !important;
+            cursor: pointer !important;
+            transition: all .2s ease !important;
+        }
+
+            #organizationJobsTable_wrapper .dt-paging
+            .dt-paging-button:hover:not(.current):not(.disabled) {
+                background: #e8f5f1 !important;
+                border-color: #c7e2da !important;
+                color: #1e7b67 !important;
+                transform: translateY(-1px);
+            }
+
+            #organizationJobsTable_wrapper .dt-paging
+            .dt-paging-button.current {
+                background: #1e7b67 !important;
+                border-color: #1e7b67 !important;
+                color: #ffffff !important;
+                font-weight: 700 !important;
+                box-shadow: 0 4px 10px rgba(30,123,103,.18) !important;
+            }
+
+                #organizationJobsTable_wrapper .dt-paging
+                .dt-paging-button.current:hover {
+                    background: #176553 !important;
+                    border-color: #176553 !important;
+                    color: #ffffff !important;
+                }
+
+            #organizationJobsTable_wrapper .dt-paging
+            .dt-paging-button.previous,
+            #organizationJobsTable_wrapper .dt-paging
+            .dt-paging-button.next {
+                padding: 0 12px !important;
+                background: #ffffff !important;
+                border-color: #dfe5e8 !important;
+                color: #475467 !important;
+                font-size: 12px !important;
+                font-weight: 600 !important;
+            }
+
+                #organizationJobsTable_wrapper .dt-paging
+                .dt-paging-button.previous:hover:not(.disabled),
+                #organizationJobsTable_wrapper .dt-paging
+                .dt-paging-button.next:hover:not(.disabled) {
+                    background: #e8f5f1 !important;
+                    border-color: #c7e2da !important;
+                    color: #1e7b67 !important;
+                }
+
+            #organizationJobsTable_wrapper .dt-paging
+            .dt-paging-button.disabled {
+                opacity: .45 !important;
+                background: #ffffff !important;
+                border-color: #e5e7eb !important;
+                color: #98a2b3 !important;
+                cursor: not-allowed !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+        #organizationJobsTable_wrapper .dt-paging .ellipsis {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 28px !important;
+            height: 34px !important;
+            color: #98a2b3 !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            background: transparent !important;
+        }
+
+
+    /* =========================================================
+                       SCROLLBAR
+                    ========================================================= */
+
+    .jobs-table-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .jobs-table-scroll::-webkit-scrollbar-track {
+        background: #ffffff;
+    }
+
+    .jobs-table-scroll::-webkit-scrollbar-thumb {
+        background: #cbded8;
+        border-radius: 10px;
+    }
+
+        .jobs-table-scroll::-webkit-scrollbar-thumb:hover {
+            background: #a9c8be;
+        }
+
+    div.dt-container div.dt-layout-row {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin: .75em 0;
+    }
+    /* =========================================================
+                       LARGE TABLET
+                    ========================================================= */
+
+    @@media (max-width: 1199px) {
+
+        .organization-dashboard {
+            padding: 8px;
+        }
+
+        .org-stat-card {
+            min-height: 200px;
+        }
+
+        .job-info {
+            min-width: 200px;
+        }
+    }
+
+
+    /* =========================================================
+                       TABLET - 991px
+                    ========================================================= */
+
+    @@media (max-width: 991px) {
+
+        .org-page-header {
+            align-items: flex-start;
+        }
+
+        .applied-job {
+            display: none;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-row:first-child {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-start,
+        #organizationJobsTable_wrapper .dt-layout-end {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-start {
+            justify-content: flex-start;
+        }
+
+        #organizationJobsTable_wrapper .dt-layout-end {
+            justify-content: flex-start;
+        }
+
+        #organizationJobsTable_wrapper .dt-search {
+            width: 100%;
+        }
+
+            #organizationJobsTable_wrapper .dt-search input {
+                width: 100% !important;
+            }
+
+        #organizationJobsTable_wrapper .dt-layout-row:last-child {
+            flex-wrap: wrap;
+        }
+    }
+
+
+    /* =========================================================
+                       MOBILE - 767px
+                    ========================================================= */
+
+    @@media (max-width: 767px) {
+
+        .organization-dashboard {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .org-page-header {
+            flex-direction: row;
+            align-items: stretch;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .org-page-title h2 {
+            font-size: 26px;
+        }
+
+        .org-page-title p {
+            font-size: 14px;
+        }
+
+        .post-job-btn {
+            width: fit-content;
+            min-height: 42px;
+            margin: auto;
+            font-size: 15px;
+        }
+
+        .quick-actions {
+            grid-template-columns: 1fr;
+        }
+
+        .application-item {
+            gap: 10px;
+        }
+
+        .jobs-table-container {
+            padding: 15px;
+        }
+
+        .panel-header {
+            padding: 17px;
+        }
+
+            .panel-header h5 {
+                font-size: 17px;
+            }
+
+            .panel-header p {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+        #organizationJobsTable_wrapper .dt-layout-row:last-child {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 13px !important;
+        }
+
+        #organizationJobsTable_wrapper .dt-info {
+            width: 100%;
+            white-space: normal;
+        }
+
+        #organizationJobsTable_wrapper .dt-paging {
+            width: 100%;
+            justify-content: end !important;
+            flex-wrap: wrap;
+        }
+    }
+
+
+    /* =========================================================
+                       MOBILE - 576px
+                    ========================================================= */
+
+    @@media (max-width: 576px) {
+
+        .organization-dashboard {
+            padding: 0;
+        }
+
+        .org-page-title h2 {
+            font-size: 24px;
+        }
+
+        .org-page-title p {
+            font-size: 13px;
+        }
+
+        .org-stat-card {
+            min-height: 190px;
+            padding: 18px;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+        }
+
+        .stat-number {
+            font-size: 29px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+        }
+
+        .stat-description {
+            font-size: 13px;
+        }
+
+        .application-list {
+            padding: 3px 15px;
+        }
+
+        .application-item {
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .candidate-avatar {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+        }
+
+        .candidate-info h6 {
+            font-size: 14px;
+        }
+
+        .candidate-info span {
+            display: none;
+        }
+
+        .applied-job {
+            display: none;
+        }
+
+        .application-status {
+            margin-left: auto;
+            min-width: auto;
+            padding: 5px 8px;
+            font-size: 11px;
+        }
+
+        .panel-header {
+            padding: 15px;
+        }
+
+            .panel-header h5 {
+                font-size: 16px;
+            }
+
+            .panel-header p {
+                font-size: 12px;
+            }
+
+        .quick-action strong {
+            font-size: 13px;
+        }
+
+        .quick-action small {
+            font-size: 11px;
+        }
+
+        .jobs-table-container {
+            padding: 12px;
+        }
+        /* DataTables top */
+
+        #organizationJobsTable_wrapper .dt-layout-row:first-child {
+            gap: 10px !important;
+        }
+
+        #organizationJobsTable_wrapper .dt-length {
+            width: 100%;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+            #organizationJobsTable_wrapper .dt-length label {
+                font-size: 13px;
+            }
+
+            #organizationJobsTable_wrapper .dt-length select {
+                width: 65px !important;
+                min-width: 65px !important;
+                height: 36px !important;
+                font-size: 13px !important;
+            }
+
+        #organizationJobsTable_wrapper .dt-search {
+            width: 100% !important;
+        }
+
+            #organizationJobsTable_wrapper .dt-search input {
+                height: 38px !important;
+                font-size: 13px !important;
+            }
+        /* Table */
+
+        #organizationJobsTable,
+        #organizationJobsTable.dataTable {
+            min-width: 720px !important;
+        }
+
+            #organizationJobsTable thead th,
+            #organizationJobsTable.dataTable thead th {
+                height: 45px !important;
+                padding: 0 10px !important;
+                font-size: 10px !important;
+            }
+
+            #organizationJobsTable tbody td,
+            #organizationJobsTable.dataTable tbody td {
+                height: 60px !important;
+                padding: 8px 10px !important;
+                font-size: 12px !important;
+            }
+
+        .job-info {
+            min-width: 185px;
+        }
+
+        .job-icon {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+        }
+
+        .job-info strong {
+            font-size: 12px;
+        }
+
+        .job-info small {
+            font-size: 10px;
+        }
+
+        .job-status {
+            font-size: 11px;
+        }
+        /* Bottom */
+
+        #organizationJobsTable_wrapper .dt-layout-row:last-child {
+            width: 100%;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 12px !important;
+        }
+
+        #organizationJobsTable_wrapper .dt-info {
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        #organizationJobsTable_wrapper .dt-paging {
+            width: 100%;
+            justify-content: end !important;
+            gap: 3px !important;
+        }
+
+            #organizationJobsTable_wrapper
+            .dt-paging
+            .dt-paging-button {
+                min-width: 30px !important;
+                width: 30px !important;
+                height: 30px !important;
+                padding: 0 5px !important;
+                border-radius: 6px !important;
+                font-size: 11px !important;
+            }
+
+                #organizationJobsTable_wrapper
+                .dt-paging
+                .dt-paging-button.previous,
+                #organizationJobsTable_wrapper
+                .dt-paging
+                .dt-paging-button.next {
+                    width: auto !important;
+                    padding: 0 8px !important;
+                    font-size: 11px !important;
+                }
+
+            #organizationJobsTable_wrapper
+            .dt-paging
+            .ellipsis {
+                min-width: 20px !important;
+                height: 30px !important;
+                font-size: 11px !important;
+            }
+    }
+
+
+    /* =========================================================
+                       VERY SMALL MOBILE - 400px
+                    ========================================================= */
+
+    @@media (max-width: 400px) {
+
+        .organization-dashboard {
+            padding: 0;
+        }
+
+        .org-page-title h2 {
+            font-size: 22px;
+        }
+
+        .org-page-title p {
+            font-size: 12px;
+        }
+
+        .stat-number {
+            font-size: 27px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+        }
+
+        .stat-description {
+            font-size: 12px;
+        }
+
+        .quick-actions {
+            padding: 12px;
+        }
+
+        .quick-action strong {
+            font-size: 13px;
+        }
+
+        .quick-action small {
+            font-size: 11px;
+        }
+
+        .jobs-table-container {
+            padding: 10px;
+        }
+
+        #organizationJobsTable,
+        #organizationJobsTable.dataTable {
+            min-width: 700px !important;
+        }
+
+            #organizationJobsTable thead th,
+            #organizationJobsTable.dataTable thead th {
+                font-size: 10px !important;
+            }
+
+            #organizationJobsTable tbody td,
+            #organizationJobsTable.dataTable tbody td {
+                font-size: 12px !important;
+            }
+
+        #organizationJobsTable_wrapper .dt-paging {
+            gap: 2px !important;
+        }
+
+            #organizationJobsTable_wrapper
+            .dt-paging
+            .dt-paging-button {
+                min-width: 27px !important;
+                width: 27px !important;
+                height: 27px !important;
+                padding: 0 4px !important;
+                font-size: 10px !important;
+            }
+
+                #organizationJobsTable_wrapper
+                .dt-paging
+                .dt-paging-button.previous,
+                #organizationJobsTable_wrapper
+                .dt-paging
+                .dt-paging-button.next {
+                    font-size: 10px !important;
+                }
+    }
+
+    /* =========================================================
+           ORGANIZATION DASHBOARD - CHART CARDS
+        ========================================================= */
+
+    .org-chart-card {
+        position: relative;
+        width: 100%;
+        min-height: 370px;
+        padding: 28px 28px 20px;
+        background: #ffffff;
+        border: 1px solid #e7ecef;
+        border-radius: 22px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, .035);
+        overflow: hidden;
+        transition: all .3s ease;
+    }
+
+        .org-chart-card:hover {
+            transform: translateY(-3px);
+            border-color: #d5e9e3;
+            box-shadow: 0 15px 35px rgba(30, 123, 103, .08);
+        }
+
+
+    /* =========================================================
+           HEADER
+        ========================================================= */
+
+    .chart-card-header {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+
+    .chart-title {
+        color: #5f7695;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+
+    .chart-number {
+        margin-top: 7px;
+        color: #102a43;
+        font-size: 38px;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: -.7px;
+    }
+
+
+    .chart-subtitle {
+        margin-top: 8px;
+        color: #91a0b6;
+        font-size: 13px;
+    }
+
+
+    /* =========================================================
+           ICON
+        ========================================================= */
+
+    .chart-icon {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: #e7f5f1;
+        color: #1e7b67;
+        font-size: 20px;
+    }
+
+
+    /* =========================================================
+           CHART AREA
+        ========================================================= */
+
+    .chart-wrapper {
+        position: relative;
+        width: 100%;
+        height: 175px;
+        margin-top: 20px;
+    }
+
+
+        .chart-wrapper canvas {
+            width: 100% !important;
+            height: 175px !important;
+        }
+
+
+    /* =========================================================
+           FOOTER
+        ========================================================= */
+
+    .chart-footer {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        color: #607b9a;
+        font-size: 13px;
+    }
+
+
+        .chart-footer i {
+            color: #1e7b67;
+            font-size: 14px;
+        }
+
+
+    /* =========================================================
+           MOBILE
+        ========================================================= */
+
+    @@media (max-width: 767px) {
+
+        .org-chart-card {
+            min-height: 350px;
+            padding: 22px 20px 18px;
+            border-radius: 18px;
+        }
+
+        .chart-title {
+            font-size: 14px;
+        }
+
+        .chart-number {
+            font-size: 32px;
+        }
+
+        .chart-subtitle {
+            font-size: 12px;
+        }
+
+        .chart-icon {
+            width: 46px;
+            height: 46px;
+            min-width: 46px;
+            border-radius: 13px;
+            font-size: 17px;
+        }
+
+        .chart-wrapper {
+            height: 165px;
+            margin-top: 18px;
+        }
+
+            .chart-wrapper canvas {
+                height: 165px !important;
+            }
+
+        .chart-footer {
+            font-size: 12px;
+        }
+    }
+
+
+    @@media (max-width: 400px) {
+
+        .org-chart-card {
+            padding: 20px 16px 16px;
+        }
+
+        .chart-number {
+            font-size: 29px;
+        }
+
+        .chart-title {
+            font-size: 13px;
+        }
+
+        .chart-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            font-size: 15px;
+        }
+
+        .chart-wrapper {
+            height: 155px;
+        }
+
+            .chart-wrapper canvas {
+                height: 155px !important;
+            }
+    }
+
+</style>
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<div class="container-fluid organization-dashboard">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="org-page-header">
+        <div class="org-page-title">
+            <h2>
+                Organization Dashboard
+            </h2>
+            <p>
+                Manage your jobs, candidates and hiring activities.
+            </p>
+        </div>
+        <a href="#" class="post-job-btn">
+            <i class="fas fa-plus"></i>
+            Post New Job
+        </a>
+    </div>
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- POSTED JOBS -->
+
+        <div class="col-xl-3 col-lg-6 col-md-6">
+
+            <div class="org-stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon green">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+
+                    <span class="stat-growth">
+                        <i class="fas fa-arrow-up"></i>
+                        12%
+                    </span>
+
+                </div>
+
+                <span class="stat-label">
+                    Total Trainees
+                </span>
+
+                <div class="stat-number">
+                    @ViewBag.TraineeRegistrationCount
+                </div>
+
+                <a asp-controller="Organization"
+                   asp-action="TraineeList"
+                   class="stat-link">
+                    View Details
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- APPLICATIONS -->
+
+        <div class="col-xl-3 col-lg-6 col-md-6">
+
+            <div class="org-stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon blue">
+                        <i class="fas fa-file-lines"></i>
+                    </div>
+
+                    <span class="stat-growth">
+                        <i class="fas fa-arrow-up"></i>
+                        18%
+                    </span>
+
+                </div>
+
+                <span class="stat-label">
+                    Total Organizations
+                </span>
+
+                <div class="stat-number">
+
+                    @ViewBag.OrganizationRegistrationCount
+
+                </div>
+
+                <a asp-controller="Organization"
+                   asp-action="OrgList"
+                   class="stat-link">
+                    View Details
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- SHORTLISTED -->
+
+        <div class="col-xl-3 col-lg-6 col-md-6">
+
+            <div class="org-stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon purple">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+
+                    <span class="stat-growth">
+                        <i class="fas fa-arrow-up"></i>
+                        8%
+                    </span>
+
+                </div>
+
+                <span class="stat-label">
+                    Top Search
+                </span>
+
+                <div class="stat-number">
+                    @ViewBag.TopSearch
+                </div>
+
+                <a asp-controller="Organization"
+                   asp-action="Candidates"
+                   class="stat-link">
+                    View Candidates
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- INTERVIEWS -->
+
+        <div class="col-xl-3 col-lg-6 col-md-6">
+
+            <div class="org-stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon orange">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+
+                    <span class="stat-growth">
+                        <i class="fas fa-arrow-up"></i>
+                        5%
+                    </span>
+
+                </div>
+
+                <span class="stat-label">
+                    Trainees Applied Your Post
+                </span>
+
+                <div class="stat-number">
+                    @ViewBag.TraineesApplied
+                </div>
+
+                <a asp-controller="Organization"
+                   asp-action="Interviews"
+                   class="stat-link">
+                    View Interviews
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+         TRAINEE CHARTS
+    ====================================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- =================================================
+             CHART 1
+             ELIGIBLE TRAINEES
+        ================================================== -->
+
+        <div class="col-xl-6 col-lg-6 col-md-12">
+
+            <div class="org-chart-card">
+
+                <!-- HEADER -->
+
+                <div class="chart-card-header">
+
+                    <div>
+
+                        <div class="chart-title">
+                            No. of Trainee Eligible for Internship
+                        </div>
+
+                        <div class="chart-number">
+                            @ViewBag.InternshipEligibleCount
+                        </div>
+
+                        <div class="chart-subtitle">
+                            Current eligible trainees
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-icon">
+
+                        <i class="fas fa-user-graduate"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHART -->
+
+                <div class="chart-wrapper">
+
+                    <canvas id="internshipEligibleChart"></canvas>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="chart-footer">
+
+                    <i class="fas fa-chart-line"></i>
+
+                    <span>
+                        Monthly eligible trainee trend
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CHART 2
+             TOTAL REGISTRATION PER MONTH
+        ================================================== -->
+
+        <div class="col-xl-6 col-lg-6 col-md-12">
+
+            <div class="org-chart-card">
+
+                <!-- HEADER -->
+
+                <div class="chart-card-header">
+
+                    <div>
+
+                        <div class="chart-title">
+                            Total Registration Per Month
+                        </div>
+
+                        <div class="chart-number">
+                            @ViewBag.TraineeRegistrationCount
+                        </div>
+
+                        <div class="chart-subtitle">
+                            Total trainee registrations
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-icon">
+
+                        <i class="fas fa-building"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHART -->
+
+                <div class="chart-wrapper">
+
+                    <canvas id="monthlyRegistrationChart"></canvas>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="chart-footer">
+
+                    <i class="fas fa-chart-line"></i>
+
+                    <span>
+                        Monthly trainee registration trend
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         APPLICATIONS + QUICK ACTIONS
+    ====================================================== -->
+
+    <div class="row g-4">
+
+        <!-- RECENT APPLICATIONS -->
+
+        <div class="col-xl-8 col-lg-7">
+
+            <div class="org-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h5>
+                            Recent Applications
+                        </h5>
+
+                        <p>
+                            Latest candidates who applied for your jobs
+                        </p>
+
+                    </div>
+
+                    <a href="#" class="view-all">
+                        View All
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+
+                <div class="application-list">
+
+                    <!-- APPLICATION 1 -->
+
+                    <div class="application-item">
+
+                        <div class="candidate-avatar">
+                            AS
+                        </div>
+
+                        <div class="candidate-info">
+
+                            <h6>
+                                Aarav Sharma
+                            </h6>
+
+                            <span>
+                                Frontend Developer
+                            </span>
+
+                        </div>
+
+                        <div class="applied-job">
+
+                            <small>
+                                APPLIED FOR
+                            </small>
+
+                            <strong>
+                                React Developer
+                            </strong>
+
+                        </div>
+
+                        <span class="application-status status-shortlisted">
+                            Shortlisted
+                        </span>
+
+                    </div>
+
+
+                    <!-- APPLICATION 2 -->
+
+                    <div class="application-item">
+
+                        <div class="candidate-avatar">
+                            RK
+                        </div>
+
+                        <div class="candidate-info">
+
+                            <h6>
+                                Riya Kulkarni
+                            </h6>
+
+                            <span>
+                                UI/UX Designer
+                            </span>
+
+                        </div>
+
+                        <div class="applied-job">
+
+                            <small>
+                                APPLIED FOR
+                            </small>
+
+                            <strong>
+                                UI/UX Designer
+                            </strong>
+
+                        </div>
+
+                        <span class="application-status status-reviewing">
+                            Reviewing
+                        </span>
+
+                    </div>
+
+
+                    <!-- APPLICATION 3 -->
+
+                    <div class="application-item">
+
+                        <div class="candidate-avatar">
+                            VK
+                        </div>
+
+                        <div class="candidate-info">
+
+                            <h6>
+                                Vikram Kumar
+                            </h6>
+
+                            <span>
+                                Backend Developer
+                            </span>
+
+                        </div>
+
+                        <div class="applied-job">
+
+                            <small>
+                                APPLIED FOR
+                            </small>
+
+                            <strong>
+                                .NET Developer
+                            </strong>
+
+                        </div>
+
+                        <span class="application-status status-new">
+                            New
+                        </span>
+
+                    </div>
+
+
+                    <!-- APPLICATION 4 -->
+
+                    <div class="application-item">
+
+                        <div class="candidate-avatar">
+                            NP
+                        </div>
+
+                        <div class="candidate-info">
+
+                            <h6>
+                                Neha Patil
+                            </h6>
+
+                            <span>
+                                HR Executive
+                            </span>
+
+                        </div>
+
+                        <div class="applied-job">
+
+                            <small>
+                                APPLIED FOR
+                            </small>
+
+                            <strong>
+                                HR Manager
+                            </strong>
+
+                        </div>
+
+                        <span class="application-status status-shortlisted">
+                            Shortlisted
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="col-xl-4 col-lg-5">
+
+            <div class="org-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h5>
+                            Quick Actions
+                        </h5>
+
+                        <p>
+                            Manage your recruitment
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <!-- =================================================
+                         1. POST JOB
+                    ================================================== -->
+
+                    <a href="#" class="quick-action">
+
+                        <div class="quick-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+
+                        <div class="quick-content">
+
+                            <strong>
+                                Post Job
+                            </strong>
+
+                            <small>
+                                Create new opening
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- =================================================
+                         2. CANDIDATES
+                    ================================================== -->
+
+                    <a href="#" class="quick-action">
+
+                        <div class="quick-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+
+                        <div class="quick-content">
+
+                            <strong>
+                                Candidates
+                            </strong>
+
+                            <small>
+                                Browse candidates
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- =================================================
+                         3. APPLICATIONS
+                    ================================================== -->
+
+                    <a href="#" class="quick-action">
+
+                        <div class="quick-icon">
+                            <i class="fas fa-file-lines"></i>
+                        </div>
+
+                        <div class="quick-content">
+
+                            <strong>
+                                Applications
+                            </strong>
+
+                            <small>
+                                Review applications
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- =================================================
+                         4. INTERVIEWS
+                    ================================================== -->
+
+                    <a href="#" class="quick-action">
+
+                        <div class="quick-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+
+                        <div class="quick-content">
+
+                            <strong>
+                                Interviews
+                            </strong>
+
+                            <small>
+                                Manage interviews
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- =================================================
+                         5. JOB ANALYTICS
+                    ================================================== -->
+
+                    <a href="#" class="quick-action">
+
+                        <div class="quick-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+
+                        <div class="quick-content">
+
+                            <strong>
+                                Job Analytics
+                            </strong>
+
+                            <small>
+                                Track hiring performance
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- =================================================
+                         6. MESSAGES
+                    ================================================== -->
+
+                    <a href="#" class="quick-action">
+
+                        <div class="quick-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+
+                        <div class="quick-content">
+
+                            <strong>
+                                Messages
+                            </strong>
+
+                            <small>
+                                Connect with candidates
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         ACTIVE JOB OPENINGS
+    ====================================================== -->
+
+    <div class="org-panel mt-4">
+
+        <!-- TABLE HEADER -->
+
+        <div class="panel-header">
+
+            <div>
+
+                <h5>
+                    Active Job Openings
+                </h5>
+
+                <p>
+                    Overview of your current job positions
+                </p>
+
+            </div>
+
+            <a href="#" class="view-all">
+
+                Manage Jobs
+
+                <i class="fas fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="jobs-table-container">
+
+            <div class="jobs-table-scroll">
+
+                <table id="organizationJobsTable"
+                       class="display">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Job Position</th>
+
+                            <th>Applications</th>
+
+                            <th>Shortlisted</th>
+
+                            <th>Posted Date</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            React Developer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Remote
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>42</td>
+
+                            <td>12</td>
+
+                            <td>12 Aug 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-paintbrush"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            UI/UX Designer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Hybrid
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>28</td>
+
+                            <td>8</td>
+
+                            <td>10 Aug 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            .NET Developer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · On-site
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>31</td>
+
+                            <td>10</td>
+
+                            <td>08 Aug 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Database Administrator
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Remote
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>19</td>
+
+                            <td>6</td>
+
+                            <td>05 Aug 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-mobile-screen"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Mobile App Developer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Hybrid
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>36</td>
+
+                            <td>11</td>
+
+                            <td>02 Aug 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Business Analyst
+                                        </strong>
+
+                                        <small>
+                                            Full Time · On-site
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>24</td>
+
+                            <td>7</td>
+
+                            <td>30 Jul 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-cloud"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Cloud Engineer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Remote
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>17</td>
+
+                            <td>5</td>
+
+                            <td>27 Jul 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-shield-halved"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Cyber Security Analyst
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Hybrid
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>21</td>
+
+                            <td>9</td>
+
+                            <td>25 Jul 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-gears"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            DevOps Engineer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Remote
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>29</td>
+
+                            <td>8</td>
+
+                            <td>20 Jul 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                <div class="job-info">
+
+                                    <div class="job-icon">
+                                        <i class="fas fa-pen-ruler"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Product Designer
+                                        </strong>
+
+                                        <small>
+                                            Full Time · Hybrid
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>33</td>
+
+                            <td>13</td>
+
+                            <td>18 Jul 2026</td>
+
+                            <td>
+                                <span class="job-status">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JQUERY
+========================================================= -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<!-- =========================================================
+     DATATABLE JS
+========================================================= -->
+
+<script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+
+
+<!-- =========================================================
+     DATATABLE INITIALIZATION
+========================================================= -->
+
+<script>
+
+    $(document).ready(function () {
+
+    const table = new DataTable('#organizationJobsTable', {
+
+    /* ================================================
+    DEFAULT PAGE SIZE
+    ================================================ */
+
+    pageLength: 5,
+
+
+    /* ================================================
+    ENTRIES PER PAGE
+    ================================================ */
+
+    lengthMenu: [
+    [5, 10, 25, 50],
+    [5, 10, 25, 50]
+    ],
+
+
+    /* ================================================
+    FEATURES
+    ================================================ */
+
+    searching: true,
+
+    ordering: true,
+
+    paging: true,
+
+    info: true,
+
+
+    /* ================================================
+    DEFAULT SORT
+    Posted Date = column 3
+    ================================================ */
+
+    order: [
+    [3, 'desc']
+    ],
+
+
+    /* ================================================
+    PAGINATION
+    ================================================ */
+
+    pagingType: 'simple_numbers',
+
+
+    /* ================================================
+    LANGUAGE
+    ================================================ */
+
+    language: {
+
+    search: '',
+
+    searchPlaceholder: 'Search jobs...',
+
+    lengthMenu: 'Show _MENU_ entries',
+
+    info: 'Showing _START_ to _END_ of _TOTAL_ jobs',
+
+    infoEmpty: 'Showing 0 to 0 of 0 jobs',
+
+    zeroRecords: 'No matching jobs found',
+
+    emptyTable: 'No job openings available',
+
+    paginate: {
+
+    previous: '‹',
+
+    next: '›'
+
+    }
+
+    },
+
+
+    /* ================================================
+    CALLBACK
+    Fix table width after initialization
+    ================================================ */
+
+    initComplete: function () {
+
+    $('#organizationJobsTable_wrapper')
+    .css('width', '100%');
+
+    }
+
+    });
+
+
+    /* =====================================================
+    SEARCH INPUT
+    ===================================================== */
+
+    $('#organizationJobsTable_wrapper .dt-search input')
+    .attr('placeholder', 'Search jobs...');
+
+
+    /* =====================================================
+    RESPONSIVE WINDOW RESIZE
+    ===================================================== */
+
+    $(window).on('resize', function () {
+
+    table.columns.adjust();
+
+    });
+
+    });
+
+</script>
+

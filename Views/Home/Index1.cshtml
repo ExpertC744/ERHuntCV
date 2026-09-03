@@ -1,0 +1,710 @@
+@{
+    ViewData["Title"] = "Find the Right Job. Build the Right Career.";
+}
+
+<!-- NAVBAR -->
+<nav class="huntcv-navbar">
+    <div class="container-lg">
+        <div class="navbar-brand">
+            <div class="brand-logo">
+                <svg viewBox="0 0 40 40" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 20C8 13.37 13.37 8 20 8C26.63 8 32 13.37 32 20C32 26.63 26.63 32 20 32C13.37 32 8 26.63 8 20Z" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 20L18 23L25 16" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <span class="brand-text">HuntCV</span>
+        </div>
+        
+        <div class="navbar-menu">
+            <a href="#explore" class="nav-link">Explore Jobs</a>
+            <a href="#companies" class="nav-link">Companies</a>
+            <a href="#resources" class="nav-link">Resources</a>
+            <a href="#about" class="nav-link">About</a>
+        </div>
+        
+        <div class="navbar-actions">
+            <button class="btn-text">Sign In</button>
+            <button class="btn-primary">Post a Job</button>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="container-lg">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Find the Right Job.<br>Build the Right Career.</h1>
+                <p class="hero-subtitle">HuntCV connects talented professionals with the right opportunities, trusted companies, and career resources.</p>
+                
+                <!-- Advanced Search Box -->
+                <div class="search-container">
+                    <div class="search-input-group">
+                        <div class="search-field">
+                            <i class="bi bi-briefcase"></i>
+                            <input type="text" placeholder="Job title, keywords..." id="jobTitle">
+                        </div>
+                        <div class="search-field">
+                            <i class="bi bi-geo-alt"></i>
+                            <input type="text" placeholder="City or remote" id="location">
+                        </div>
+                        <button class="btn-search">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                    <div class="search-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox"> Remote only
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox"> Recently posted
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="hero-cards">
+                    <div class="hero-card card-1">
+                        <div class="card-badge">Senior Developer</div>
+                        <div class="card-company">TechCorp</div>
+                        <div class="card-location">
+                            <i class="bi bi-geo-alt"></i> San Francisco, CA
+                        </div>
+                        <div class="card-salary">$180K - $220K</div>
+                    </div>
+                    <div class="hero-card card-2">
+                        <div class="card-badge">Product Manager</div>
+                        <div class="card-company">InnovateLabs</div>
+                        <div class="card-location">
+                            <i class="bi bi-geo-alt"></i> Remote
+                        </div>
+                        <div class="card-salary">$140K - $180K</div>
+                    </div>
+                    <div class="hero-card card-3">
+                        <div class="card-badge">UX Designer</div>
+                        <div class="card-company">DesignHub</div>
+                        <div class="card-location">
+                            <i class="bi bi-geo-alt"></i> New York, NY
+                        </div>
+                        <div class="card-salary">$110K - $150K</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRUST & STATISTICS SECTION -->
+<section class="stats-section">
+    <div class="container-lg">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">2.5M+</div>
+                <div class="stat-label">Active Job Seekers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">15K+</div>
+                <div class="stat-label">Top Companies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">50K+</div>
+                <div class="stat-label">Jobs Posted Daily</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">92%</div>
+                <div class="stat-label">User Satisfaction</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED JOBS SECTION -->
+<section class="featured-jobs-section" id="explore">
+    <div class="container-lg">
+        <div class="section-header">
+            <div>
+                <h2>Featured Job Opportunities</h2>
+                <p>Handpicked roles from companies actively hiring top talent</p>
+            </div>
+            <a href="#" class="view-all">View all jobs →</a>
+        </div>
+        
+        <div class="jobs-grid">
+            <!-- Job Card 1 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#3B82F6"/>
+                            <text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="bold">TC</text>
+                        </svg>
+                    </div>
+                    <div class="job-meta">
+                        <div class="job-title">Senior Full Stack Engineer</div>
+                        <div class="job-company">TechCorp</div>
+                    </div>
+                    <button class="btn-save" title="Save job">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+                
+                <div class="job-details">
+                    <span class="badge-tag">Full-time</span>
+                    <span class="badge-tag">Remote</span>
+                </div>
+                
+                <div class="job-description">
+                    Build scalable systems for millions of users. Work with React, Node.js, and cloud infrastructure.
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-salary">$180K - $220K/year</div>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+            
+            <!-- Job Card 2 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#10B981"/>
+                            <text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="bold">IL</text>
+                        </svg>
+                    </div>
+                    <div class="job-meta">
+                        <div class="job-title">Product Manager - AI/ML</div>
+                        <div class="job-company">InnovateLabs</div>
+                    </div>
+                    <button class="btn-save" title="Save job">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+                
+                <div class="job-details">
+                    <span class="badge-tag">Full-time</span>
+                    <span class="badge-tag">San Francisco, CA</span>
+                </div>
+                
+                <div class="job-description">
+                    Lead product strategy for our AI platform. Define roadmap, work with engineering and design teams.
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-salary">$140K - $180K/year</div>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+            
+            <!-- Job Card 3 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#8B5CF6"/>
+                            <text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="bold">DH</text>
+                        </svg>
+                    </div>
+                    <div class="job-meta">
+                        <div class="job-title">Lead UX/UI Designer</div>
+                        <div class="job-company">DesignHub</div>
+                    </div>
+                    <button class="btn-save" title="Save job">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+                
+                <div class="job-details">
+                    <span class="badge-tag">Full-time</span>
+                    <span class="badge-tag">New York, NY</span>
+                </div>
+                
+                <div class="job-description">
+                    Design intuitive interfaces for millions. Lead design system, mentor junior designers, shape product vision.
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-salary">$110K - $150K/year</div>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+            
+            <!-- Job Card 4 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#F59E0B"/>
+                            <text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="bold">SF</text>
+                        </svg>
+                    </div>
+                    <div class="job-meta">
+                        <div class="job-title">DevOps Engineer</div>
+                        <div class="job-company">StartupFoundry</div>
+                    </div>
+                    <button class="btn-save" title="Save job">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+                
+                <div class="job-details">
+                    <span class="badge-tag">Full-time</span>
+                    <span class="badge-tag">Remote</span>
+                </div>
+                
+                <div class="job-description">
+                    Manage cloud infrastructure at scale. Work with Kubernetes, AWS, and CI/CD pipelines for growing team.
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-salary">$130K - $170K/year</div>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+            
+            <!-- Job Card 5 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#EC4899"/>
+                            <text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="bold">VL</text>
+                        </svg>
+                    </div>
+                    <div class="job-meta">
+                        <div class="job-title">Data Scientist</div>
+                        <div class="job-company">VentureLabs</div>
+                    </div>
+                    <button class="btn-save" title="Save job">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+                
+                <div class="job-details">
+                    <span class="badge-tag">Full-time</span>
+                    <span class="badge-tag">Boston, MA</span>
+                </div>
+                
+                <div class="job-description">
+                    Build ML models for financial forecasting. Work with large datasets and cutting-edge analytics tools.
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-salary">$150K - $200K/year</div>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+            
+            <!-- Job Card 6 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-logo">
+                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#14B8A6"/>
+                            <text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="bold">CF</text>
+                        </svg>
+                    </div>
+                    <div class="job-meta">
+                        <div class="job-title">QA Automation Engineer</div>
+                        <div class="job-company">CloudFirst</div>
+                    </div>
+                    <button class="btn-save" title="Save job">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+                
+                <div class="job-details">
+                    <span class="badge-tag">Full-time</span>
+                    <span class="badge-tag">Remote</span>
+                </div>
+                
+                <div class="job-description">
+                    Design and execute automation frameworks. Build robust testing infrastructure for microservices.
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-salary">$100K - $140K/year</div>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JOB CATEGORIES SECTION -->
+<section class="categories-section">
+    <div class="container-lg">
+        <div class="section-header">
+            <div>
+                <h2>Popular Job Categories</h2>
+                <p>Browse opportunities across industries and roles</p>
+            </div>
+        </div>
+        
+        <div class="categories-grid">
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-code-square"></i>
+                </div>
+                <h3>Engineering & Tech</h3>
+                <p>12.5K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-palette"></i>
+                </div>
+                <h3>Design</h3>
+                <p>3.2K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <h3>Product & Management</h3>
+                <p>5.8K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-megaphone"></i>
+                </div>
+                <h3>Marketing & Sales</h3>
+                <p>4.1K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3>Human Resources</h3>
+                <p>1.8K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-calculator"></i>
+                </div>
+                <h3>Finance & Accounting</h3>
+                <p>3.5K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+                <h3>Business & Consulting</h3>
+                <p>6.2K+ jobs</p>
+            </a>
+            
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <h3>Data & AI</h3>
+                <p>2.9K+ jobs</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- TOP COMPANIES SECTION -->
+<section class="companies-section" id="companies">
+    <div class="container-lg">
+        <div class="section-header">
+            <div>
+                <h2>Top Companies Hiring</h2>
+                <p>Join talented professionals at industry-leading organizations</p>
+            </div>
+            <a href="#" class="view-all">Explore all companies →</a>
+        </div>
+        
+        <div class="companies-carousel">
+            <div class="company-item">
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-avatar">
+                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" fill="#3B82F6" rx="8"/>
+                                <text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="bold">TC</text>
+                            </svg>
+                        </div>
+                        <button class="btn-follow">Follow</button>
+                    </div>
+                    <h3 class="company-name">TechCorp</h3>
+                    <p class="company-description">Enterprise software solutions for global markets</p>
+                    <div class="company-meta">
+                        <span class="meta-item"><i class="bi bi-briefcase"></i> 1.2K jobs</span>
+                        <span class="meta-item"><i class="bi bi-star-fill"></i> 4.8/5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="company-item">
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-avatar">
+                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" fill="#10B981" rx="8"/>
+                                <text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="bold">IL</text>
+                            </svg>
+                        </div>
+                        <button class="btn-follow">Follow</button>
+                    </div>
+                    <h3 class="company-name">InnovateLabs</h3>
+                    <p class="company-description">AI and machine learning platform company</p>
+                    <div class="company-meta">
+                        <span class="meta-item"><i class="bi bi-briefcase"></i> 340 jobs</span>
+                        <span class="meta-item"><i class="bi bi-star-fill"></i> 4.9/5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="company-item">
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-avatar">
+                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" fill="#8B5CF6" rx="8"/>
+                                <text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="bold">DH</text>
+                            </svg>
+                        </div>
+                        <button class="btn-follow">Follow</button>
+                    </div>
+                    <h3 class="company-name">DesignHub</h3>
+                    <p class="company-description">Design tools and creative software platforms</p>
+                    <div class="company-meta">
+                        <span class="meta-item"><i class="bi bi-briefcase"></i> 280 jobs</span>
+                        <span class="meta-item"><i class="bi bi-star-fill"></i> 4.7/5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="company-item">
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-avatar">
+                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" fill="#F59E0B" rx="8"/>
+                                <text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="bold">SF</text>
+                            </svg>
+                        </div>
+                        <button class="btn-follow">Follow</button>
+                    </div>
+                    <h3 class="company-name">StartupFoundry</h3>
+                    <p class="company-description">Venture-backed startup ecosystem platform</p>
+                    <div class="company-meta">
+                        <span class="meta-item"><i class="bi bi-briefcase"></i> 156 jobs</span>
+                        <span class="meta-item"><i class="bi bi-star-fill"></i> 4.6/5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE HUNTCV SECTION -->
+<section class="benefits-section">
+    <div class="container-lg">
+        <div class="section-header">
+            <h2>Why Choose HuntCV</h2>
+            <p>Find your next career opportunity with confidence</p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="bi bi-lightning-fill"></i>
+                </div>
+                <h3>Smart Matching</h3>
+                <p>AI-powered recommendations based on your skills and preferences</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3>Verified Companies</h3>
+                <p>All companies are verified to ensure legitimate opportunities</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+                <h3>Real Salary Data</h3>
+                <p>Transparent salary ranges based on industry benchmarks</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <h3>Career Community</h3>
+                <p>Connect with professionals and grow your network</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <h3>Career Growth</h3>
+                <p>Access resources to advance your skills and career</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <h3>Quick Applications</h3>
+                <p>Apply with one click using your HuntCV profile</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CAREER RESOURCES SECTION -->
+<section class="resources-section" id="resources">
+    <div class="container-lg">
+        <div class="section-header">
+            <h2>Career Resources & Insights</h2>
+            <p>Master your career with expert guides and industry insights</p>
+        </div>
+        
+        <div class="resources-grid">
+            <a href="#" class="resource-card">
+                <div class="resource-image">
+                    <div class="resource-badge">Guide</div>
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+                <h3>Resume Writing 101</h3>
+                <p>Craft a resume that stands out to recruiters and ATS systems</p>
+                <span class="read-time">8 min read</span>
+            </a>
+            
+            <a href="#" class="resource-card">
+                <div class="resource-image">
+                    <div class="resource-badge">Guide</div>
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+                <h3>Ace Your Interview</h3>
+                <p>Strategies and tips for making a strong impression in interviews</p>
+                <span class="read-time">12 min read</span>
+            </a>
+            
+            <a href="#" class="resource-card">
+                <div class="resource-image">
+                    <div class="resource-badge">Report</div>
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <h3>2024 Tech Salary Report</h3>
+                <p>Comprehensive salary trends across tech roles and regions</p>
+                <span class="read-time">15 min read</span>
+            </a>
+            
+            <a href="#" class="resource-card">
+                <div class="resource-image">
+                    <div class="resource-badge">Guide</div>
+                    <i class="bi bi-lightbulb"></i>
+                </div>
+                <h3>Career Transition Guide</h3>
+                <p>Navigate career changes strategically and successfully</p>
+                <span class="read-time">10 min read</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA SECTION -->
+<section class="final-cta-section">
+    <div class="container-lg">
+        <div class="cta-content">
+            <h2>Ready to Find Your Next Opportunity?</h2>
+            <p>Join millions of professionals using HuntCV to grow their careers.</p>
+            <div class="cta-buttons">
+                <button class="btn-primary btn-lg">Start Searching</button>
+                <button class="btn-secondary btn-lg">Learn More</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="huntcv-footer">
+    <div class="container-lg">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 40 40" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 20C8 13.37 13.37 8 20 8C26.63 8 32 13.37 32 20C32 26.63 26.63 32 20 32C13.37 32 8 26.63 8 20Z" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15 20L18 23L25 16" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="brand-text">HuntCV</span>
+                </div>
+                <p class="footer-description">Connecting talent with opportunities worldwide</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>For Job Seekers</h4>
+                <ul>
+                    <li><a href="#">Search Jobs</a></li>
+                    <li><a href="#">Browse Companies</a></li>
+                    <li><a href="#">Career Advice</a></li>
+                    <li><a href="#">Salary Guide</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>For Companies</h4>
+                <ul>
+                    <li><a href="#">Post a Job</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Hiring Solutions</a></li>
+                    <li><a href="#">Employer Insights</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers at HuntCV</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="#" title="LinkedIn" aria-label="LinkedIn">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="#" title="Twitter" aria-label="Twitter">
+                    <i class="bi bi-twitter-x"></i>
+                </a>
+                <a href="#" title="Facebook" aria-label="Facebook">
+                    <i class="bi bi-facebook"></i>
+                </a>
+                <a href="#" title="Instagram" aria-label="Instagram">
+                    <i class="bi bi-instagram"></i>
+                </a>
+            </div>
+            <p class="copyright">&copy; 2024 HuntCV. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,139 @@
+﻿@model List<SATraineeListM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Candidate Registration List";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+
+<div class="container-fluid">
+
+
+    <!-- MASTER TABLE -->
+
+    <div class="master-table-container">
+
+        <div class="master-table-title">
+
+            <div>
+
+                <h2>
+                    Candidate Registration List
+                </h2>
+
+                <p>
+                    View and manage registered candidates
+                </p>
+
+            </div>
+
+            <a asp-controller="SuperAdmin"
+               asp-action="Dashboard"
+               class="btn btn-secondary">
+
+                Back to Dashboard
+
+            </a>
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table id="candidateTable"
+                   class="master-data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>First Name</th>
+
+                        <th>Last Name</th>
+
+                        <th>Mobile</th>
+
+                        <th>Email</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td class="master-id">
+                                    @item.nID
+                                </td>
+
+                                <td>
+                                    @item.sFName
+                                </td>
+
+                                <td>
+                                    @item.sLName
+                                </td>
+
+                                <td>
+                                    @item.sMobile
+                                </td>
+
+                                <td>
+                                    @item.sEmail
+                                </td>
+
+                                <td>
+
+                                    <button type="button"
+                                            class="master-view-btn"
+                                            data-id="@item.nID">
+
+                                        View
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        }
+                        ;
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="6"
+                                class="text-center">
+
+                                No candidate registrations found.
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div id="candidatePageInfo"
+             class="master-page-info text-center">
+        </div>
+
+    </div>
+
+</div>

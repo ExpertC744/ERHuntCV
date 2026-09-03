@@ -1,0 +1,706 @@
+﻿@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Super Admin Dashboard";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+<style>
+
+    /* =========================================================
+                   SUPER ADMIN DASHBOARD
+                ========================================================= */
+
+    .superadmin-dashboard {
+        width: 100%;
+        padding: 5px 0;
+        color: #344054;
+    }
+
+    /* =========================================================
+                   HEADER
+                ========================================================= */
+
+    .sa-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+    }
+
+    .sa-header-left h2 {
+        margin: 0;
+        font-size: 26px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .sa-header-left p {
+        margin: 5px 0 0;
+        color: #98a2b3;
+        font-size: 13px;
+    }
+
+    .sa-header-badge {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 13px;
+        border-radius: 30px;
+        background: #e8f5f1;
+        color: #1e7b67;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+        .sa-header-badge span {
+            width: 7px;
+            height: 7px;
+            background: #1e7b67;
+            border-radius: 50%;
+        }
+
+    /* =========================================================
+                   CARD GRID
+                ========================================================= */
+
+    .sa-card-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    /* =========================================================
+                   CARD
+                ========================================================= */
+
+    .sa-card {
+        position: relative;
+        min-width: 0;
+        height: 170px;
+        padding: 18px;
+        background: #ffffff;
+        border: 1px solid #edf0f2;
+        border-radius: 15px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.035);
+        overflow: hidden;
+        transition: all 0.25s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .sa-card:hover {
+            transform: translateY(-4px);
+            border-color: #d4e8e2;
+            box-shadow: 0 12px 30px rgba(30, 123, 103, 0.10);
+        }
+
+        /* Decorative circle */
+
+        .sa-card::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            right: -38px;
+            bottom: -38px;
+            border-radius: 50%;
+            background: #f6faf8;
+            pointer-events: none;
+        }
+
+    /* =========================================================
+                   CARD TOP
+                ========================================================= */
+
+    .sa-card-top {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    /* =========================================================
+                   ICON
+                ========================================================= */
+
+    .sa-card-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        font-size: 17px;
+    }
+
+    /* =========================================================
+                   ICON COLORS
+                ========================================================= */
+
+    .icon-green {
+        background: #e8f5f1;
+        color: #1e7b67;
+    }
+
+    .icon-purple {
+        background: #f2edff;
+        color: #7655c9;
+    }
+
+    .icon-blue {
+        background: #edf5ff;
+        color: #3978c8;
+    }
+
+    .icon-cyan {
+        background: #e7f7fb;
+        color: #0891b2;
+    }
+
+    .icon-orange {
+        background: #fff3e8;
+        color: #d77b2b;
+    }
+
+    .icon-pink {
+        background: #fff0f7;
+        color: #d9468b;
+    }
+
+    .icon-indigo {
+        background: #eef2ff;
+        color: #4f46e5;
+    }
+
+    .icon-violet {
+        background: #f3eefe;
+        color: #7c3aed;
+    }
+
+    /* =========================================================
+                   CARD BADGE
+                ========================================================= */
+
+    .sa-card-badge {
+        position: relative;
+        z-index: 2;
+        padding: 4px 8px;
+        border-radius: 20px;
+        background: #f5f7f8;
+        color: #98a2b3;
+        font-size: 9px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+        .sa-card-badge.active {
+            background: #e8f7f2;
+            color: #1e7b67;
+        }
+
+    /* =========================================================
+                   TITLE
+                ========================================================= */
+
+    .sa-card-title {
+        position: relative;
+        z-index: 2;
+        margin-top: 14px;
+        color: #667085;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    /* =========================================================
+                   NUMBER
+                ========================================================= */
+
+    .sa-card-number {
+        position: relative;
+        z-index: 2;
+        margin-top: 3px;
+        color: #1f2937;
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    /* =========================================================
+                   CARD FOOTER
+                ========================================================= */
+
+    .sa-card-footer {
+        position: relative;
+        z-index: 2;
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sa-card-info {
+        color: #98a2b3;
+        font-size: 10px;
+    }
+
+    /* =========================================================
+                   VIEW BUTTON
+                ========================================================= */
+
+    .sa-view-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 10px;
+        border-radius: 7px;
+        background: #e8f5f1;
+        color: #1e7b67;
+        text-decoration: none;
+        font-size: 10px;
+        font-weight: 700;
+        transition: all .2s ease;
+    }
+
+        .sa-view-btn:hover {
+            background: #1e7b67;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .sa-view-btn i {
+            font-size: 9px;
+        }
+
+    /* =========================================================
+                   TABLET
+                ========================================================= */
+
+    @@media (max-width: 1100px) {
+        .sa-card-row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    /* =========================================================
+                   MOBILE
+                ========================================================= */
+
+    @@media (max-width: 767px) {
+        .sa-header {
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .sa-header-left h2 {
+            font-size: 22px;
+        }
+
+        .sa-header-left p {
+            font-size: 12px;
+        }
+
+        .sa-header-badge {
+            display: none;
+        }
+
+        .sa-card-row {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .sa-card {
+            height: 165px;
+        }
+    }
+
+    /* =========================================================
+                   SMALL MOBILE
+                ========================================================= */
+
+    @@media (max-width: 400px) {
+        .sa-card {
+            height: 160px;
+            padding: 16px;
+        }
+
+        .sa-card-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+        }
+
+        .sa-card-number {
+            font-size: 25px;
+        }
+    }
+</style>
+
+<div class="container-fluid superadmin-dashboard">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="sa-header">
+
+        <div class="sa-header-left">
+
+            <h2>
+                Super Admin Dashboard
+            </h2>
+
+
+        </div>
+
+
+
+    </div>
+
+
+    <!-- =====================================================
+         DASHBOARD CARDS
+    ====================================================== -->
+
+    <div class="sa-card-row">
+
+
+        <!-- =================================================
+             TRAINEE REGISTRATION
+        ================================================== -->
+
+        <div class="sa-card card-trainee">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-green">
+
+                    <i class="fas fa-user-plus"></i>
+
+                </div>
+
+                <div class="sa-card-badge active">
+                    ACTIVE
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Trainee Registration
+            </div>
+
+            <div class="sa-card-number">
+                @ViewBag.TraineeRegistrationCount
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Registered trainees
+                </span>
+
+                <a asp-controller="SuperAdmin"
+                   asp-action="SATrainees"
+                   class="sa-view-btn">
+
+                    View
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TRAINEE PROFILE
+        ================================================== -->
+
+        <div class="sa-card card-profile">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-purple">
+
+                    <i class="fas fa-id-card"></i>
+
+                </div>
+
+                <div class="sa-card-badge">
+                    PROFILE
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Trainee Profiles
+            </div>
+
+            <div class="sa-card-number">
+                500
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Total profiles
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ORGANIZATION REGISTRATION
+        ================================================== -->
+
+        <div class="sa-card card-organization">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-blue">
+
+                    <i class="fas fa-building"></i>
+
+                </div>
+
+                <div class="sa-card-badge active">
+                    ACTIVE
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Organization Registration
+            </div>
+
+            <div class="sa-card-number">
+                @ViewBag.OrganizationRegistrationCount
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Registered organizations
+                </span>
+
+                <a asp-controller="SuperAdmin"
+                   asp-action="SAOrganizations"
+                   class="sa-view-btn">
+
+                    View
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ORGANIZATION PROFILE
+        ================================================== -->
+
+        <div class="sa-card card-org-profile">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-cyan">
+
+                    <i class="fas fa-city"></i>
+
+                </div>
+
+                <div class="sa-card-badge">
+                    PROFILE
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Organization Profile
+            </div>
+
+            <div class="sa-card-number">
+                250
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Total profiles
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             OBJECTIVES
+        ================================================== -->
+
+        <div class="sa-card card-objective">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-orange">
+
+                    <i class="fas fa-bullseye"></i>
+
+                </div>
+
+                <div class="sa-card-badge">
+                    TOTAL
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Objectives
+            </div>
+
+            <div class="sa-card-number">
+                1800
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Platform objectives
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ADVERTISEMENT
+        ================================================== -->
+
+        <div class="sa-card card-advertisement">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-pink">
+
+                    <i class="fas fa-bullhorn"></i>
+
+                </div>
+
+                <div class="sa-card-badge">
+                    TOTAL
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Advertisement
+            </div>
+
+            <div class="sa-card-number">
+                1800
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Active advertisements
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TOP SEARCH
+        ================================================== -->
+
+        <div class="sa-card card-search">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-indigo">
+
+                    <i class="fas fa-search"></i>
+
+                </div>
+
+                <div class="sa-card-badge">
+                    TOTAL
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Top Search
+            </div>
+
+            <div class="sa-card-number">
+                1800
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    Search activities
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FEEDBACK
+        ================================================== -->
+
+        <div class="sa-card card-feedback">
+
+            <div class="sa-card-top">
+
+                <div class="sa-card-icon icon-violet">
+
+                    <i class="fas fa-comments"></i>
+
+                </div>
+
+                <div class="sa-card-badge">
+                    TOTAL
+                </div>
+
+            </div>
+
+            <div class="sa-card-title">
+                Feedback
+            </div>
+
+            <div class="sa-card-number">
+                1800
+            </div>
+
+            <div class="sa-card-footer">
+
+                <span class="sa-card-info">
+                    User feedback
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

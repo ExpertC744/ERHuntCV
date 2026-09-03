@@ -1,0 +1,405 @@
+﻿@model ERHuntCV.Models.SAOrgFeedbackM
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Organization Feedback Details";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+@section Styles {
+
+    <link rel="stylesheet"
+          href="~/css/DetailsSAOrgFeedback.css"
+          asp-append-version="true" />
+
+}
+<style>
+
+    .feedback-details-container {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .feedback-details-card {
+        width: 100%;
+        background: #eef4ff;
+        border: 1px solid #d5dbe5;
+        border-top: 8px solid #087cf5;
+        border-radius: 0 0 22px 22px;
+        padding: 55px 30px 50px 30px;
+        box-sizing: border-box;
+    }
+
+    .feedback-title {
+        font-size: 42px;
+        font-weight: 400;
+        color: #111827;
+        margin: 0 0 35px 20px;
+    }
+
+    .feedback-section {
+        margin-bottom: 28px;
+    }
+
+    .question-label {
+        display: block;
+        font-size: 24px;
+        color: #111827;
+        margin-bottom: 14px;
+    }
+
+    .question-box {
+        width: calc(100% - 12px);
+        min-height: 80px;
+        background: #ffffff;
+        border: 1px solid #777;
+        border-radius: 3px;
+        padding: 12px 18px;
+        font-size: 23px;
+        line-height: 1.45;
+        color: #111827;
+        box-sizing: border-box;
+    }
+
+    .answer-label {
+        font-size: 21px;
+        color: #555;
+        margin: 15px 0 7px 35px;
+    }
+
+    .answer-box {
+        margin-left: 35px;
+        font-size: 25px;
+        color: #333;
+    }
+
+    /* TRUE / FALSE */
+
+    .answer-radio {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 12px;
+        color: #777;
+    }
+
+        .answer-radio input {
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+        }
+
+    /* STARS */
+
+    .detail-stars {
+        display: flex;
+        gap: 5px;
+        margin-left: 35px;
+    }
+
+    .detail-star {
+        font-size: 32px;
+        color: #212529;
+    }
+
+    /* EMOJI */
+
+    .detail-emojis {
+        display: flex;
+        gap: 16px;
+        margin-left: 35px;
+    }
+
+    .detail-emoji {
+        font-size: 30px;
+        opacity: .35;
+    }
+
+        .detail-emoji.active {
+            opacity: 1;
+        }
+
+    /* DESCRIPTION */
+
+    .description-box {
+        margin-left: 35px;
+        width: calc(100% - 47px);
+        background: #ffffff;
+        border: 1px solid #777;
+        border-radius: 3px;
+        padding: 12px 18px;
+        min-height: 80px;
+        font-size: 23px;
+        line-height: 1.45;
+        box-sizing: border-box;
+    }
+
+    /* BUTTON */
+
+    .button-area {
+        margin: 35px 0 0 35px;
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 9px 18px;
+        background: #f5f5f5;
+        color: #111;
+        border: 1px solid #888;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 19px;
+    }
+
+        .back-button:hover {
+            background: #e8e8e8;
+            color: #111;
+            text-decoration: none;
+        }
+
+</style>
+
+
+<div class="feedback-details-container">
+
+    <div class="feedback-details-card">
+
+        <h1 class="feedback-title">
+            Organization Feedback Details
+        </h1>
+
+
+        <!-- =====================================================
+             QUESTION 1
+             ===================================================== -->
+
+        <div class="feedback-section">
+
+            <label class="question-label">
+                Question 1.
+            </label>
+
+            <div class="question-box">
+                @Model.Que1
+            </div>
+
+            <div class="answer-label">
+                Answer 1
+            </div>
+
+            <div class="answer-box">
+
+                @if (Model.Ans1 == "True")
+                {
+                    <label class="answer-radio">
+                        <input type="radio" checked disabled />
+                        True
+                    </label>
+
+                    <label class="answer-radio">
+                        <input type="radio" disabled />
+                        False
+                    </label>
+                }
+                else if (Model.Ans1 == "False")
+                {
+                    <label class="answer-radio">
+                        <input type="radio" disabled />
+                        True
+                    </label>
+
+                    <label class="answer-radio">
+                        <input type="radio" checked disabled />
+                        False
+                    </label>
+                }
+                else
+                {
+                    @Model.Ans1
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUESTION 2
+             ===================================================== -->
+
+        <div class="feedback-section">
+
+            <label class="question-label">
+                Question 2.
+            </label>
+
+            <div class="question-box">
+                @Model.Que2
+            </div>
+
+            <div class="answer-label">
+                Answer 2
+            </div>
+
+            <div class="detail-stars">
+
+                @{
+                    int starRating = 0;
+
+                    int.TryParse(Model.Ans2, out starRating);
+                }
+
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= starRating)
+                    {
+                        <span class="detail-star">★</span>
+                    }
+                    else
+                    {
+                        <span class="detail-star"
+                              style="color:#c7c7c7;">
+                            ★
+                        </span>
+                    }
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUESTION 3
+             ===================================================== -->
+
+        <div class="feedback-section">
+
+            <label class="question-label">
+                Question 3.
+            </label>
+
+            <div class="question-box">
+                @Model.Que3
+            </div>
+
+            <div class="answer-label">
+                Answer 3
+            </div>
+
+            <div class="answer-box">
+
+                @if (Model.Ans3 == "Yes")
+                {
+                    <label class="answer-radio">
+                        <input type="radio" checked disabled />
+                        Yes
+                    </label>
+
+                    <label class="answer-radio">
+                        <input type="radio" disabled />
+                        No
+                    </label>
+                }
+                else if (Model.Ans3 == "No")
+                {
+                    <label class="answer-radio">
+                        <input type="radio" disabled />
+                        Yes
+                    </label>
+
+                    <label class="answer-radio">
+                        <input type="radio" checked disabled />
+                        No
+                    </label>
+                }
+                else
+                {
+                    @Model.Ans3
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUESTION 4
+             ===================================================== -->
+
+        <div class="feedback-section">
+
+            <label class="question-label">
+                Question 4.
+            </label>
+
+            <div class="question-box">
+                @Model.Que4
+            </div>
+
+            <div class="answer-label">
+                Answer 4
+            </div>
+
+            <div class="detail-emojis">
+
+                @{
+                    int emojiRating = 0;
+
+                    int.TryParse(Model.Ans4, out emojiRating);
+                }
+
+                <span class="detail-emoji @(emojiRating == 1 ? "active" : "")">
+                    😟
+                </span>
+
+                <span class="detail-emoji @(emojiRating == 2 ? "active" : "")">
+                    😧
+                </span>
+
+                <span class="detail-emoji @(emojiRating == 3 ? "active" : "")">
+                    😃
+                </span>
+
+                <span class="detail-emoji @(emojiRating == 4 ? "active" : "")">
+                    😄
+                </span>
+
+                <span class="detail-emoji @(emojiRating == 5 ? "active" : "")">
+                    😍
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUESTION 5
+             ===================================================== -->
+
+        <div class="feedback-section">
+
+            <label class="question-label">
+                Question 5.
+            </label>
+
+            <div class="question-box">
+                @Model.Que5
+            </div>
+
+            <div class="answer-label">
+                Description
+            </div>
+
+            <div class="description-box">
+                @Model.Ans5
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

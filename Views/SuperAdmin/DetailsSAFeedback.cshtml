@@ -1,0 +1,202 @@
+﻿@model ERHuntCV.Models.SACandidateFeedbackM
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Trainee Feedback";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+@section Styles {
+
+    <link rel="stylesheet"
+          href="~/css/DetailsSAFeedback.css"
+          asp-append-version="true" />
+
+}
+
+<div class="feedback-page">
+
+    <div class="feedback-main-card">
+
+        <!-- TITLE -->
+        <h1 class="feedback-heading">
+            Trainee Feedback
+        </h1>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 1 -->
+        <!-- ================================================= -->
+
+        <div class="feedback-question">
+
+            <div class="question-number">
+                Question 1.
+            </div>
+
+            <div class="question-content">
+
+                <div class="question-text">
+                    @Model.Que1
+                </div>
+
+                <div class="answer-area">
+
+                    <div class="description-answer">
+                        @Model.Ans1
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 2 -->
+        <!-- ================================================= -->
+
+        <div class="feedback-question">
+
+            <div class="question-number">
+                Question 2.
+            </div>
+
+            <div class="question-content">
+
+                <div class="question-text">
+                    @Model.Que2
+                </div>
+
+                <div class="answer-area">
+
+                    <div class="description-answer">
+                        @Model.Ans2
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 3 -->
+        <!-- ================================================= -->
+
+        <div class="feedback-question">
+
+            <div class="question-number">
+                Question 3.
+            </div>
+
+            <div class="question-content">
+
+                <div class="question-text">
+                    @Model.Que3
+                </div>
+
+                <div class="answer-area">
+
+                    <div class="description-answer">
+                        @Model.Ans3
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 4 -->
+        <!-- ================================================= -->
+
+        <div class="feedback-question">
+
+            <div class="question-number">
+                Question 4.
+            </div>
+
+            <div class="question-content">
+
+                <div class="question-text">
+                    @Model.Que4
+                </div>
+
+                <div class="answer-area">
+
+                    <div class="description-answer">
+                        @Model.Ans4
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 5 -->
+        <!-- ================================================= -->
+
+        <div class="feedback-question">
+
+            <div class="question-number">
+                Question 5.
+            </div>
+
+            <div class="question-content">
+
+                <div class="question-text">
+                    @Model.Que5
+                </div>
+
+                <div class="answer-area">
+
+                    <div class="description-answer">
+                        @Model.Ans5
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- BUTTONS -->
+        <!-- ================================================= -->
+
+        <div class="feedback-buttons">
+
+            <a asp-controller="SuperAdmin"
+               asp-action="SAFeedback"
+               class="back-btn">
+
+                Back
+
+            </a>
+
+            <a asp-controller="SuperAdmin"
+               asp-action="EditSAFeedback"
+               asp-route-id="@Model.nID"
+               class="edit-btn">
+
+                Edit
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+```

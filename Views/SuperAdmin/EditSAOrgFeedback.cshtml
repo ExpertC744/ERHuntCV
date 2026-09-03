@@ -1,0 +1,456 @@
+﻿@model ERHuntCV.Models.SAOrgFeedbackM
+
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Edit Feedback";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+@section Styles {
+
+    <link rel="stylesheet"
+          href="~/css/EditSAOrgFeedback.css"
+          asp-append-version="true" />
+
+}
+<style>
+
+    .feedback-edit-card {
+        width: 100%;
+        background: #eef4ff;
+        border: 1px solid #d5dbe5;
+        border-top: 8px solid #087cf5;
+        border-radius: 0 0 22px 22px;
+        padding: 75px 28px 60px 28px;
+        box-sizing: border-box;
+    }
+
+    .feedback-title {
+        font-size: 44px;
+        font-weight: 400;
+        color: #111827;
+        margin: 0 0 30px 20px;
+    }
+
+    .question-section {
+        margin-bottom: 18px;
+    }
+
+    .question-label {
+        display: block;
+        font-size: 24px;
+        color: #111827;
+        margin: 0 0 17px 0;
+    }
+
+    .question-textarea {
+        width: calc(100% - 12px);
+        min-height: 80px;
+        resize: vertical;
+        border: 1px solid #777;
+        border-radius: 3px;
+        background: #fff;
+        color: #111;
+        padding: 8px 18px;
+        font-size: 24px;
+        line-height: 1.45;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+        .question-textarea:focus {
+            outline: none;
+            border-color: #087cf5;
+        }
+
+    .answer-area {
+        margin: 15px 0 15px 35px;
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+    }
+
+    .radio-option {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 8px;
+        font-size: 26px;
+        color: #777;
+    }
+
+        .radio-option input {
+            width: 19px;
+            height: 19px;
+            margin-right: 5px;
+        }
+
+    .star-rating {
+        display: flex;
+        gap: 5px;
+    }
+
+    .star {
+        font-size: 31px;
+        color: #777;
+        cursor: pointer;
+    }
+
+        .star.active {
+            color: #212529;
+        }
+
+    .emoji-rating {
+        display: flex;
+        gap: 17px;
+    }
+
+    .emoji {
+        font-size: 29px;
+        cursor: pointer;
+        opacity: .55;
+    }
+
+        .emoji.active {
+            opacity: 1;
+        }
+
+    .description-label {
+        margin: 8px 0 20px 38px;
+        font-size: 24px;
+    }
+
+    .save-area {
+        margin-left: 38px;
+        margin-top: 20px;
+    }
+
+    .save-button {
+        padding: 8px 14px;
+        background: #f5f5f5;
+        color: #111;
+        border: 1px solid #888;
+        border-radius: 3px;
+        font-size: 21px;
+        cursor: pointer;
+    }
+
+</style>
+
+
+<div class="feedback-edit-card">
+
+    <h1 class="feedback-title">
+        Edit Feedback
+    </h1>
+
+    <form asp-controller="SuperAdmin"
+          asp-action="EditSAOrgFeedback"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="nID" />
+
+
+        <!-- QUESTION 1 -->
+
+        <div class="question-section">
+
+            <label class="question-label">
+                Question 1.
+            </label>
+
+            <textarea asp-for="Que1"
+                      class="question-textarea"></textarea>
+
+
+            <div class="answer-area">
+
+                <label class="radio-option">
+
+                    <input type="radio"
+                           name="Ans1Radio"
+                           value="True"
+                           onclick="setAnswer1('True')"
+                    @(Model.Ans1 == "True" ? "checked" : "") />
+
+                    True
+
+                </label>
+
+                <label class="radio-option">
+
+                    <input type="radio"
+                           name="Ans1Radio"
+                           value="False"
+                           onclick="setAnswer1('False')"
+                    @(Model.Ans1 == "False" ? "checked" : "") />
+
+                    False
+
+                </label>
+
+            </div>
+
+            <input type="hidden"
+                   asp-for="Ans1"
+                   id="Ans1" />
+
+        </div>
+
+
+        <!-- QUESTION 2 -->
+
+        <div class="question-section">
+
+            <label class="question-label">
+                Question 2.
+            </label>
+
+            <textarea asp-for="Que2"
+                      class="question-textarea"></textarea>
+
+
+            <div class="answer-area">
+
+                <div class="star-rating">
+
+                    <span class="star"
+                          data-value="1"
+                          onclick="setStarRating(1)">★</span>
+
+                    <span class="star"
+                          data-value="2"
+                          onclick="setStarRating(2)">★</span>
+
+                    <span class="star"
+                          data-value="3"
+                          onclick="setStarRating(3)">★</span>
+
+                    <span class="star"
+                          data-value="4"
+                          onclick="setStarRating(4)">★</span>
+
+                    <span class="star"
+                          data-value="5"
+                          onclick="setStarRating(5)">★</span>
+
+                </div>
+
+            </div>
+
+            <input type="hidden"
+                   asp-for="Ans2"
+                   id="Ans2" />
+
+        </div>
+
+
+        <!-- QUESTION 3 -->
+
+        <div class="question-section">
+
+            <label class="question-label">
+                Question 3.
+            </label>
+
+            <textarea asp-for="Que3"
+                      class="question-textarea"></textarea>
+
+
+            <div class="answer-area">
+
+                <label class="radio-option">
+
+                    <input type="radio"
+                           name="Ans3Radio"
+                           value="Yes"
+                           onclick="setAnswer3('Yes')"
+                    @(Model.Ans3 == "Yes" ? "checked" : "") />
+
+                    Yes
+
+                </label>
+
+                <label class="radio-option">
+
+                    <input type="radio"
+                           name="Ans3Radio"
+                           value="No"
+                           onclick="setAnswer3('No')"
+                    @(Model.Ans3 == "No" ? "checked" : "") />
+
+                    No
+
+                </label>
+
+            </div>
+
+            <input type="hidden"
+                   asp-for="Ans3"
+                   id="Ans3" />
+
+        </div>
+
+
+        <!-- QUESTION 4 -->
+
+        <div class="question-section">
+
+            <label class="question-label">
+                Question 4.
+            </label>
+
+            <textarea asp-for="Que4"
+                      class="question-textarea"></textarea>
+
+
+            <div class="answer-area">
+
+                <div class="emoji-rating">
+
+                    <span class="emoji"
+                          data-value="1"
+                          onclick="setEmojiRating(1)">😟</span>
+
+                    <span class="emoji"
+                          data-value="2"
+                          onclick="setEmojiRating(2)">😧</span>
+
+                    <span class="emoji"
+                          data-value="3"
+                          onclick="setEmojiRating(3)">😃</span>
+
+                    <span class="emoji"
+                          data-value="4"
+                          onclick="setEmojiRating(4)">😄</span>
+
+                    <span class="emoji"
+                          data-value="5"
+                          onclick="setEmojiRating(5)">😍</span>
+
+                </div>
+
+            </div>
+
+            <input type="hidden"
+                   asp-for="Ans4"
+                   id="Ans4" />
+
+        </div>
+
+
+        <!-- QUESTION 5 -->
+
+        <div class="question-section">
+
+            <label class="question-label">
+                Question 5.
+            </label>
+
+            <textarea asp-for="Que5"
+                      class="question-textarea"></textarea>
+
+
+            <div class="description-label">
+                Description
+            </div>
+
+            <textarea asp-for="Ans5"
+                      class="question-textarea"></textarea>
+
+        </div>
+
+
+        <!-- SAVE -->
+
+        <div class="save-area">
+
+            <button type="submit"
+                    class="save-button">
+
+                Save
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+    function setAnswer1(value) {
+        document.getElementById("Ans1").value = value;
+    }
+
+
+    function setAnswer3(value) {
+        document.getElementById("Ans3").value = value;
+    }
+
+
+    function setStarRating(value) {
+
+        document.getElementById("Ans2").value = value;
+
+        document.querySelectorAll(".star").forEach(function (star) {
+
+            var starValue =
+                parseInt(star.getAttribute("data-value"));
+
+            if (starValue <= value) {
+                star.classList.add("active");
+            }
+            else {
+                star.classList.remove("active");
+            }
+
+        });
+    }
+
+
+    function setEmojiRating(value) {
+
+        document.getElementById("Ans4").value = value;
+
+        document.querySelectorAll(".emoji").forEach(function (emoji) {
+
+            var emojiValue =
+                parseInt(emoji.getAttribute("data-value"));
+
+            if (emojiValue === value) {
+                emoji.classList.add("active");
+            }
+            else {
+                emoji.classList.remove("active");
+            }
+
+        });
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var starValue =
+            parseInt(document.getElementById("Ans2").value);
+
+        if (!isNaN(starValue)) {
+            setStarRating(starValue);
+        }
+
+
+        var emojiValue =
+            parseInt(document.getElementById("Ans4").value);
+
+        if (!isNaN(emojiValue)) {
+            setEmojiRating(emojiValue);
+        }
+
+    });
+
+</script>

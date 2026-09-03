@@ -1,0 +1,228 @@
+﻿```cshtml
+@model IEnumerable<ERHuntCV.Models.SACandidateFeedbackM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Super Admin Dashboard";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/SAFeedback.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+}
+
+<div class="feedback-container">
+
+    <!-- PAGE TITLE -->
+    <h1 class="feedback-title">
+        Trainee Feedback Details
+    </h1>
+
+    <!-- FEEDBACK CARD -->
+    <div class="feedback-card">
+
+        <!-- CARD HEADER -->
+        <div class="feedback-card-header">
+            <i class="fas fa-table"></i>
+            Feedback
+        </div>
+
+        <!-- CARD BODY -->
+        <div class="feedback-card-body">
+
+            <table id="feedbackTable"
+                   class="table table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>Que 1</th>
+                        <th>Ans 1</th>
+                        <th>Que 2</th>
+                        <th>Ans 2</th>
+                        <th>Que 3</th>
+                        <th>Ans 3</th>
+                        <th>Que 4</th>
+                        <th>Ans 4</th>
+                        <th>Que 5</th>
+                        <th>Ans 5</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <!-- QUESTION 1 -->
+                                <td>
+                                    <div class="question-text">
+                                        @item.Que1
+                                    </div>
+                                </td>
+
+                                <!-- ANSWER 1 -->
+                                <td>
+                                    <div class="answer-text">
+                                        @item.Ans1
+                                    </div>
+                                </td>
+
+                                <!-- QUESTION 2 -->
+                                <td>
+                                    <div class="question-text">
+                                        @item.Que2
+                                    </div>
+                                </td>
+
+                                <!-- ANSWER 2 -->
+                                <td>
+                                    <div class="answer-text">
+                                        @item.Ans2
+                                    </div>
+                                </td>
+
+                                <!-- QUESTION 3 -->
+                                <td>
+                                    <div class="question-text">
+                                        @item.Que3
+                                    </div>
+                                </td>
+
+                                <!-- ANSWER 3 -->
+                                <td>
+                                    <div class="answer-text">
+                                        @item.Ans3
+                                    </div>
+                                </td>
+
+                                <!-- QUESTION 4 -->
+                                <td>
+                                    <div class="question-text">
+                                        @item.Que4
+                                    </div>
+                                </td>
+
+                                <!-- ANSWER 4 -->
+                                <td>
+                                    <div class="answer-text">
+                                        @item.Ans4
+                                    </div>
+                                </td>
+
+                                <!-- QUESTION 5 -->
+                                <td>
+                                    <div class="question-text">
+                                        @item.Que5
+                                    </div>
+                                </td>
+
+                                <!-- ANSWER 5 -->
+                                <td>
+                                    <div class="answer-text">
+                                        @item.Ans5
+                                    </div>
+                                </td>
+
+                                <!-- ACTION -->
+                                <td>
+                                    <div class="action-buttons">
+
+                                        <!-- VIEW -->
+                                        <a asp-controller="SuperAdmin"
+                                           asp-action="DetailsSAFeedback"
+                                           asp-route-id="@item.nID"
+                                           class="view-icon"
+                                           title="View">
+
+                                            <i class="fas fa-eye"></i>
+
+                                        </a>
+
+                                        <!-- EDIT -->
+                                        <a asp-controller="SuperAdmin"
+                                           asp-action="EditSAFeedback"
+                                           asp-route-id="@item.nID"
+                                           class="edit-icon"
+                                           title="Edit">
+
+                                            <i class="fas fa-edit"></i>
+
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="11" class="text-center">
+                                No feedback found.
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+        $('#feedbackTable').DataTable({
+
+        pageLength: 25,
+
+        lengthMenu: [
+        [10, 25, 50, 100, -1],
+        [10, 25, 50, 100, "All"]
+        ],
+
+        ordering: true,
+
+        searching: true,
+
+        paging: true,
+
+        info: true,
+
+        autoWidth: false,
+
+        language: {
+        search: "",
+        searchPlaceholder: "Search..."
+        }
+
+        });
+
+        });
+
+    </script>
+}
+```

@@ -1,0 +1,1254 @@
+﻿@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Candidate Dashboard";
+    ViewData["Panel"] = "Candidate";
+    ViewData["UserName"] = "Candidate";
+}
+
+<style>
+    .candidate-dashboard {
+        padding: 10px 5px 30px;
+        background: #f7f9fc;
+        min-height: calc(100vh - 70px);
+    }
+
+    /* Welcome Banner */
+    .welcome-banner {
+        position: relative;
+        overflow: hidden;
+        border-radius: 22px;
+        padding: 30px 35px;
+        margin-bottom: 28px;
+        background: linear-gradient(135deg, #1e7b67 0%, #269b80 55%, #52b99f 100%);
+        color: #fff;
+        box-shadow: 0 12px 30px rgba(30, 123, 103, 0.18);
+    }
+
+        .welcome-banner::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.08);
+            right: 80px;
+            top: -100px;
+        }
+
+        .welcome-banner::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.06);
+            right: -30px;
+            bottom: -70px;
+        }
+
+    .welcome-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .welcome-banner h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .welcome-banner p {
+        margin: 0;
+        opacity: .88;
+        font-size: 15px;
+    }
+
+    .profile-btn {
+        position: relative;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        color: #1e7b67;
+        padding: 11px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .3s;
+    }
+
+        .profile-btn:hover {
+            background: #f1f8f6;
+            color: #155d4e;
+            transform: translateY(-2px);
+        }
+
+    /* Statistics */
+    .stat-card {
+        position: relative;
+        background: #fff;
+        border-radius: 18px;
+        padding: 22px;
+        border: 1px solid #edf0f4;
+        height: 100%;
+        overflow: hidden;
+        transition: all .3s ease;
+        box-shadow: 0 5px 18px rgba(31, 45, 61, .05);
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(31, 45, 61, .10);
+        }
+
+    .stat-icon {
+        width: 52px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        font-size: 21px;
+        margin-bottom: 18px;
+    }
+
+    .icon-green {
+        background: #e7f6f1;
+        color: #1e7b67;
+    }
+
+    .icon-blue {
+        background: #eaf2ff;
+        color: #3478db;
+    }
+
+    .icon-orange {
+        background: #fff3e5;
+        color: #ed922f;
+    }
+
+    .icon-purple {
+        background: #f1ebff;
+        color: #805ad5;
+    }
+
+    .stat-title {
+        color: #7a8494;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .stat-number {
+        color: #1d2939;
+        font-size: 29px;
+        font-weight: 750;
+        line-height: 1;
+    }
+
+    .stat-bottom {
+        margin-top: 15px;
+        font-size: 12px;
+        color: #7a8494;
+    }
+
+        .stat-bottom span {
+            color: #1e7b67;
+            font-weight: 600;
+        }
+
+    /* Section */
+    .dashboard-section {
+        background: #fff;
+        border-radius: 18px;
+        border: 1px solid #edf0f4;
+        padding: 23px;
+        box-shadow: 0 5px 18px rgba(31,45,61,.04);
+        height: 100%;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+
+        .section-header h5 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            color: #202939;
+        }
+
+    .view-all {
+        color: #1e7b67;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .view-all:hover {
+            color: #155d4e;
+        }
+
+    /* Progress */
+    .progress-wrapper {
+        margin-bottom: 22px;
+    }
+
+    .progress-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 9px;
+        font-size: 13px;
+    }
+
+        .progress-info strong {
+            color: #344054;
+        }
+
+        .progress-info span {
+            color: #1e7b67;
+            font-weight: 700;
+        }
+
+    .custom-progress {
+        height: 9px;
+        background: #edf1f4;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .custom-progress-bar {
+        height: 100%;
+        width: 72%;
+        background: linear-gradient(90deg, #1e7b67, #48b397);
+        border-radius: 20px;
+    }
+
+    /* Quick Actions */
+    .quick-action {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px;
+        border-radius: 13px;
+        text-decoration: none;
+        color: #344054;
+        margin-bottom: 10px;
+        transition: .25s;
+        border: 1px solid transparent;
+    }
+
+        .quick-action:hover {
+            background: #f5faf8;
+            border-color: #dcefe9;
+            color: #1e7b67;
+            transform: translateX(3px);
+        }
+
+    .quick-action-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eaf6f2;
+        color: #1e7b67;
+        flex-shrink: 0;
+    }
+
+    .quick-action-text strong {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+
+    .quick-action-text small {
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+    /* Applications */
+    .application-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid #edf0f4;
+    }
+
+        .application-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+    .company-avatar {
+        width: 43px;
+        height: 43px;
+        border-radius: 12px;
+        background: #edf7f4;
+        color: #1e7b67;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .application-info {
+        flex: 1;
+        margin-left: 12px;
+    }
+
+        .application-info strong {
+            display: block;
+            color: #344054;
+            font-size: 14px;
+        }
+
+        .application-info small {
+            color: #98a2b3;
+            font-size: 11px;
+        }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .status-success {
+        background: #e8f7f0;
+        color: #16855f;
+    }
+
+    .status-warning {
+        background: #fff5df;
+        color: #c57a11;
+    }
+
+    .status-info {
+        background: #eaf2ff;
+        color: #3478db;
+    }
+
+    /* Recommended Jobs */
+    .job-card {
+        border: 1px solid #edf0f4;
+        border-radius: 14px;
+        padding: 17px;
+        margin-bottom: 12px;
+        transition: .3s;
+    }
+
+        .job-card:hover {
+            border-color: #cfe8e1;
+            box-shadow: 0 8px 20px rgba(30,123,103,.07);
+        }
+
+    .job-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .job-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        background: #f1f7f5;
+        color: #1e7b67;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .job-card h6 {
+        margin: 0 0 3px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #344054;
+    }
+
+    .job-card p {
+        margin: 0;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+    .job-meta {
+        margin-top: 13px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        color: #667085;
+        font-size: 11px;
+    }
+
+        .job-meta i {
+            color: #1e7b67;
+            margin-right: 4px;
+        }
+
+    .apply-btn {
+        border: 1px solid #1e7b67;
+        color: #1e7b67;
+        background: #fff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .25s;
+    }
+
+        .apply-btn:hover {
+            background: #1e7b67;
+            color: #fff;
+        }
+
+
+    /* Monthly Analytics */
+    .analytics-card {
+        background: #fff;
+        border-radius: 18px;
+        border: 1px solid #edf0f4;
+        padding: 23px;
+        box-shadow: 0 5px 18px rgba(31,45,61,.04);
+        height: 100%;
+    }
+
+    .analytics-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .analytics-label {
+        color: #7a8494;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .analytics-number {
+        color: #1d2939;
+        font-size: 30px;
+        font-weight: 750;
+        line-height: 1;
+    }
+
+    .analytics-period {
+        color: #98a2b3;
+        font-size: 11px;
+        margin-top: 7px;
+    }
+
+    .analytics-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        background: #e7f6f1;
+        color: #1e7b67;
+        flex-shrink: 0;
+    }
+
+    .analytics-chart {
+        margin-top: 18px;
+        height: 105px;
+        width: 100%;
+    }
+
+        .analytics-chart svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            overflow: visible;
+        }
+
+    .analytics-months {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2px;
+        margin-top: 7px;
+        color: #98a2b3;
+        font-size: 9px;
+        text-align: center;
+    }
+
+    .analytics-footer {
+        margin-top: 10px;
+        color: #7a8494;
+        font-size: 11px;
+    }
+
+        .analytics-footer i {
+            color: #1e7b67;
+            margin-right: 4px;
+        }
+
+    @@media (max-width: 767px) {
+        .analytics-months {
+            font-size: 8px;
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 767px) {
+        .welcome-banner {
+            padding: 25px 20px;
+        }
+
+            .welcome-banner h2 {
+                font-size: 23px;
+            }
+
+        .profile-btn {
+            margin-top: 18px;
+        }
+
+        .dashboard-section {
+            padding: 18px;
+        }
+    }
+</style>
+
+<div class="candidate-dashboard">
+
+    <!-- Welcome -->
+    <div class="welcome-banner">
+        <div class="row align-items-center">
+            <div class="col-md-8 welcome-content">
+                <h2>Welcome back, Candidate 👋</h2>
+                <p>
+                    Track your applications, discover new opportunities
+                    and take the next step in your career.
+                </p>
+            </div>
+
+            <div class="col-md-4 text-md-end">
+                <a href="#" class="profile-btn">
+                    <i class="fas fa-user-edit"></i>
+                    Complete Profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Statistics -->
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+
+                <div class="stat-icon icon-green">
+                    <i class="fas fa-building"></i>
+                </div>
+
+                <div class="stat-title">
+                    Total Organizations
+                </div>
+
+                <div class="stat-number">
+
+                    @ViewBag.OrganizationRegistrationCount
+
+                </div>
+
+                <a asp-controller="Candidate"
+                   asp-action="OrgList"
+                   class="stat-link">
+                    View Details
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+
+                <div class="stat-icon icon-blue">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+
+                <div class="stat-title">
+                    Open Job Openings
+                </div>
+
+                <div class="stat-number">
+                    8
+                </div>
+
+                <div class="stat-bottom">
+                    <span>+2</span> new opportunities
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+
+                <div class="stat-icon icon-orange">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <div class="stat-title">
+                    Top Searches
+                </div>
+
+                <div class="stat-number">
+                    3
+                </div>
+
+                <div class="stat-bottom">
+                    <span>+1</span> from last week
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+
+                <div class="stat-icon icon-purple">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+
+                <div class="stat-title">
+                    Applications Sent
+                </div>
+
+                <div class="stat-number">
+                    25
+                </div>
+
+                <div class="stat-bottom">
+                    <span>5</span> awaiting response
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Monthly Analytics -->
+    <div class="row">
+
+        <!-- Suitable Openings -->
+        <div class="col-lg-6 mb-4">
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+                    <div>
+                        <div class="analytics-label">
+                            No. of Suitable Openings
+                        </div>
+
+                        <div class="analytics-number" id="suitableOpeningsTotal">
+                            0
+                        </div>
+
+                        <div class="analytics-period">
+                            Current month
+                        </div>
+                    </div>
+
+                    <div class="analytics-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                </div>
+
+                <div class="analytics-chart">
+                    <svg id="suitableOpeningsChart"
+                         viewBox="0 0 600 105"
+                         preserveAspectRatio="none"
+                         aria-label="Suitable openings monthly chart">
+                    </svg>
+                </div>
+
+                <div class="analytics-months">
+                    <span>Jan</span><span>Feb</span><span>Mar</span>
+                    <span>Apr</span><span>May</span><span>Jun</span>
+                    <span>Jul</span><span>Aug</span><span>Sep</span>
+                    <span>Oct</span><span>Nov</span><span>Dec</span>
+                </div>
+
+                <div class="analytics-footer">
+                    <i class="fas fa-chart-line"></i>
+                    Monthly suitable-opening trend
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Internship Posts -->
+        <div class="col-lg-6 mb-4">
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+                    <div>
+                        <div class="analytics-label">
+                            Internship Posts from Organization
+                        </div>
+
+                        <div class="analytics-number" id="internshipPostsTotal">
+                            0
+                        </div>
+
+                        <div class="analytics-period">
+                            Current month
+                        </div>
+                    </div>
+
+                    <div class="analytics-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                </div>
+
+                <div class="analytics-chart">
+                    <svg id="internshipPostsChart"
+                         viewBox="0 0 600 105"
+                         preserveAspectRatio="none"
+                         aria-label="Internship posts monthly chart">
+                    </svg>
+                </div>
+
+                <div class="analytics-months">
+                    <span>Jan</span><span>Feb</span><span>Mar</span>
+                    <span>Apr</span><span>May</span><span>Jun</span>
+                    <span>Jul</span><span>Aug</span><span>Sep</span>
+                    <span>Oct</span><span>Nov</span><span>Dec</span>
+                </div>
+
+                <div class="analytics-footer">
+                    <i class="fas fa-chart-line"></i>
+                    Monthly organization internship trend
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Middle Section -->
+    <div class="row">
+
+        <!-- Profile Progress -->
+        <div class="col-lg-5 mb-4">
+
+            <div class="dashboard-section">
+
+                <div class="section-header">
+                    <h5>Profile Completion</h5>
+                    <span class="view-all">72%</span>
+                </div>
+
+                <div class="progress-wrapper">
+
+                    <div class="progress-info">
+                        <strong>Complete your profile</strong>
+                        <span>72%</span>
+                    </div>
+
+                    <div class="custom-progress">
+                        <div class="custom-progress-bar"></div>
+                    </div>
+
+                </div>
+
+                <p style="font-size:13px;color:#7a8494;">
+                    A complete profile helps organizations understand your
+                    skills and increases your chances of getting shortlisted.
+                </p>
+
+                <a href="#" class="profile-btn mt-2">
+                    <i class="fas fa-user"></i>
+                    Update Profile
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Quick Actions -->
+        <div class="col-lg-7 mb-4">
+
+            <div class="dashboard-section">
+
+                <div class="section-header">
+                    <h5>Quick Actions</h5>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <a href="#" class="quick-action">
+
+                            <div class="quick-action-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+
+                            <div class="quick-action-text">
+                                <strong>Find Opportunities</strong>
+                                <small>Explore available openings</small>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <a href="#" class="quick-action">
+
+                            <div class="quick-action-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+
+                            <div class="quick-action-text">
+                                <strong>My Applications</strong>
+                                <small>Track your applications</small>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <a href="#" class="quick-action">
+
+                            <div class="quick-action-icon">
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+
+                            <div class="quick-action-text">
+                                <strong>Edit Profile</strong>
+                                <small>Update your information</small>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <a href="#" class="quick-action">
+
+                            <div class="quick-action-icon">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+
+                            <div class="quick-action-text">
+                                <strong>Saved Opportunities</strong>
+                                <small>View saved openings</small>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Section -->
+    <div class="row">
+
+        <!-- Applications -->
+        <div class="col-lg-7 mb-4">
+
+            <div class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h5>Recent Applications</h5>
+
+                    <a href="#" class="view-all">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="application-item">
+
+                    <div class="company-avatar">
+                        T
+                    </div>
+
+                    <div class="application-info">
+                        <strong>Frontend Developer</strong>
+                        <small>Tech Solutions • Applied 2 days ago</small>
+                    </div>
+
+                    <span class="status status-success">
+                        Shortlisted
+                    </span>
+
+                </div>
+
+
+                <div class="application-item">
+
+                    <div class="company-avatar">
+                        D
+                    </div>
+
+                    <div class="application-info">
+                        <strong>React Developer</strong>
+                        <small>Digital Works • Applied 4 days ago</small>
+                    </div>
+
+                    <span class="status status-warning">
+                        Pending
+                    </span>
+
+                </div>
+
+
+                <div class="application-item">
+
+                    <div class="company-avatar">
+                        I
+                    </div>
+
+                    <div class="application-info">
+                        <strong>UI Developer</strong>
+                        <small>Innovate Pvt Ltd • Applied 1 week ago</small>
+                    </div>
+
+                    <span class="status status-info">
+                        Under Review
+                    </span>
+
+                </div>
+
+
+                <div class="application-item">
+
+                    <div class="company-avatar">
+                        S
+                    </div>
+
+                    <div class="application-info">
+                        <strong>Web Designer</strong>
+                        <small>Smart Technologies • Applied 1 week ago</small>
+                    </div>
+
+                    <span class="status status-success">
+                        Selected
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recommended Jobs -->
+        <div class="col-lg-5 mb-4">
+
+            <div class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h5>Recommended Opportunities</h5>
+
+                    <a href="#" class="view-all">
+                        Explore
+                    </a>
+
+                </div>
+
+
+                <div class="job-card">
+
+                    <div class="job-top">
+
+                        <div>
+                            <h6>React Developer</h6>
+                            <p>Tech Solutions</p>
+                        </div>
+
+                        <div class="job-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="job-meta">
+
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Remote
+                        </span>
+
+                        <span>
+                            <i class="fas fa-briefcase"></i>
+                            Full Time
+                        </span>
+
+                        <a href="#" class="apply-btn">
+                            Apply
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="job-card">
+
+                    <div class="job-top">
+
+                        <div>
+                            <h6>Frontend Developer</h6>
+                            <p>Digital Works</p>
+                        </div>
+
+                        <div class="job-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="job-meta">
+
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Nagpur
+                        </span>
+
+                        <span>
+                            <i class="fas fa-briefcase"></i>
+                            Full Time
+                        </span>
+
+                        <a href="#" class="apply-btn">
+                            Apply
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="job-card mb-0">
+
+                    <div class="job-top">
+
+                        <div>
+                            <h6>UI/UX Designer</h6>
+                            <p>Creative Studio</p>
+                        </div>
+
+                        <div class="job-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="job-meta">
+
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Hybrid
+                        </span>
+
+                        <span>
+                            <i class="fas fa-briefcase"></i>
+                            Full Time
+                        </span>
+
+                        <a href="#" class="apply-btn">
+                            Apply
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    /* =====================================================
+       MONTHLY ANALYTICS SPARKLINES
+    ===================================================== */
+
+    function drawMonthlySparkline(svgId, values, totalId) {
+
+        const svg = document.getElementById(svgId);
+        const total = document.getElementById(totalId);
+
+        if (!svg || !values || !values.length) return;
+
+        const width = 600;
+        const height = 105;
+        const padding = 8;
+
+        const max = Math.max(...values, 1);
+        const min = Math.min(...values, 0);
+
+        const range = Math.max(max - min, 1);
+
+        const points = values.map((value, index) => {
+
+            const x = padding +
+                (index * (width - padding * 2)) /
+                (values.length - 1);
+
+            const y = height - padding -
+                ((value - min) / range) *
+                (height - padding * 2);
+
+            return `${x},${y}`;
+
+        }).join(' ');
+
+        const areaPoints =
+            `${padding},${height - padding}
+             ${points}
+             ${width - padding},${height - padding}`;
+
+        const last =
+            points.split(' ').pop().split(',');
+
+        svg.innerHTML = `
+
+            <defs>
+                <linearGradient id="${svgId}Fill"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1">
+
+                    <stop offset="0%"
+                          stop-color="#1e7b67"
+                          stop-opacity=".18" />
+
+                    <stop offset="100%"
+                          stop-color="#1e7b67"
+                          stop-opacity="0" />
+
+                </linearGradient>
+            </defs>
+
+            <line x1="8"
+                  y1="97"
+                  x2="592"
+                  y2="97"
+                  stroke="#edf0f4"
+                  stroke-width="1" />
+
+            <polygon points="${areaPoints}"
+                     fill="url(#${svgId}Fill)" />
+
+            <polyline points="${points}"
+                      fill="none"
+                      stroke="#1e7b67"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+
+            <circle cx="${last[0]}"
+                    cy="${last[1]}"
+                    r="4"
+                    fill="#fff"
+                    stroke="#1e7b67"
+                    stroke-width="3" />
+        `;
+
+        // Show TOTAL posts
+        total.textContent =
+            values.reduce((sum, value) => sum + value, 0);
+    }
+
+
+    // =====================================================
+    // SUITABLE OPENINGS
+    // =====================================================
+
+    const suitableOpeningsMonthly = [
+        3, 5, 4, 7, 8, 6,
+        9, 11, 10, 13, 12, 15
+    ];
+
+
+    // =====================================================
+    // INTERNSHIP POSTS FROM ORGANIZATIONS
+    // STATIC DATA
+    // =====================================================
+
+    const internshipPostsMonthly = [
+        4,   // January
+        7,   // February
+        5,   // March
+        9,   // April
+        12,  // May
+        10,  // June
+        15,  // July
+        18,  // August
+        14,  // September
+        20,  // October
+        17,  // November
+        23   // December
+    ];
+
+
+    // =====================================================
+    // DRAW CHARTS
+    // =====================================================
+
+    drawMonthlySparkline(
+        'suitableOpeningsChart',
+        suitableOpeningsMonthly,
+        'suitableOpeningsTotal'
+    );
+
+    drawMonthlySparkline(
+        'internshipPostsChart',
+        internshipPostsMonthly,
+        'internshipPostsTotal'
+    );
+
+</script>

@@ -1,0 +1,1748 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HuntCV — Find the Right Job. Build the Right Career.</title>
+	<link rel="stylesheet" href="~/css/huntcv-styles.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+	<link rel="stylesheet"
+		  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+	<!-- SCROLL PROGRESS -->
+	<div class="scroll-progress-track"><div class="scroll-progress-fill" id="scrollFill"></div></div>
+
+	<!-- AMBIENT BACKGROUND -->
+	<div class="ambient-blob" aria-hidden="true"></div>
+
+	<!-- SECTION RAIL -->
+	<nav class="section-rail" aria-label="Section navigation">
+		<div class="section-rail-track"></div>
+		<button class="rail-dot" data-section="explore"><span class="rail-label">Featured Jobs</span></button>
+		<button class="rail-dot" data-section="companies"><span class="rail-label">Companies</span></button>
+		<button class="rail-dot" data-section="resources"><span class="rail-label">Resources</span></button>
+		<button class="rail-dot" data-section="about"><span class="rail-label">About</span></button>
+	</nav>
+
+	<!-- NAVBAR -->
+	<!-- =========================================================
+		 HUNTCV NAVBAR
+		 BOOTSTRAP RESPONSIVE NAVBAR
+		 ========================================================= -->
+	<nav class="navbar navbar-expand-lg huntcv-navbar" id="siteNavbar">
+
+		<div class="container-lg">
+
+			<!-- LOGO -->
+			<a class="navbar-brand huntcv-brand" href="#">
+
+				<span class="brand-logo">
+
+					<svg viewBox="0 0 40 40"
+						 fill="none"
+						 xmlns="http://www.w3.org/2000/svg">
+
+						<path d="M8 20C8 13.37 13.37 8 20 8C26.63 8 32 13.37 32 20C32 26.63 26.63 32 20 32C13.37 32 8 26.63 8 20Z"
+							  stroke="#2563EB"
+							  stroke-width="2"
+							  stroke-linecap="round"
+							  stroke-linejoin="round" />
+
+						<path d="M15 20L18 23L25 16"
+							  stroke="#2563EB"
+							  stroke-width="2.5"
+							  stroke-linecap="round"
+							  stroke-linejoin="round" />
+
+					</svg>
+
+				</span>
+
+				<span class="brand-text">
+					HuntCV
+				</span>
+
+			</a>
+
+
+			<!-- MOBILE TOGGLE -->
+			<button class="navbar-toggler huntcv-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#huntcvNavbar"
+					aria-controls="huntcvNavbar"
+					aria-expanded="false"
+					aria-label="Toggle navigation">
+
+				<i class="bi bi-list"></i>
+
+			</button>
+
+
+			<!-- NAVIGATION -->
+			<div class="collapse navbar-collapse" id="huntcvNavbar">
+
+				<ul class="navbar-nav huntcv-nav-menu">
+
+					<li class="nav-item">
+						<a class="nav-link active"
+						   href="#explore">
+							Explore Jobs
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link"
+						   href="#companies">
+							Companies
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link"
+						   href="#resources">
+							Resources
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link"
+						   href="#about">
+							About
+						</a>
+					</li>
+
+				</ul>
+
+
+
+			</div>
+
+		</div>
+
+	</nav>
+
+
+	<!-- HERO SECTION -->
+	<section class="hero-section">
+
+		<!-- ==========================================
+			 DECORATIVE BACKGROUND
+			 ========================================== -->
+
+		<div class="hero-bg-circle circle-one"></div>
+		<div class="hero-bg-circle circle-two"></div>
+		<div class="hero-dots"></div>
+
+
+		<!-- ==========================================
+			 MAIN HERO CONTAINER
+			 ========================================== -->
+
+		<div class="container-lg hero-container">
+
+
+			<!-- ======================================
+				 LEFT SIDE : JOB SEARCH
+				 ====================================== -->
+
+			<div class="hero-left">
+
+				<div class="hero-content">
+
+					<!-- Eyebrow -->
+					<span class="hero-eyebrow">
+
+						<i class="bi bi-briefcase-fill"></i>
+
+						Find your next opportunity
+
+					</span>
+
+
+					<!-- Main Heading -->
+					<h1 class="hero-title">
+
+						Find a job that
+
+						<span>
+							fits your career.
+						</span>
+
+					</h1>
+
+
+					<!-- Description -->
+					<p class="hero-subtitle">
+
+						Discover thousands of opportunities from leading companies
+						and take the next step in your professional journey.
+
+					</p>
+
+				</div>
+
+
+
+				<!-- ==================================
+					 JOB SEARCH BOX
+					 ================================== -->
+
+				<div class="search-container" id="heroSearch">
+
+
+					<!-- Search Header -->
+
+					<div class="search-heading">
+
+						<div class="search-heading-icon">
+
+							<i class="bi bi-search"></i>
+
+						</div>
+
+
+						<div>
+
+							<h3>
+								Search Jobs
+							</h3>
+
+							<span>
+								Find opportunities that match your skills
+							</span>
+
+						</div>
+
+					</div>
+
+
+
+					<!-- ==================================
+						 SEARCH INPUTS
+						 ================================== -->
+
+					<div class="search-input-group">
+
+
+						<!-- JOB TITLE -->
+
+						<div class="search-field">
+
+							<div class="search-field-icon job-icon">
+
+								<i class="bi bi-briefcase-fill"></i>
+
+							</div>
+
+
+							<div class="search-field-content">
+
+								<label for="jobTitle">
+									Job title or keyword
+								</label>
+
+								<input type="text"
+									   id="jobTitle"
+									   placeholder="e.g. Software Developer"
+									   autocomplete="off">
+
+							</div>
+
+						</div>
+
+
+
+						<!-- LOCATION -->
+
+						<div class="search-field">
+
+							<div class="search-field-icon location-icon">
+
+								<i class="bi bi-geo-alt-fill"></i>
+
+							</div>
+
+
+							<div class="search-field-content">
+
+								<label for="location">
+									Location
+								</label>
+
+								<input type="text"
+									   id="location"
+									   placeholder="City or Remote"
+									   autocomplete="off">
+
+							</div>
+
+						</div>
+
+
+
+						<!-- SEARCH BUTTON -->
+
+						<button type="button"
+								class="btn-search">
+
+							<i class="bi bi-search"></i>
+
+							<span>
+								Search Jobs
+							</span>
+
+						</button>
+
+					</div>
+
+
+
+					<!-- ==================================
+						 SEARCH FILTERS
+						 ================================== -->
+
+					<div class="search-options">
+
+
+						<!-- Remote -->
+
+						<label class="checkbox-label">
+
+							<input type="checkbox"
+								   id="remoteOnly">
+
+							<span class="custom-check"></span>
+
+							<span>
+								Remote only
+							</span>
+
+						</label>
+
+
+
+						<!-- Recently Posted -->
+
+						<label class="checkbox-label">
+
+							<input type="checkbox"
+								   id="recentJobs">
+
+							<span class="custom-check"></span>
+
+							<span>
+								Recently posted
+							</span>
+
+						</label>
+
+
+
+						<!-- Advanced Search -->
+
+						<a href="#explore"
+						   class="advanced-search">
+
+							<span>
+								Advanced Search
+							</span>
+
+							<i class="bi bi-arrow-right"></i>
+
+						</a>
+
+					</div>
+
+				</div>
+
+
+
+				<!-- ==================================
+					 TRUST AREA
+					 ================================== -->
+
+				<div class="hero-trustline">
+
+
+					<!-- Avatars -->
+
+					<div class="trust-avatars">
+
+						<span class="avatar avatar-one">
+							<i class="bi bi-person-fill"></i>
+						</span>
+
+						<span class="avatar avatar-two">
+							<i class="bi bi-person-fill"></i>
+						</span>
+
+						<span class="avatar avatar-three">
+							<i class="bi bi-person-fill"></i>
+						</span>
+
+						<span class="avatar avatar-four">
+							<i class="bi bi-person-fill"></i>
+						</span>
+
+					</div>
+
+
+
+					<!-- Trust Content -->
+
+					<div class="trust-content">
+
+
+						<!-- Stars -->
+
+						<div class="trust-stars">
+
+							<i class="bi bi-star-fill"></i>
+							<i class="bi bi-star-fill"></i>
+							<i class="bi bi-star-fill"></i>
+							<i class="bi bi-star-fill"></i>
+							<i class="bi bi-star-fill"></i>
+
+						</div>
+
+
+						<!-- Text -->
+
+						<span>
+
+							Trusted by
+							<strong>2.5M+</strong>
+							job seekers
+
+						</span>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+			<!-- ======================================
+				 RIGHT SIDE : LOGIN
+				 ====================================== -->
+
+			<div class="hero-right">
+
+
+				<!-- ==================================
+					 LOGIN CARD
+					 ================================== -->
+
+				<div class="login-card">
+
+
+					<!-- Decorative Card Glow -->
+
+					<div class="login-card-glow"></div>
+
+
+
+					<!-- ==================================
+						 LOGIN HEADER
+						 ================================== -->
+
+					<div class="login-card-header">
+
+
+						<!-- Logo -->
+
+						<div class="login-logo">
+
+							<div class="login-logo-icon">
+
+								<i class="bi bi-person-check-fill"></i>
+
+							</div>
+
+						</div>
+
+
+
+						<!-- Heading -->
+
+						<h2>
+							Welcome Back
+						</h2>
+
+
+						<!-- Description -->
+
+						<p>
+							Login to continue your job search
+						</p>
+
+					</div>
+
+
+
+					<!-- ==================================
+						 LOGIN FORM
+						 ================================== -->
+
+					<form class="login-form"
+						  id="loginForm">
+
+
+						<!-- ==================================
+							 EMAIL
+							 ================================== -->
+
+						<div class="login-field">
+
+							<label for="loginEmail">
+								Email Address
+							</label>
+
+
+							<div class="login-input-wrapper">
+
+								<div class="login-input-icon email-icon">
+
+									<i class="bi bi-envelope-fill"></i>
+
+								</div>
+
+
+								<input type="email"
+									   id="loginEmail"
+									   name="email"
+									   placeholder="Enter your email"
+									   autocomplete="email"
+									   required>
+
+							</div>
+
+						</div>
+
+
+
+						<!-- ==================================
+							 PASSWORD
+							 ================================== -->
+
+						<div class="login-field">
+
+
+							<!-- Password Label -->
+
+							<div class="password-label-row">
+
+								<label for="loginPassword">
+									Password
+								</label>
+
+
+								<a href="#forgot">
+									Forgot password?
+								</a>
+
+							</div>
+
+
+
+							<!-- Password Input -->
+
+							<div class="login-input-wrapper">
+
+								<div class="login-input-icon password-icon">
+
+									<i class="bi bi-lock-fill"></i>
+
+								</div>
+
+
+								<input type="password"
+									   id="loginPassword"
+									   name="password"
+									   placeholder="Enter your password"
+									   autocomplete="current-password"
+									   required>
+
+
+								<!-- Eye -->
+
+								<button type="button"
+										class="password-toggle"
+										id="passwordToggle"
+										aria-label="Show password">
+
+									<i class="bi bi-eye"></i>
+
+								</button>
+
+							</div>
+
+						</div>
+
+
+
+						<!-- ==================================
+							 REMEMBER ME
+							 ================================== -->
+
+						<div class="remember-row">
+
+							<label class="remember-me">
+
+								<input type="checkbox"
+									   id="rememberMe">
+
+								<span class="remember-check"></span>
+
+								<span>
+									Remember me
+								</span>
+
+							</label>
+
+						</div>
+
+
+
+						<!-- ==================================
+							 LOGIN BUTTON
+							 ================================== -->
+
+						<div class="login-button-wrapper">
+
+							<button type="submit"
+									class="login-submit">
+
+								<span>
+									Login
+								</span>
+
+								<i class="bi bi-arrow-right"></i>
+
+							</button>
+
+						</div>
+
+
+
+						<!-- ==================================
+							 DIVIDER
+							 ================================== -->
+
+						<div class="login-divider">
+
+							<span>
+								or continue with
+							</span>
+
+						</div>
+
+
+
+						<!-- ==================================
+							 SOCIAL LOGIN
+							 ================================== -->
+
+						<div class="social-login">
+
+
+							<!-- EMAIL -->
+
+							<button type="button"
+									class="social-btn social-email"
+									title="Continue with Email">
+
+								<span class="social-icon email-social-icon">
+
+									<i class="bi bi-envelope-fill"></i>
+
+								</span>
+
+								<span>
+									Email
+								</span>
+
+							</button>
+
+
+
+							<!-- GOOGLE -->
+
+							<button type="button"
+									class="social-btn social-google"
+									title="Continue with Google">
+
+								<span class="social-icon google-icon">
+
+									<i class="bi bi-google"></i>
+
+								</span>
+
+								<span>
+									Google
+								</span>
+
+							</button>
+
+
+
+							<!-- LINKEDIN -->
+
+							<button type="button"
+									class="social-btn social-linkedin"
+									title="Continue with LinkedIn">
+
+								<span class="social-icon linkedin-icon">
+
+									<i class="bi bi-linkedin"></i>
+
+								</span>
+
+								<span>
+									LinkedIn
+								</span>
+
+							</button>
+
+						</div>
+
+
+
+						<!-- ==================================
+							 CREATE ACCOUNT
+							 ================================== -->
+
+						<div class="register-text">
+
+							<span>
+								Don't have an account?
+							</span>
+
+							<a href="#signup">
+								Create Account
+							</a>
+
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+		<!-- ==========================================
+			 SCROLL CUE
+			 ========================================== -->
+
+		<div class="scroll-cue"
+			 id="scrollCue">
+
+			<span>
+				Explore
+			</span>
+
+			<div class="scroll-cue-arrow"></div>
+
+		</div>
+
+	</section>
+	<!-- TRUST & STATISTICS SECTION -->
+	<section class="stats-section">
+		<div class="container-lg">
+			<div class="stats-grid">
+				<div class="stat-card">
+					<div class="stat-value"><span class="counter" data-target="2.5" data-suffix="M+">0</span></div>
+					<div class="stat-label">Active Job Seekers</div>
+				</div>
+				<div class="stat-card">
+					<div class="stat-value"><span class="counter" data-target="15" data-suffix="K+">0</span></div>
+					<div class="stat-label">Top Companies</div>
+				</div>
+				<div class="stat-card">
+					<div class="stat-value"><span class="counter" data-target="50" data-suffix="K+">0</span></div>
+					<div class="stat-label">Jobs Posted Daily</div>
+				</div>
+				<div class="stat-card">
+					<div class="stat-value"><span class="counter" data-target="92" data-suffix="%">0</span></div>
+					<div class="stat-label">User Satisfaction</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- FEATURED JOBS SECTION -->
+	<section class="featured-jobs-section" id="explore">
+		<div class="container-lg">
+			<div class="section-header reveal">
+				<div>
+					<span class="eyebrow">Fresh matches</span>
+					<h2>Featured Job Opportunities</h2>
+					<p>Handpicked roles from companies actively hiring top talent across India</p>
+				</div>
+				<a href="#" class="view-all">View all jobs &rarr;</a>
+			</div>
+
+			<div class="jobs-grid">
+				<div class="job-card reveal reveal-delay-1">
+					<div class="job-header">
+						<div class="company-logo">
+							<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="24" cy="24" r="22" fill="#3B82F6" />
+								<text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="600">TC</text>
+							</svg>
+						</div>
+						<div class="job-meta">
+							<div class="job-title">Senior Full Stack Engineer</div>
+							<div class="job-company">TechCorp &middot; Bengaluru</div>
+						</div>
+						<button class="btn-save" title="Save job" onclick="this.classList.toggle('is-saved')">
+							<i class="bi bi-bookmark"></i>
+						</button>
+					</div>
+					<div class="job-match-row">
+						<div class="match-ring gold"><span>96%</span></div>
+						<span class="job-match-label">Match score <strong>96/100</strong></span>
+					</div>
+					<div class="job-details">
+						<span class="badge-tag">Full-time</span>
+						<span class="badge-tag">Remote</span>
+					</div>
+					<div class="job-description">
+						Build scalable systems for millions of users. Work with React, Node.js, and cloud infrastructure.
+					</div>
+					<div class="job-footer">
+						<div class="job-salary">&#8377;18L&ndash;&#8377;28L /yr</div>
+						<button class="btn-apply">Apply Now</button>
+					</div>
+				</div>
+
+				<div class="job-card reveal reveal-delay-2">
+					<div class="job-header">
+						<div class="company-logo">
+							<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="24" cy="24" r="22" fill="#10B981" />
+								<text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="600">IL</text>
+							</svg>
+						</div>
+						<div class="job-meta">
+							<div class="job-title">Product Manager - AI/ML</div>
+							<div class="job-company">InnovateLabs &middot; Hyderabad</div>
+						</div>
+						<button class="btn-save" title="Save job" onclick="this.classList.toggle('is-saved')">
+							<i class="bi bi-bookmark"></i>
+						</button>
+					</div>
+					<div class="job-match-row">
+						<div class="match-ring"><span>90%</span></div>
+						<span class="job-match-label">Match score <strong>90/100</strong></span>
+					</div>
+					<div class="job-details">
+						<span class="badge-tag">Full-time</span>
+						<span class="badge-tag">Hyderabad, TG</span>
+					</div>
+					<div class="job-description">
+						Lead product strategy for our AI platform. Define roadmap, work with engineering and design teams.
+					</div>
+					<div class="job-footer">
+						<div class="job-salary">&#8377;22L&ndash;&#8377;32L /yr</div>
+						<button class="btn-apply">Apply Now</button>
+					</div>
+				</div>
+
+				<div class="job-card reveal reveal-delay-3">
+					<div class="job-header">
+						<div class="company-logo">
+							<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="24" cy="24" r="22" fill="#8B5CF6" />
+								<text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="600">DH</text>
+							</svg>
+						</div>
+						<div class="job-meta">
+							<div class="job-title">Lead UX/UI Designer</div>
+							<div class="job-company">DesignHub &middot; Mumbai</div>
+						</div>
+						<button class="btn-save" title="Save job" onclick="this.classList.toggle('is-saved')">
+							<i class="bi bi-bookmark"></i>
+						</button>
+					</div>
+					<div class="job-match-row">
+						<div class="match-ring"><span>87%</span></div>
+						<span class="job-match-label">Match score <strong>87/100</strong></span>
+					</div>
+					<div class="job-details">
+						<span class="badge-tag">Full-time</span>
+						<span class="badge-tag">Mumbai, MH</span>
+					</div>
+					<div class="job-description">
+						Design intuitive interfaces for millions. Lead design system, mentor junior designers, shape product vision.
+					</div>
+					<div class="job-footer">
+						<div class="job-salary">&#8377;14L&ndash;&#8377;20L /yr</div>
+						<button class="btn-apply">Apply Now</button>
+					</div>
+				</div>
+
+				<div class="job-card reveal reveal-delay-4">
+					<div class="job-header">
+						<div class="company-logo">
+							<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="24" cy="24" r="22" fill="#F59E0B" />
+								<text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="600">SF</text>
+							</svg>
+						</div>
+						<div class="job-meta">
+							<div class="job-title">DevOps Engineer</div>
+							<div class="job-company">StartupFoundry &middot; Remote</div>
+						</div>
+						<button class="btn-save" title="Save job" onclick="this.classList.toggle('is-saved')">
+							<i class="bi bi-bookmark"></i>
+						</button>
+					</div>
+					<div class="job-match-row">
+						<div class="match-ring"><span>82%</span></div>
+						<span class="job-match-label">Match score <strong>82/100</strong></span>
+					</div>
+					<div class="job-details">
+						<span class="badge-tag">Full-time</span>
+						<span class="badge-tag">Remote</span>
+					</div>
+					<div class="job-description">
+						Manage cloud infrastructure at scale. Work with Kubernetes, AWS, and CI/CD pipelines for growing team.
+					</div>
+					<div class="job-footer">
+						<div class="job-salary">&#8377;12L&ndash;&#8377;20L /yr</div>
+						<button class="btn-apply">Apply Now</button>
+					</div>
+				</div>
+
+				<div class="job-card reveal reveal-delay-5">
+					<div class="job-header">
+						<div class="company-logo">
+							<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="24" cy="24" r="22" fill="#EC4899" />
+								<text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="600">VL</text>
+							</svg>
+						</div>
+						<div class="job-meta">
+							<div class="job-title">Data Scientist</div>
+							<div class="job-company">VentureLabs &middot; Pune</div>
+						</div>
+						<button class="btn-save" title="Save job" onclick="this.classList.toggle('is-saved')">
+							<i class="bi bi-bookmark"></i>
+						</button>
+					</div>
+					<div class="job-match-row">
+						<div class="match-ring"><span>85%</span></div>
+						<span class="job-match-label">Match score <strong>85/100</strong></span>
+					</div>
+					<div class="job-details">
+						<span class="badge-tag">Full-time</span>
+						<span class="badge-tag">Pune, MH</span>
+					</div>
+					<div class="job-description">
+						Build ML models for financial forecasting. Work with large datasets and cutting-edge analytics tools.
+					</div>
+					<div class="job-footer">
+						<div class="job-salary">&#8377;16L&ndash;&#8377;26L /yr</div>
+						<button class="btn-apply">Apply Now</button>
+					</div>
+				</div>
+
+				<div class="job-card reveal reveal-delay-6">
+					<div class="job-header">
+						<div class="company-logo">
+							<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="24" cy="24" r="22" fill="#14B8A6" />
+								<text x="24" y="32" text-anchor="middle" font-size="20" fill="white" font-weight="600">CF</text>
+							</svg>
+						</div>
+						<div class="job-meta">
+							<div class="job-title">QA Automation Engineer</div>
+							<div class="job-company">CloudFirst &middot; Remote</div>
+						</div>
+						<button class="btn-save" title="Save job" onclick="this.classList.toggle('is-saved')">
+							<i class="bi bi-bookmark"></i>
+						</button>
+					</div>
+					<div class="job-match-row">
+						<div class="match-ring"><span>79%</span></div>
+						<span class="job-match-label">Match score <strong>79/100</strong></span>
+					</div>
+					<div class="job-details">
+						<span class="badge-tag">Full-time</span>
+						<span class="badge-tag">Remote</span>
+					</div>
+					<div class="job-description">
+						Design and execute automation frameworks. Build robust testing infrastructure for microservices.
+					</div>
+					<div class="job-footer">
+						<div class="job-salary">&#8377;8L&ndash;&#8377;14L /yr</div>
+						<button class="btn-apply">Apply Now</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- JOB CATEGORIES SECTION -->
+	<section class="categories-section">
+		<div class="container-lg">
+			<div class="section-header reveal">
+				<div>
+					<h2>Popular Job Categories</h2>
+					<p>Browse opportunities across industries and roles</p>
+				</div>
+			</div>
+			<div class="categories-grid">
+				<a href="#" class="category-card reveal reveal-delay-1">
+					<div class="category-icon"><i class="bi bi-code-square"></i></div>
+					<div><h3>Engineering & Tech</h3><p>12.5K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-2">
+					<div class="category-icon"><i class="bi bi-palette"></i></div>
+					<div><h3>Design</h3><p>3.2K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-3">
+					<div class="category-icon"><i class="bi bi-graph-up"></i></div>
+					<div><h3>Product & Management</h3><p>5.8K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-4">
+					<div class="category-icon"><i class="bi bi-megaphone"></i></div>
+					<div><h3>Marketing & Sales</h3><p>4.1K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-1">
+					<div class="category-icon"><i class="bi bi-people"></i></div>
+					<div><h3>Human Resources</h3><p>1.8K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-2">
+					<div class="category-icon"><i class="bi bi-calculator"></i></div>
+					<div><h3>Finance & Accounting</h3><p>3.5K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-3">
+					<div class="category-icon"><i class="bi bi-briefcase-fill"></i></div>
+					<div><h3>Business & Consulting</h3><p>6.2K+ jobs</p></div>
+				</a>
+				<a href="#" class="category-card reveal reveal-delay-4">
+					<div class="category-icon"><i class="bi bi-robot"></i></div>
+					<div><h3>Data & AI</h3><p>2.9K+ jobs</p></div>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- TOP COMPANIES SECTION -->
+	<section class="companies-section" id="companies">
+		<div class="container-lg">
+			<div class="section-header reveal">
+				<div>
+					<span class="eyebrow">Verified employers</span>
+
+					<h2>Top Companies Hiring</h2>
+
+					<p>
+						Join talented professionals at industry-leading organizations
+						across India
+					</p>
+				</div>
+
+				<a href="#" class="view-all">
+					Explore all companies
+					<i class="bi bi-arrow-right"></i>
+				</a>
+			</div>
+
+			<div class="logo-marquee">
+				<div class="logo-track">
+					<span>TechCorp</span><span>InnovateLabs</span><span>DesignHub</span><span>StartupFoundry</span><span>VentureLabs</span><span>CloudFirst</span>
+					<span>TechCorp</span><span>InnovateLabs</span><span>DesignHub</span><span>StartupFoundry</span><span>VentureLabs</span><span>CloudFirst</span>
+				</div>
+			</div>
+
+			<div class="companies-carousel">
+				<div class="company-item reveal reveal-delay-1">
+					<div class="company-card">
+						<div class="company-header">
+							<div class="company-avatar">
+								<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+									<rect width="64" height="64" fill="#3B82F6" rx="10" />
+									<text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="600">TC</text>
+								</svg>
+							</div>
+							<button class="btn-follow" onclick="this.classList.toggle('is-following'); this.textContent = this.classList.contains('is-following') ? 'Following' : 'Follow';">Follow</button>
+						</div>
+						<h3 class="company-name">TechCorp</h3>
+						<p class="company-description">Enterprise software solutions, with engineering hubs in Bengaluru and Pune</p>
+						<div class="company-meta">
+							<span class="meta-item"><i class="bi bi-briefcase"></i> 1.2K jobs</span>
+							<span class="meta-item"><i class="bi bi-star-fill"></i> 4.8/5</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="company-item reveal reveal-delay-2">
+					<div class="company-card">
+						<div class="company-header">
+							<div class="company-avatar">
+								<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+									<rect width="64" height="64" fill="#10B981" rx="10" />
+									<text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="600">IL</text>
+								</svg>
+							</div>
+							<button class="btn-follow" onclick="this.classList.toggle('is-following'); this.textContent = this.classList.contains('is-following') ? 'Following' : 'Follow';">Follow</button>
+						</div>
+						<h3 class="company-name">InnovateLabs</h3>
+						<p class="company-description">AI and machine learning platform company headquartered in Hyderabad</p>
+						<div class="company-meta">
+							<span class="meta-item"><i class="bi bi-briefcase"></i> 340 jobs</span>
+							<span class="meta-item"><i class="bi bi-star-fill"></i> 4.9/5</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="company-item reveal reveal-delay-3">
+					<div class="company-card">
+						<div class="company-header">
+							<div class="company-avatar">
+								<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+									<rect width="64" height="64" fill="#8B5CF6" rx="10" />
+									<text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="600">DH</text>
+								</svg>
+							</div>
+							<button class="btn-follow" onclick="this.classList.toggle('is-following'); this.textContent = this.classList.contains('is-following') ? 'Following' : 'Follow';">Follow</button>
+						</div>
+						<h3 class="company-name">DesignHub</h3>
+						<p class="company-description">Design tools and creative software platforms, based out of Mumbai</p>
+						<div class="company-meta">
+							<span class="meta-item"><i class="bi bi-briefcase"></i> 280 jobs</span>
+							<span class="meta-item"><i class="bi bi-star-fill"></i> 4.7/5</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="company-item reveal reveal-delay-4">
+					<div class="company-card">
+						<div class="company-header">
+							<div class="company-avatar">
+								<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+									<rect width="64" height="64" fill="#F59E0B" rx="10" />
+									<text x="32" y="42" text-anchor="middle" font-size="28" fill="white" font-weight="600">SF</text>
+								</svg>
+							</div>
+							<button class="btn-follow" onclick="this.classList.toggle('is-following'); this.textContent = this.classList.contains('is-following') ? 'Following' : 'Follow';">Follow</button>
+						</div>
+						<h3 class="company-name">StartupFoundry</h3>
+						<p class="company-description">Venture-backed startup ecosystem platform, teams across Gurugram</p>
+						<div class="company-meta">
+							<span class="meta-item"><i class="bi bi-briefcase"></i> 156 jobs</span>
+							<span class="meta-item"><i class="bi bi-star-fill"></i> 4.6/5</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- WHY CHOOSE HUNTCV SECTION -->
+	<section class="benefits-section" id="about">
+		<div class="container-lg">
+			<div class="section-header reveal">
+				<div>
+					<span class="eyebrow">Why HuntCV</span>
+					<h2>Built for a smarter search</h2>
+					<p>Find your next career opportunity with confidence</p>
+				</div>
+			</div>
+			<div class="benefits-grid">
+				<div class="benefit-card reveal reveal-delay-1">
+					<div class="benefit-icon"><i class="bi bi-lightning-fill"></i></div>
+					<h3>Smart Matching</h3>
+					<p>AI-powered recommendations, scored 0&ndash;100, based on your skills and preferences.</p>
+				</div>
+				<div class="benefit-card reveal reveal-delay-2">
+					<div class="benefit-icon"><i class="bi bi-shield-check"></i></div>
+					<h3>Verified Companies</h3>
+					<p>All companies are verified to ensure legitimate opportunities.</p>
+				</div>
+				<div class="benefit-card reveal reveal-delay-3">
+					<div class="benefit-icon"><i class="bi bi-briefcase-fill"></i></div>
+					<h3>Real Salary Data</h3>
+					<p>Transparent salary ranges in Indian Rupees, based on industry benchmarks.</p>
+				</div>
+				<div class="benefit-card reveal reveal-delay-4">
+					<div class="benefit-icon"><i class="bi bi-people-fill"></i></div>
+					<h3>Career Community</h3>
+					<p>Connect with professionals and grow your network.</p>
+				</div>
+				<div class="benefit-card reveal reveal-delay-5">
+					<div class="benefit-icon"><i class="bi bi-graph-up-arrow"></i></div>
+					<h3>Career Growth</h3>
+					<p>Access resources to advance your skills and career.</p>
+				</div>
+				<div class="benefit-card reveal reveal-delay-6">
+					<div class="benefit-icon"><i class="bi bi-clock-history"></i></div>
+					<h3>Quick Applications</h3>
+					<p>Apply with one click using your HuntCV profile.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- TESTIMONIALS SECTION -->
+	<section class="testimonials-section">
+		<div class="container-lg">
+
+			<div class="section-header reveal">
+				<div>
+					<span class="eyebrow">Success stories</span>
+					<h2>Loved by job seekers across India</h2>
+					<p>
+						Real outcomes from professionals who found their next role through HuntCV
+					</p>
+				</div>
+			</div>
+
+			<div class="testimonial-slider">
+
+				<div class="testimonials-track">
+
+					<!-- CARD 1 -->
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							<div class="testimonial-quote-mark">“</div>
+
+							<div class="testimonial-rating">
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+							</div>
+						</div>
+
+						<p class="testimonial-text">
+							The match score saved me weeks of scrolling through irrelevant
+							postings. Landed a role at a Bengaluru startup within three
+							weeks of signing up.
+						</p>
+
+						<div class="testimonial-person">
+							<div class="testimonial-avatar">RA</div>
+
+							<div class="testimonial-person-info">
+								<div class="testimonial-name">Rohan Agarwal</div>
+								<div class="testimonial-role">
+									Software Engineer · Bengaluru
+								</div>
+							</div>
+
+							<div class="testimonial-verified">
+								<i class="bi bi-patch-check-fill"></i>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- CARD 2 -->
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							<div class="testimonial-quote-mark">“</div>
+
+							<div class="testimonial-rating">
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+							</div>
+						</div>
+
+						<p class="testimonial-text">
+							Transparent salary ranges meant I never wasted time on
+							interviews that weren't a fit. It's the most honest job
+							board I've used.
+						</p>
+
+						<div class="testimonial-person">
+							<div class="testimonial-avatar">PS</div>
+
+							<div class="testimonial-person-info">
+								<div class="testimonial-name">Priya Sharma</div>
+								<div class="testimonial-role">
+									Product Manager · Hyderabad
+								</div>
+							</div>
+
+							<div class="testimonial-verified">
+								<i class="bi bi-patch-check-fill"></i>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- CARD 3 -->
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							<div class="testimonial-quote-mark">“</div>
+
+							<div class="testimonial-rating">
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+							</div>
+						</div>
+
+						<p class="testimonial-text">
+							I followed a handful of companies and got notified the moment
+							a design role opened up. One-click apply made it effortless.
+						</p>
+
+						<div class="testimonial-person">
+							<div class="testimonial-avatar">AK</div>
+
+							<div class="testimonial-person-info">
+								<div class="testimonial-name">Ananya Kapoor</div>
+								<div class="testimonial-role">
+									UX Designer · Mumbai
+								</div>
+							</div>
+
+							<div class="testimonial-verified">
+								<i class="bi bi-patch-check-fill"></i>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- DUPLICATE CARDS FOR INFINITE LOOP -->
+					<!-- CARD 1 -->
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							<div class="testimonial-quote-mark">“</div>
+
+							<div class="testimonial-rating">
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+							</div>
+						</div>
+
+						<p class="testimonial-text">
+							The match score saved me weeks of scrolling through irrelevant
+							postings. Landed a role at a Bengaluru startup within three
+							weeks of signing up.
+						</p>
+
+						<div class="testimonial-person">
+							<div class="testimonial-avatar">RA</div>
+
+							<div class="testimonial-person-info">
+								<div class="testimonial-name">Rohan Agarwal</div>
+								<div class="testimonial-role">
+									Software Engineer · Bengaluru
+								</div>
+							</div>
+
+							<div class="testimonial-verified">
+								<i class="bi bi-patch-check-fill"></i>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- CARD 2 -->
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							<div class="testimonial-quote-mark">“</div>
+
+							<div class="testimonial-rating">
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+							</div>
+						</div>
+
+						<p class="testimonial-text">
+							Transparent salary ranges meant I never wasted time on
+							interviews that weren't a fit. It's the most honest job
+							board I've used.
+						</p>
+
+						<div class="testimonial-person">
+							<div class="testimonial-avatar">PS</div>
+
+							<div class="testimonial-person-info">
+								<div class="testimonial-name">Priya Sharma</div>
+								<div class="testimonial-role">
+									Product Manager · Hyderabad
+								</div>
+							</div>
+
+							<div class="testimonial-verified">
+								<i class="bi bi-patch-check-fill"></i>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- CARD 3 -->
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							<div class="testimonial-quote-mark">“</div>
+
+							<div class="testimonial-rating">
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+							</div>
+						</div>
+
+						<p class="testimonial-text">
+							I followed a handful of companies and got notified the moment
+							a design role opened up. One-click apply made it effortless.
+						</p>
+
+						<div class="testimonial-person">
+							<div class="testimonial-avatar">AK</div>
+
+							<div class="testimonial-person-info">
+								<div class="testimonial-name">Ananya Kapoor</div>
+								<div class="testimonial-role">
+									UX Designer · Mumbai
+								</div>
+							</div>
+
+							<div class="testimonial-verified">
+								<i class="bi bi-patch-check-fill"></i>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- CAREER RESOURCES SECTION -->
+	<section class="resources-section" id="resources">
+		<div class="container-lg">
+			<div class="section-header reveal">
+				<div>
+					<span class="eyebrow">Learn & prep</span>
+					<h2>Career Resources & Insights</h2>
+					<p>Master your career with expert guides and industry insights</p>
+				</div>
+			</div>
+			<div class="resources-grid">
+				<a href="#" class="resource-card reveal reveal-delay-1">
+					<div class="resource-image">
+						<div class="resource-badge">Guide</div>
+						<i class="bi bi-file-earmark-text"></i>
+					</div>
+					<h3>Resume Writing 101</h3>
+					<p>Craft a resume that stands out to recruiters and ATS systems</p>
+					<span class="read-time"><i class="bi bi-clock"></i> 8 min read</span>
+				</a>
+				<a href="#" class="resource-card reveal reveal-delay-2">
+					<div class="resource-image">
+						<div class="resource-badge">Guide</div>
+						<i class="bi bi-chat-dots"></i>
+					</div>
+					<h3>Ace Your Interview</h3>
+					<p>Strategies and tips for making a strong impression in interviews</p>
+					<span class="read-time"><i class="bi bi-clock"></i> 12 min read</span>
+				</a>
+				<a href="#" class="resource-card reveal reveal-delay-3">
+					<div class="resource-image">
+						<div class="resource-badge">Report</div>
+						<i class="bi bi-graph-up"></i>
+					</div>
+					<h3>2026 India Tech Salary Report</h3>
+					<p>Comprehensive salary trends across tech roles and Indian cities</p>
+					<span class="read-time"><i class="bi bi-clock"></i> 15 min read</span>
+				</a>
+				<a href="#" class="resource-card reveal reveal-delay-4">
+					<div class="resource-image">
+						<div class="resource-badge">Guide</div>
+						<i class="bi bi-lightbulb"></i>
+					</div>
+					<h3>Career Transition Guide</h3>
+					<p>Navigate career changes strategically and successfully</p>
+					<span class="read-time"><i class="bi bi-clock"></i> 10 min read</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- NEWSLETTER STRIP -->
+	<section class="newsletter-section">
+		<div class="container-lg">
+			<div class="newsletter-card reveal">
+				<div class="newsletter-copy">
+					<h3>Get roles matched to you, weekly</h3>
+					<p>A short digest of top-matching openings and salary trends. No spam, unsubscribe anytime.</p>
+				</div>
+				<form class="newsletter-form" onsubmit="event.preventDefault(); this.reset(); alert('Thanks for subscribing!');">
+					<input type="email" placeholder="you@email.com" required aria-label="Email address">
+					<button type="submit" class="btn-primary">Subscribe</button>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<!-- FINAL CTA SECTION -->
+	<section class="final-cta-section">
+		<div class="container-lg">
+			<div class="cta-content reveal">
+				<h2>Ready to find your next opportunity?</h2>
+				<p>Join millions of professionals across India using HuntCV to grow their careers.</p>
+				<div class="cta-buttons">
+					<button class="btn-primary btn-lg">Start Searching</button>
+					<button class="btn-secondary btn-lg">Learn More</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer class="huntcv-footer">
+		<div class="container-lg">
+			<div class="footer-content">
+				<div class="footer-section">
+					<div class="footer-brand">
+						<div class="brand-logo">
+							<svg viewBox="0 0 40 40" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 20C8 13.37 13.37 8 20 8C26.63 8 32 13.37 32 20C32 26.63 26.63 32 20 32C13.37 32 8 26.63 8 20Z" stroke="#5B8AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M15 20L18 23L25 16" stroke="#5B8AFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</div>
+						<span class="brand-text">HuntCV</span>
+					</div>
+					<p class="footer-description">Connecting talent with opportunities across India</p>
+				</div>
+
+				<div class="footer-section">
+					<h4>For Job Seekers</h4>
+					<ul>
+						<li><a href="#">Search Jobs</a></li>
+						<li><a href="#">Browse Companies</a></li>
+						<li><a href="#">Career Advice</a></li>
+						<li><a href="#">Salary Guide</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-section">
+					<h4>For Companies</h4>
+					<ul>
+						<li><a href="#">Post a Job</a></li>
+						<li><a href="#">Pricing</a></li>
+						<li><a href="#">Hiring Solutions</a></li>
+						<li><a href="#">Employer Insights</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-section">
+					<h4>Company</h4>
+					<ul>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Blog</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Careers at HuntCV</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-section">
+					<h4>Legal</h4>
+					<ul>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Terms of Service</a></li>
+						<li><a href="#">Cookie Policy</a></li>
+						<li><a href="#">Security</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<div class="social-links">
+					<a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+					<a href="#" title="Twitter" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+					<a href="#" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+					<a href="#" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+				</div>
+				<p class="copyright">&copy; 2026 HuntCV. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		(function () {
+			var navbar = document.getElementById('siteNavbar');
+			var heroSearch = document.getElementById('heroSearch');
+			var scrollFill = document.getElementById('scrollFill');
+			var scrollCue = document.getElementById('scrollCue');
+			var jobTitleInput = document.getElementById('jobTitle');
+			var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var ticking = false;
+
+			function onScrollFrame() {
+				var doc = document.documentElement;
+				var scrollTop = window.scrollY || doc.scrollTop;
+				var maxScroll = (doc.scrollHeight - doc.clientHeight) || 1;
+				var pct = Math.min(100, Math.max(0, (scrollTop / maxScroll) * 100));
+
+				scrollFill.style.width = pct + '%';
+				doc.style.setProperty('--scroll-progress', pct.toFixed(2));
+
+
+				if (scrollTop > 12) { navbar.classList.add('is-scrolled'); }
+				else { navbar.classList.remove('is-scrolled'); }
+
+				if (scrollCue) { scrollCue.classList.toggle('is-hidden', scrollTop > 80); }
+
+				if (heroSearch) {
+					var heroSearchBottom = heroSearch.getBoundingClientRect().bottom;
+					navbar.classList.toggle('show-compact-search', heroSearchBottom < 0);
+				}
+
+				if (!reduceMotion) {
+					var parallax = Math.min(scrollTop * 0.18, 140);
+					doc.style.setProperty('--parallax-y', parallax + 'px');
+				}
+
+				ticking = false;
+			}
+
+			window.addEventListener('scroll', function () {
+				if (!ticking) { requestAnimationFrame(onScrollFrame); ticking = true; }
+			}, { passive: true });
+			onScrollFrame();
+
+
+
+
+
+			var toggle = document.getElementById('navToggle');
+			var mobileMenu = document.getElementById('mobileMenu');
+			if (toggle && mobileMenu) {
+				toggle.addEventListener('click', function () {
+					var isOpen = mobileMenu.classList.toggle('is-open');
+					toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+					toggle.innerHTML = isOpen ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+				});
+				mobileMenu.querySelectorAll('a').forEach(function (a) {
+					a.addEventListener('click', function () {
+						mobileMenu.classList.remove('is-open');
+						toggle.innerHTML = '<i class="bi bi-list"></i>';
+						toggle.setAttribute('aria-expanded', 'false');
+					});
+				});
+			}
+
+			var revealEls = document.querySelectorAll('.reveal');
+			if ('IntersectionObserver' in window && !reduceMotion) {
+				var io = new IntersectionObserver(function (entries) {
+					entries.forEach(function (entry) {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('in-view');
+							io.unobserve(entry.target);
+						}
+					});
+				}, { threshold: 0.12 });
+				revealEls.forEach(function (el) { io.observe(el); });
+			} else {
+				revealEls.forEach(function (el) { el.classList.add('in-view'); });
+			}
+
+			var sectionIds = ['explore', 'companies', 'resources', 'about'];
+			var navLinks = document.querySelectorAll('.nav-link');
+			var railDots = document.querySelectorAll('.rail-dot');
+			if ('IntersectionObserver' in window) {
+				var spyIo = new IntersectionObserver(function (entries) {
+					entries.forEach(function (entry) {
+						if (entry.isIntersecting) {
+							navLinks.forEach(function (link) {
+								link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+							});
+							railDots.forEach(function (dot) {
+								dot.classList.toggle('active', dot.getAttribute('data-section') === entry.target.id);
+							});
+						}
+					});
+				}, { threshold: 0.4, rootMargin: '-80px 0px -60% 0px' });
+				sectionIds.forEach(function (id) {
+					var section = document.getElementById(id);
+					if (section) spyIo.observe(section);
+				});
+			}
+
+			railDots.forEach(function (dot) {
+				dot.addEventListener('click', function () {
+					var target = document.getElementById(dot.getAttribute('data-section'));
+					if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+				});
+			});
+
+			var counters = document.querySelectorAll('.counter');
+			var animateCounter = function (el) {
+				var target = parseFloat(el.getAttribute('data-target'));
+				var suffix = el.getAttribute('data-suffix') || '';
+				var isDecimal = target % 1 !== 0;
+				var duration = 1400;
+				var start = null;
+
+				function step(ts) {
+					if (!start) start = ts;
+					var progress = Math.min((ts - start) / duration, 1);
+					var eased = 1 - Math.pow(1 - progress, 3);
+					var value = target * eased;
+					el.textContent = (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
+					if (progress < 1) requestAnimationFrame(step);
+				}
+				requestAnimationFrame(step);
+			};
+
+			if ('IntersectionObserver' in window) {
+				var counterIo = new IntersectionObserver(function (entries) {
+					entries.forEach(function (entry) {
+						if (entry.isIntersecting) {
+							animateCounter(entry.target);
+							counterIo.unobserve(entry.target);
+						}
+					});
+				}, { threshold: 0.4 });
+				counters.forEach(function (c) { counterIo.observe(c); });
+			} else {
+				counters.forEach(function (c) { c.textContent = c.getAttribute('data-target') + (c.getAttribute('data-suffix') || ''); });
+			}
+
+			if (!reduceMotion) {
+				var spotlightEls = document.querySelectorAll('.job-card, .company-card, .btn-primary, .btn-search');
+				spotlightEls.forEach(function (el) {
+					el.addEventListener('mousemove', function (e) {
+						var rect = el.getBoundingClientRect();
+						el.style.setProperty('--x', (e.clientX - rect.left) + 'px');
+						el.style.setProperty('--y', (e.clientY - rect.top) + 'px');
+					});
+				});
+			}
+		})();
+	</script>
+
+</body>
+</html>

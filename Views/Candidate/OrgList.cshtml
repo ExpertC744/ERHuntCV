@@ -1,0 +1,215 @@
+﻿@model List<OrganizationUserM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Candidate Dashboard";
+    ViewData["Panel"] = "Candidate";
+    ViewData["UserName"] = "Candidate";
+}
+
+
+<div class="container-fluid">
+
+    <!-- MASTER TABLE CARD -->
+
+    <div class="master-table-container">
+
+        <!-- MASTER TABLE HEADER -->
+
+        <div class="master-table-title">
+
+            <div>
+
+                <h2>
+                    Organization Registration List
+                </h2>
+
+                <p>
+                    View and manage registered organizations
+                </p>
+
+            </div>
+
+
+            <a asp-controller="SuperAdmin"
+               asp-action="Dashboard"
+               class="btn btn-secondary">
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- MASTER TABLE -->
+
+        <div class="table-responsive">
+
+            <table id="candidateTable"
+                   class="master-data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Organization</th>
+
+                        <th>URL</th>
+
+                        <th>Name</th>
+
+                        <th>Designation</th>
+
+                        <th>Mobile</th>
+
+                        <th>Email</th>
+
+                        <th>Registration Date</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <!-- ID -->
+
+                                <td class="master-id">
+
+                                    @item.nID
+
+                                </td>
+
+
+                                <!-- ORGANIZATION -->
+
+                                <td>
+
+                                    @item.sOrgName
+
+                                </td>
+
+
+                                <!-- URL -->
+
+                                <td>
+
+                                    @if (!string.IsNullOrEmpty(item.sOrgUrl))
+                                    {
+                                        <a href="@item.sOrgUrl"
+                                           target="_blank"
+                                           class="master-link">
+
+                                            Visit
+
+                                        </a>
+                                    }
+
+                                </td>
+
+
+                                <!-- NAME -->
+
+                                <td>
+
+                                    @item.sName
+
+                                </td>
+
+
+                                <!-- DESIGNATION -->
+
+                                <td>
+
+                                    @item.sDesignation
+
+                                </td>
+
+
+                                <!-- MOBILE -->
+
+                                <td>
+
+                                    @item.sMobile
+
+                                </td>
+
+
+                                <!-- EMAIL -->
+
+                                <td>
+
+                                    @item.sEmail
+
+                                </td>
+
+
+                                <!-- REGISTRATION DATE -->
+
+                                <td>
+
+                                    @item.RegDate?.ToString("dd-MM-yyyy")
+
+                                </td>
+
+
+                                <!-- ACTION -->
+
+                                <td>
+
+                                    <button type="button"
+                                            class="master-view-btn"
+                                            data-id="@item.nID">
+
+                                        View
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="11"
+                                class="text-center">
+
+                                No organization registrations found.
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- MASTER PAGE INFO -->
+
+        <div id="candidatePageInfo"
+             class="master-page-info text-center">
+        </div>
+
+    </div>
+
+</div>

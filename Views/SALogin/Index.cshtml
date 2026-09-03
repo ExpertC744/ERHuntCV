@@ -1,0 +1,599 @@
+﻿@model ErJobPortal.Models.SALoginM
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Super Admin Login";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    ```
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Super Admin Login - HuntCV</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="~/css/CandidateLogin.css" />
+    ```
+
+</head>
+
+<body>
+
+    ```
+    <div class="login-page">
+
+        <!-- Background decorations -->
+
+        <div class="bg-shape shape-one"></div>
+        <div class="bg-shape shape-two"></div>
+        <div class="bg-shape shape-three"></div>
+
+
+        <div class="container-fluid">
+
+            <div class="row min-vh-100 align-items-center">
+
+
+                <!-- ==========================================
+                     LEFT SIDE
+                =========================================== -->
+
+                <div class="col-lg-6 d-none d-lg-flex">
+
+                    <div class="hero-section">
+
+
+                        <!-- BRAND -->
+
+                        <div class="brand">
+
+                            <div class="brand-icon">
+
+                                <i class="bi bi-shield-lock-fill"></i>
+
+                            </div>
+
+                            <span>
+                                Hunt<span>CV</span>
+                            </span>
+
+                        </div>
+
+
+                        <!-- HERO CONTENT -->
+
+                        <div class="hero-content">
+
+                            <div class="small-label">
+
+                                <span></span>
+
+                                SUPER ADMIN PORTAL
+
+                            </div>
+
+
+                            <h1>
+
+                                Manage the
+                                <span>platform.</span>
+                                Build success.
+
+                            </h1>
+
+
+                            <p>
+
+                                Securely manage candidates,
+                                organizations, posts and
+                                platform operations from your
+                                HuntCV administration panel.
+
+                            </p>
+
+
+                            <div class="feature-list">
+
+
+                                <!-- FEATURE 1 -->
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+
+                                        <i class="bi bi-people"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Manage Candidates
+                                        </strong>
+
+                                        <small>
+                                            Manage candidate accounts
+                                            and profiles.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- FEATURE 2 -->
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+
+                                        <i class="bi bi-buildings"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Manage Organizations
+                                        </strong>
+
+                                        <small>
+                                            Control organizations and
+                                            their activities.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- FEATURE 3 -->
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+
+                                        <i class="bi bi-graph-up-arrow"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Platform Insights
+                                        </strong>
+
+                                        <small>
+                                            Monitor platform activity
+                                            and performance.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- HERO FOOTER -->
+
+                        <div class="hero-footer">
+
+                            <span>
+
+                                <i class="bi bi-shield-check"></i>
+
+                                Secure & Trusted
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="bi bi-speedometer2"></i>
+
+                                Admin Dashboard
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="bi bi-lightning-charge"></i>
+
+                                Fast & Simple
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==========================================
+                     RIGHT SIDE
+                =========================================== -->
+
+                <div class="col-lg-6">
+
+                    <div class="login-wrapper">
+
+
+                        <!-- MOBILE BRAND -->
+
+                        <div class="mobile-brand">
+
+                            <div class="brand-icon">
+
+                                <i class="bi bi-shield-lock-fill"></i>
+
+                            </div>
+
+                            <span>
+                                Hunt<span>CV</span>
+                            </span>
+
+                        </div>
+
+
+                        <!-- LOGIN CARD -->
+
+                        <div class="login-card">
+
+
+                            <!-- HEADER -->
+
+                            <div class="login-header">
+
+                                <div class="welcome-icon">
+
+                                    <i class="bi bi-person-lock"></i>
+
+                                </div>
+
+
+                                <h2>
+                                    Super Admin Login
+                                </h2>
+
+
+                                <p>
+                                    Sign in to access your
+                                    HuntCV administration panel.
+                                </p>
+
+                            </div>
+
+
+                            <!-- ERROR MESSAGE -->
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger">
+
+                                    <i class="bi bi-exclamation-circle"></i>
+
+                                    @ViewBag.Error
+
+                                </div>
+                            }
+
+
+                            <!-- LOGIN FORM -->
+
+                            <form asp-controller="SALogin"
+                                  asp-action="Index"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+
+                                <!-- MODEL VALIDATION -->
+
+                                <div asp-validation-summary="ModelOnly"
+                                     class="text-danger mb-3">
+                                </div>
+
+
+                                <!-- ==========================================
+                                     EMAIL
+                                =========================================== -->
+
+                                <div class="input-group-custom">
+
+                                    <label asp-for="sEmail">
+
+                                        Email Address
+
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-envelope"></i>
+
+
+                                        <input asp-for="sEmail"
+                                               type="email"
+                                               class="form-control"
+                                               placeholder="Enter your email address"
+                                               autocomplete="email" />
+
+                                    </div>
+
+
+                                    <span asp-validation-for="sEmail"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+
+                                <!-- ==========================================
+                                     PASSWORD
+                                =========================================== -->
+
+                                <div class="input-group-custom">
+
+
+                                    <div class="password-label">
+
+                                        <label asp-for="sPassword">
+
+                                            Password
+
+                                        </label>
+
+
+                                        <a href="#">
+
+                                            Forgot Password?
+
+                                        </a>
+
+                                    </div>
+
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-lock"></i>
+
+
+                                        <input asp-for="sPassword"
+                                               type="password"
+                                               id="Password"
+                                               class="form-control"
+                                               placeholder="Enter your password"
+                                               autocomplete="current-password" />
+
+
+                                        <button type="button"
+                                                class="password-toggle"
+                                                onclick="togglePassword()">
+
+                                            <i class="bi bi-eye"
+                                               id="passwordIcon">
+                                            </i>
+
+                                        </button>
+
+                                    </div>
+
+
+                                    <span asp-validation-for="sPassword"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+
+                                <!-- ==========================================
+                                     REMEMBER ME
+                                =========================================== -->
+
+                                <div class="remember-row">
+
+                                    <label class="remember-me">
+
+                                        <input type="checkbox"
+                                               name="RememberMe"
+                                               value="true" />
+
+                                        <span class="checkmark"></span>
+
+                                        Remember me
+
+                                    </label>
+
+                                </div>
+
+
+                                <!-- ==========================================
+                                     LOGIN BUTTON
+                                =========================================== -->
+
+                                <button type="submit"
+                                        class="login-btn">
+
+                                    <span>
+                                        Sign In
+                                    </span>
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </button>
+
+
+                                <!-- DIVIDER -->
+
+                                <div class="divider">
+
+                                    <span>
+                                        SECURE ADMIN ACCESS
+                                    </span>
+
+                                </div>
+
+
+                                <!-- SECURITY MESSAGE -->
+
+                                <div class="register-text">
+
+                                    <i class="bi bi-shield-check"></i>
+
+                                    Authorized Super Admin access only.
+
+                                </div>
+
+
+                            </form>
+
+
+                        </div>
+
+
+                        <!-- FOOTER -->
+
+                        <div class="login-bottom">
+
+                            <span>
+
+                                © @DateTime.Now.Year HuntCV
+
+                            </span>
+
+
+                            <span class="dot"></span>
+
+
+                            <a href="#">
+
+                                Privacy
+
+                            </a>
+
+
+                            <span class="dot"></span>
+
+
+                            <a href="#">
+
+                                Terms
+
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+     PASSWORD SCRIPT
+         =========================================== -->
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("Password");
+
+            const icon =
+                document.getElementById("passwordIcon");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                icon.classList.remove("bi-eye");
+
+                icon.classList.add("bi-eye-slash");
+
+            }
+            else {
+
+                password.type = "password";
+
+                icon.classList.remove("bi-eye-slash");
+
+                icon.classList.add("bi-eye");
+
+            }
+
+        }
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelectorAll("input").forEach(function (input) {
+
+                // Prevent space before entering the first character
+                input.addEventListener("keydown", function (e) {
+
+                    if (e.key === " " && this.value.length === 0) {
+                        e.preventDefault();
+                    }
+
+                });
+
+                // Remove leading spaces when typing or pasting
+                input.addEventListener("input", function () {
+
+                    this.value = this.value.replace(/^\s+/, "");
+
+                });
+
+            });
+
+        });
+    </script>
+
+
+    <partial name="_ValidationScriptsPartial" />
+    ```
+
+</body>
+
+</html>

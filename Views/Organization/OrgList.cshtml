@@ -1,0 +1,196 @@
+﻿@model List<OrganizationUserM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Organization Dashboard";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+
+<div class="container-fluid">
+
+    <!-- MASTER TABLE CARD -->
+
+    <div class="master-table-container">
+
+        <!-- MASTER TABLE HEADER -->
+
+        <div class="master-table-title">
+
+            <div>
+
+                <h2>
+                    Organization Registration List
+                </h2>
+
+                <p>
+                    View and manage registered organizations
+                </p>
+
+            </div>
+
+
+            <a asp-controller="SuperAdmin"
+               asp-action="Dashboard"
+               class="btn btn-secondary">
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- MASTER TABLE -->
+
+        <div class="table-responsive">
+
+            <table id="organizationTable"
+                   class="master-data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Organization</th>
+
+                        <th>URL</th>
+
+                        <th>Name</th>
+
+                        <th>Designation</th>
+
+                        <th>Mobile</th>
+
+                        <th>Email</th>
+
+                        <th>Registration Date</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td class="master-id">
+
+                                    @item.nID
+
+                                </td>
+
+
+                                <td>
+
+                                    @item.sOrgName
+
+                                </td>
+
+
+                                <td>
+
+                                    @if (!string.IsNullOrEmpty(item.sOrgUrl))
+                                    {
+                                        <a href="@item.sOrgUrl"
+                                           target="_blank">
+
+                                            Visit
+
+                                        </a>
+                                    }
+
+                                </td>
+
+
+                                <td>
+
+                                    @item.sName
+
+                                </td>
+
+
+                                <td>
+
+                                    @item.sDesignation
+
+                                </td>
+
+
+                                <td>
+
+                                    @item.sMobile
+
+                                </td>
+
+
+                                <td>
+
+                                    @item.sEmail
+
+                                </td>
+
+
+                                <td>
+
+                                    @item.RegDate?.ToString("dd-MM-yyyy")
+
+                                </td>
+
+
+                                <td>
+
+                                    <button type="button"
+                                            class="master-view-btn"
+                                            data-id="@item.nID">
+
+                                        View
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="11"
+                                class="text-center">
+
+                                No organization registrations found.
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- MASTER PAGE INFO -->
+
+        <div id="organizationPageInfo"
+             class="master-page-info text-center">
+        </div>
+
+    </div>
+
+</div>

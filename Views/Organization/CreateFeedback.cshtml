@@ -1,0 +1,753 @@
+﻿@model ERHuntCV.Models.CandidateFeedbackViewModel
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    ViewData["Title"] = "Organization Dashboard";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #263746;
+    }
+
+    .feedback-page {
+        width: 100%;
+        padding: 18px 0 100px 0;
+    }
+
+    .feedback-container {
+        width: 1180px;
+        max-width: calc(100% - 90px);
+        margin-left: 32px;
+    }
+
+    /* TITLE */
+
+    .feedback-title {
+        margin: 0 0 38px 14px;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.2;
+        color: #202020;
+    }
+
+    /* QUESTION */
+
+    .feedback-question-box {
+        width: 100%;
+        padding: 0 0 19px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .question-text {
+        margin: 0 0 19px 0;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #263746;
+    }
+
+    .question-number {
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    /* RADIO */
+
+    .radio-options {
+        margin-left: 29px;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 17px;
+        color: #34424d;
+    }
+
+        .radio-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border: 1px solid #888;
+            border-radius: 50%;
+            margin: 0 7px 0 0;
+            background: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .radio-option input[type="radio"]:checked::after {
+                content: "";
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #666;
+                top: 3px;
+                left: 3px;
+            }
+
+    /* =========================================
+                       STAR RATING
+                       ========================================= */
+
+    .star-options {
+        margin-left: 29px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        height: 25px;
+    }
+
+    .star-input {
+        display: none;
+    }
+
+    .star {
+        font-size: 25px;
+        font-weight: 400;
+        color: #607080;
+        cursor: pointer;
+        line-height: 1;
+        display: inline-block;
+    }
+
+        .star:hover {
+            color: #607080;
+        }
+
+    /* =========================================
+                       EMOJI
+                       ========================================= */
+
+    .emoji-options {
+        margin-left: 29px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 28px;
+    }
+
+    .emoji-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+        .emoji-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border: 1px solid #888;
+            border-radius: 50%;
+            margin: 0;
+            background: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .emoji-option input[type="radio"]:checked::after {
+                content: "";
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #666;
+                top: 3px;
+                left: 3px;
+            }
+
+    .emoji {
+        font-size: 21px;
+        line-height: 1;
+    }
+
+    /* =========================================
+                       TEXTAREA
+                       ========================================= */
+
+    .feedback-textarea {
+        display: block;
+        width: 945px;
+        height: 90px;
+        margin-left: 29px;
+        padding: 10px;
+        border: 1px solid #d8dde1;
+        border-radius: 6px;
+        background: #fff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        color: #333;
+        resize: vertical;
+        outline: none;
+    }
+
+        .feedback-textarea:focus {
+            border-color: #c5cbd0;
+            box-shadow: none;
+        }
+
+    /* =========================================
+                       VALIDATION
+                       ========================================= */
+
+    .field-validation {
+        display: block;
+        margin-left: 29px;
+        margin-top: 7px;
+        color: #dc3545;
+        font-size: 14px;
+    }
+
+    /* =========================================
+                       SUBMIT
+                       ========================================= */
+
+    .submit-area {
+        margin-top: -2px;
+        margin-left: 14px;
+    }
+
+    .submit-button {
+        padding: 5px 9px;
+        background: #f5f5f5;
+        color: #222;
+        border: 1px solid #999;
+        border-radius: 3px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .submit-button:hover {
+            background: #eeeeee;
+        }
+
+    /* =========================================
+                       SUCCESS / ERROR
+                       ========================================= */
+
+    .success-message {
+        margin: 0 0 25px 14px;
+        padding: 10px 15px;
+        background: #e8f5e9;
+        border: 1px solid #c8e6c9;
+        color: #2e7d32;
+        border-radius: 5px;
+    }
+
+    .error-message {
+        margin: 0 0 25px 14px;
+        padding: 10px 15px;
+        background: #ffebee;
+        border: 1px solid #ffcdd2;
+        color: #c62828;
+        border-radius: 5px;
+    }
+
+    /* =========================================
+                       MOBILE
+                       ========================================= */
+
+    @@media (max-width: 1250px) {
+
+        .feedback-container {
+            width: calc(100% - 64px);
+            max-width: none;
+        }
+
+        .feedback-textarea {
+            width: 80%;
+        }
+    }
+
+    @@media (max-width: 700px) {
+
+        .feedback-container {
+            width: calc(100% - 30px);
+            margin-left: 15px;
+        }
+
+        .feedback-title {
+            margin-left: 0;
+            font-size: 28px;
+        }
+
+        .question-text {
+            font-size: 16px;
+        }
+
+        .feedback-textarea {
+            width: calc(100% - 29px);
+        }
+
+        .emoji-options {
+            gap: 8px;
+        }
+
+        .emoji {
+            font-size: 18px;
+        }
+    }
+
+</style>
+
+
+<div class="feedback-page">
+
+    <div class="feedback-container">
+
+        <h1 class="feedback-title">
+            Add Feedback
+        </h1>
+
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="success-message">
+                @TempData["Success"]
+            </div>
+        }
+
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="error-message">
+                @TempData["Error"]
+            </div>
+        }
+
+
+        <form asp-controller="Organization"
+              asp-action="CreateFeedback"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <!-- QUESTION 1 -->
+            <!-- =========================================
+                 QUESTION 1
+                 ========================================= -->
+
+            <div class="feedback-question-box">
+
+                <div class="question-text">
+
+                    <span class="question-number">
+                        1.
+                    </span>
+
+                    @Model.Que1
+
+                </div>
+
+
+                <div class="radio-options">
+
+                    <label class="radio-option">
+
+                        <input type="radio"
+                               asp-for="sQue1"
+                               value="True" />
+
+                        <span>True</span>
+
+                    </label>
+
+
+                    <label class="radio-option">
+
+                        <input type="radio"
+                               asp-for="sQue1"
+                               value="False" />
+
+                        <span>False</span>
+
+                    </label>
+
+                </div>
+
+                <span asp-validation-for="sQue1"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 2 - STAR RATING
+                 ========================================= -->
+
+            <div class="feedback-question-box">
+
+                <div class="question-text">
+
+                    <span class="question-number">
+                        2.
+                    </span>
+
+                    @Model.Que2
+
+                </div>
+
+
+                <div class="star-options">
+
+                    <input type="radio"
+                           asp-for="sQue2"
+                           value="1"
+                           id="star1"
+                           class="star-input" />
+
+                    <label for="star1"
+                           class="star"
+                           data-value="1">
+                        ☆
+                    </label>
+
+
+                    <input type="radio"
+                           asp-for="sQue2"
+                           value="2"
+                           id="star2"
+                           class="star-input" />
+
+                    <label for="star2"
+                           class="star"
+                           data-value="2">
+                        ☆
+                    </label>
+
+
+                    <input type="radio"
+                           asp-for="sQue2"
+                           value="3"
+                           id="star3"
+                           class="star-input" />
+
+                    <label for="star3"
+                           class="star"
+                           data-value="3">
+                        ☆
+                    </label>
+
+
+                    <input type="radio"
+                           asp-for="sQue2"
+                           value="4"
+                           id="star4"
+                           class="star-input" />
+
+                    <label for="star4"
+                           class="star"
+                           data-value="4">
+                        ☆
+                    </label>
+
+
+                    <input type="radio"
+                           asp-for="sQue2"
+                           value="5"
+                           id="star5"
+                           class="star-input" />
+
+                    <label for="star5"
+                           class="star"
+                           data-value="5">
+                        ☆
+                    </label>
+
+                </div>
+
+                <span asp-validation-for="sQue2"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 3
+                 ========================================= -->
+
+            <div class="feedback-question-box">
+
+                <div class="question-text">
+
+                    <span class="question-number">
+                        3.
+                    </span>
+
+                    @Model.Que3
+
+                </div>
+
+
+                <div class="radio-options">
+
+                    <label class="radio-option">
+
+                        <input type="radio"
+                               asp-for="sQue3"
+                               value="Yes" />
+
+                        <span>Yes</span>
+
+                    </label>
+
+
+                    <label class="radio-option">
+
+                        <input type="radio"
+                               asp-for="sQue3"
+                               value="No" />
+
+                        <span>No</span>
+
+                    </label>
+
+                </div>
+
+                <span asp-validation-for="sQue3"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 4 - EMOJI
+                 ========================================= -->
+
+            <div class="feedback-question-box">
+
+                <div class="question-text">
+
+                    <span class="question-number">
+                        4.
+                    </span>
+
+                    @Model.Que4
+
+                </div>
+
+
+                <div class="emoji-options">
+
+                    <label class="emoji-option">
+
+                        <input type="radio"
+                               asp-for="sQue4"
+                               value="1" />
+
+                        <span class="emoji">
+                            😡
+                        </span>
+
+                    </label>
+
+
+                    <label class="emoji-option">
+
+                        <input type="radio"
+                               asp-for="sQue4"
+                               value="2" />
+
+                        <span class="emoji">
+                            😟
+                        </span>
+
+                    </label>
+
+
+                    <label class="emoji-option">
+
+                        <input type="radio"
+                               asp-for="sQue4"
+                               value="3" />
+
+                        <span class="emoji">
+                            😐
+                        </span>
+
+                    </label>
+
+
+                    <label class="emoji-option">
+
+                        <input type="radio"
+                               asp-for="sQue4"
+                               value="4" />
+
+                        <span class="emoji">
+                            🙂
+                        </span>
+
+                    </label>
+
+
+                    <label class="emoji-option">
+
+                        <input type="radio"
+                               asp-for="sQue4"
+                               value="5" />
+
+                        <span class="emoji">
+                            😍
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <span asp-validation-for="sQue4"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 5
+                 ========================================= -->
+
+            <div class="feedback-question-box">
+
+                <div class="question-text">
+
+                    <span class="question-number">
+                        5.
+                    </span>
+
+                    @Model.Que5
+
+                </div>
+
+
+                <textarea asp-for="sQue5"
+                          class="feedback-textarea"
+                          placeholder="Enter your feedback..."></textarea>
+
+                <span asp-validation-for="sQue5"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 SUBMIT
+                 ========================================= -->
+
+            <div class="submit-area">
+
+                <button type="submit"
+                        class="submit-button">
+                    Submit
+                </button>
+
+            </div>
+        </form>
+
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const stars =
+                    document.querySelectorAll(".star");
+
+                const inputs =
+                    document.querySelectorAll(".star-input");
+
+
+                function updateStars(selectedValue) {
+
+                    stars.forEach(function (star) {
+
+                        const value =
+                            parseInt(
+                                star.getAttribute("data-value")
+                            );
+
+                        if (value <= selectedValue) {
+                            star.textContent = "★";
+                        }
+                        else {
+                            star.textContent = "☆";
+                        }
+
+                    });
+                }
+
+
+                stars.forEach(function (star) {
+
+                    star.addEventListener(
+                        "click",
+                        function () {
+
+                            const selectedValue =
+                                parseInt(
+                                    this.getAttribute(
+                                        "data-value"
+                                    )
+                                );
+
+                            updateStars(selectedValue);
+                        }
+                    );
+
+                });
+
+
+                // Restore selected stars
+                inputs.forEach(function (input) {
+
+                    if (input.checked) {
+
+                        updateStars(
+                            parseInt(input.value)
+                        );
+
+                    }
+
+                });
+
+            }
+        );
+
+    </script>
+}

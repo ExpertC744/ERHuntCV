@@ -1,0 +1,531 @@
+﻿@model HuntCV_Portal.Models.OrganizationLoginM
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Organization Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Organization Login - HuntCV</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Organization Login CSS -->
+    <link rel="stylesheet"
+          href="~/css/OrganizationLogin.css" />
+
+</head>
+
+<body>
+
+    <div class="organization-login-page">
+
+        <!-- Background Decorations -->
+
+        <div class="background-shape shape-one"></div>
+
+        <div class="background-shape shape-two"></div>
+
+        <div class="background-shape shape-three"></div>
+
+        <div class="container-fluid">
+
+            <div class="row min-vh-100">
+
+                <!-- =====================================================
+                 LEFT SIDE
+                 ===================================================== -->
+
+                <div class="col-lg-6 d-none d-lg-flex">
+
+                    <div class="organization-hero">
+
+                        <!-- Brand -->
+
+                        <div class="organization-brand">
+
+                            <div class="brand-icon">
+
+                                <i class="bi bi-briefcase-fill"></i>
+
+                            </div>
+
+                            <span>
+                                Hunt<span>CV</span>
+                            </span>
+
+                        </div>
+
+                        <!-- Hero Content -->
+
+                        <div class="hero-content">
+
+                            <div class="hero-label">
+
+                                <span></span>
+
+                                HIRING MADE SIMPLE
+
+                            </div>
+
+                            <h1>
+
+                                Find the right
+                                <span>talent.</span>
+
+                                Build your team.
+
+                            </h1>
+
+                            <p>
+
+                                Connect with skilled candidates,
+                                discover exceptional talent and
+                                build a stronger workforce with HuntCV.
+
+                            </p>
+
+                            <!-- Features -->
+
+                            <div class="organization-features">
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+
+                                        <i class="bi bi-search"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Discover Top Talent
+                                        </strong>
+
+                                        <small>
+                                            Search and connect with
+                                            candidates that match your needs.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+
+                                        <i class="bi bi-person-check"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Find Perfect Candidates
+                                        </strong>
+
+                                        <small>
+                                            Identify skilled professionals
+                                            for your organization.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+
+                                        <i class="bi bi-building-check"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Grow Your Organization
+                                        </strong>
+
+                                        <small>
+                                            Build a talented team and
+                                            accelerate your growth.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Footer Features -->
+
+                        <div class="hero-footer">
+
+                            <span>
+
+                                <i class="bi bi-shield-check"></i>
+
+                                Secure Platform
+
+                            </span>
+
+                            <span>
+
+                                <i class="bi bi-people"></i>
+
+                                Skilled Candidates
+
+                            </span>
+
+                            <span>
+
+                                <i class="bi bi-graph-up-arrow"></i>
+
+                                Business Growth
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- =====================================================
+                 RIGHT SIDE
+                 ===================================================== -->
+
+                <div class="col-lg-6">
+
+                    <div class="organization-login-wrapper">
+
+                        <!-- Mobile Brand -->
+
+                        <div class="mobile-brand">
+
+                            <div class="brand-icon">
+
+                                <i class="bi bi-briefcase-fill"></i>
+
+                            </div>
+
+                            <span>
+                                Hunt<span>CV</span>
+                            </span>
+
+                        </div>
+
+                        <!-- Login Card -->
+
+                        <div class="organization-login-card">
+
+                            <!-- Header -->
+
+                            <div class="login-header">
+
+                                <div class="login-icon">
+
+                                    <i class="bi bi-building"></i>
+
+                                </div>
+
+                                <div class="organization-badge">
+
+                                    <i class="bi bi-building"></i>
+
+                                    ORGANIZATION
+
+                                </div>
+
+                                <h2>
+                                    Welcome Back
+                                </h2>
+
+                                <p>
+                                    Sign in to manage your organization
+                                    and discover top talent.
+                                </p>
+
+                            </div>
+
+                            <!-- Validation -->
+
+                            <div asp-validation-summary="ModelOnly"
+                                 class="validation-summary">
+                            </div>
+
+                            <form asp-controller="Account"
+                                  asp-action="OrganizationLogin"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+                                <!-- Email -->
+
+                                <div class="input-group-custom">
+
+                                    <label asp-for="sEmail">
+                                        Email Address
+                                    </label>
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-envelope"></i>
+
+                                        <input asp-for="sEmail"
+                                               class="form-control"
+                                               placeholder="Enter organization email"
+                                               autocomplete="email" />
+
+                                    </div>
+
+                                    <span asp-validation-for="sEmail"
+                                          class="field-error">
+                                    </span>
+
+                                </div>
+
+                                <!-- Password -->
+
+                                <div class="input-group-custom">
+
+                                    <div class="password-label">
+
+                                        <label asp-for="sPassword">
+                                            Password
+                                        </label>
+
+                                        <a href="#">
+                                            Forgot Password?
+                                        </a>
+
+                                    </div>
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-lock"></i>
+
+                                        <input asp-for="sPassword"
+                                               type="password"
+                                               id="OrganizationPassword"
+                                               class="form-control"
+                                               placeholder="Enter your password"
+                                               autocomplete="current-password" />
+
+                                        <button type="button"
+                                                class="password-toggle"
+                                                id="passwordToggle">
+
+                                            <i class="bi bi-eye"
+                                               id="passwordIcon">
+                                            </i>
+
+                                        </button>
+
+                                    </div>
+
+                                    <span asp-validation-for="sPassword"
+                                          class="field-error">
+                                    </span>
+
+                                </div>
+
+                                <!-- Login Button -->
+
+                                <button type="submit"
+                                        class="organization-login-btn">
+
+                                    <span>
+                                        Sign In to Organization
+                                    </span>
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </button>
+
+                                <!-- Divider -->
+
+                                <div class="divider">
+
+                                    <span>OR</span>
+
+                                </div>
+
+                                <!-- Register -->
+
+                                <div class="register-text">
+
+                                    Don't have an organization account?
+
+                                    <a asp-controller="Account"
+                                       asp-action="OrganizationRegister">
+
+                                        Register Organization
+
+                                    </a>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                        <!-- Bottom -->
+
+                        <div class="login-bottom">
+
+                            <span>
+                                © @DateTime.Now.Year HuntCV
+                            </span>
+
+                            <span class="dot"></span>
+
+                            <a href="#">
+                                Privacy
+                            </a>
+
+                            <span class="dot"></span>
+
+                            <a href="#">
+                                Terms
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+     SCRIPTS
+     ========================================================= -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+        /* =========================================================
+        PASSWORD SHOW / HIDE
+        ========================================================= */
+
+        const passwordInput =
+        document.getElementById("OrganizationPassword");
+
+        const passwordToggle =
+        document.getElementById("passwordToggle");
+
+        const passwordIcon =
+        document.getElementById("passwordIcon");
+
+        if (passwordInput &&
+        passwordToggle &&
+        passwordIcon) {
+
+        passwordToggle.addEventListener(
+        "click",
+        function () {
+
+        if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        passwordIcon.classList.remove(
+        "bi-eye"
+        );
+
+        passwordIcon.classList.add(
+        "bi-eye-slash"
+        );
+
+        }
+        else {
+
+        passwordInput.type = "password";
+
+        passwordIcon.classList.remove(
+        "bi-eye-slash"
+        );
+
+        passwordIcon.classList.add(
+        "bi-eye"
+        );
+
+        }
+
+        }
+        );
+
+        }
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll("input").forEach(function (input) {
+
+        // Prevent space before the first character
+        input.addEventListener("keydown", function (e) {
+
+        if (e.key === " " && this.value.length === 0) {
+        e.preventDefault();
+        }
+
+        });
+
+        // Remove leading spaces from typing or pasting
+        input.addEventListener("input", function () {
+
+        this.value = this.value.replace(/^\s+/, "");
+
+        });
+
+        });
+
+        });
+    </script>
+
+</body>
+
+</html>

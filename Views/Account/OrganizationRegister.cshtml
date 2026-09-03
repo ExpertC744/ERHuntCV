@@ -1,0 +1,962 @@
+﻿@model HuntCV_Portal.Models.OrganizationRegisterM
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Organization Registration";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Organization Registration - HuntCV</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- HuntCV Organization Register CSS -->
+    <link rel="stylesheet"
+          href="~/css/OrganizationRegister.css" />
+
+</head>
+
+<body>
+
+    <div class="organization-register-page">
+
+        <!-- Background -->
+
+        <div class="register-bg-shape shape-one"></div>
+
+        <div class="register-bg-shape shape-two"></div>
+
+        <div class="register-bg-shape shape-three"></div>
+
+        <div class="container">
+
+            <!-- =====================================================
+             BRAND
+             ===================================================== -->
+
+            <div class="register-brand">
+
+                <div class="brand-logo">
+
+                    <i class="bi bi-briefcase-fill"></i>
+
+                </div>
+
+                <span>
+                    Hunt<span>CV</span>
+                </span>
+
+            </div>
+
+            <!-- =====================================================
+             MAIN CARD
+             ===================================================== -->
+
+            <div class="organization-register-card">
+
+                <!-- Header -->
+
+                <div class="register-header">
+
+                    <div class="register-header-icon">
+
+                        <i class="bi bi-building-add"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="organization-label">
+
+                            <i class="bi bi-building"></i>
+
+                            ORGANIZATION REGISTRATION
+
+                        </div>
+
+                        <h1>
+                            Create Your Organization Account
+                        </h1>
+
+                        <p>
+                            Join HuntCV and connect with talented
+                            professionals.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Progress -->
+
+                <div class="registration-progress">
+
+                    <div class="progress-step active">
+
+                        <span>1</span>
+
+                        <div>
+
+                            <strong>
+                                Organization Details
+                            </strong>
+
+                            <small>
+                                Company information
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="progress-line"></div>
+
+                    <div class="progress-step">
+
+                        <span>2</span>
+
+                        <div>
+
+                            <strong>
+                                Verification
+                            </strong>
+
+                            <small>
+                                Email & security
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <form asp-controller="Account"
+                      asp-action="OrganizationRegister"
+                      method="post"
+                      id="organizationRegisterForm">
+
+                    @Html.AntiForgeryToken()
+
+                    <!-- Validation -->
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="validation-summary">
+                    </div>
+
+                    <div class="row g-4">
+
+                        <!-- =================================================
+                         ORGANIZATION DETAILS
+                         ================================================= -->
+
+                        <div class="col-lg-7">
+
+                            <div class="section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-building"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Organization Information
+                                    </h3>
+
+                                    <p>
+                                        Tell us about your organization.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row g-3">
+
+                                <!-- Organization Name -->
+
+                                <div class="col-12">
+
+                                    <div class="field-group">
+
+                                        <label asp-for="sOrgName">
+
+                                            Organization Name
+
+                                            <span>*</span>
+
+                                        </label>
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-buildings"></i>
+
+                                            <input asp-for="sOrgName"
+                                                   class="form-control"
+                                                   placeholder="Enter organization name" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sOrgName"
+                                              class="field-error">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Website -->
+
+                                <div class="col-12">
+
+                                    <div class="field-group">
+
+                                        <label asp-for="sOrgUrl">
+
+                                            Organization Website
+
+                                        </label>
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-globe2"></i>
+
+                                            <input asp-for="sOrgUrl"
+                                                   class="form-control"
+                                                   placeholder="https://www.example.com" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sOrgUrl"
+                                              class="field-error">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Contact Person -->
+
+                                <div class="col-md-6">
+
+                                    <div class="field-group">
+
+                                        <label asp-for="sName">
+
+                                            Contact Person
+
+                                            <span>*</span>
+
+                                        </label>
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-person"></i>
+
+                                            <input asp-for="sName"
+                                                   class="form-control"
+                                                   placeholder="Full name" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sName"
+                                              class="field-error">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Designation -->
+
+                                <div class="col-md-6">
+
+                                    <div class="field-group">
+
+                                        <label asp-for="sDesignation">
+
+                                            Designation
+
+                                        </label>
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-person-badge"></i>
+
+                                            <input asp-for="sDesignation"
+                                                   class="form-control"
+                                                   placeholder="e.g. HR Manager" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sDesignation"
+                                              class="field-error">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Mobile -->
+
+                                <div class="col-md-6">
+
+                                    <div class="field-group">
+
+                                        <label asp-for="sMobile">
+
+                                            Mobile Number
+
+                                            <span>*</span>
+
+                                        </label>
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-phone"></i>
+
+                                            <input asp-for="sMobile"
+                                                   class="form-control"
+                                                   maxlength="10"
+                                                   inputmode="numeric"
+                                                   placeholder="10-digit mobile number" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sMobile"
+                                              class="field-error">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Email -->
+
+                                <div class="col-md-6">
+
+                                    <div class="field-group">
+
+                                        <label asp-for="sEmail">
+
+                                            Email Address
+
+                                            <span>*</span>
+
+                                        </label>
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-envelope"></i>
+
+                                            <input asp-for="sEmail"
+                                                   type="email"
+                                                   class="form-control"
+                                                   placeholder="organization@email.com" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sEmail"
+                                              class="field-error">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- OTP -->
+
+                                <div class="col-12">
+
+                                    <div class="otp-box">
+
+                                        <div class="otp-header">
+
+                                            <div>
+
+                                                <label asp-for="sOTP">
+
+                                                    Email Verification OTP
+
+                                                </label>
+
+                                                <p>
+
+                                                    Verify your organization
+                                                    email address.
+
+                                                </p>
+
+                                            </div>
+
+                                            <button type="button"
+                                                    class="send-otp-btn"
+                                                    id="sendOtpBtn">
+
+                                                <i class="bi bi-send"></i>
+
+                                                Send OTP
+
+                                            </button>
+
+                                        </div>
+
+                                        <div class="otp-input-box">
+
+                                            <i class="bi bi-shield-lock"></i>
+
+                                            <input asp-for="sOTP"
+                                                   class="form-control"
+                                                   maxlength="6"
+                                                   inputmode="numeric"
+                                                   placeholder="Enter 6-digit OTP" />
+
+                                        </div>
+
+                                        <span asp-validation-for="sOTP"
+                                              class="field-error">
+                                        </span>
+
+                                        <div class="otp-message"
+                                             id="otpMessage">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- =================================================
+                         SECURITY
+                         ================================================= -->
+
+                        <div class="col-lg-5">
+
+                            <div class="security-card">
+
+                                <div class="section-title">
+
+                                    <div class="section-icon">
+
+                                        <i class="bi bi-shield-lock"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h3>
+                                            Account Security
+                                        </h3>
+
+                                        <p>
+                                            Protect your organization account.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Password -->
+
+                                <div class="field-group">
+
+                                    <label asp-for="sPassword">
+
+                                        Password
+
+                                        <span>*</span>
+
+                                    </label>
+
+                                    <div class="input-box">
+
+                                        <i class="bi bi-lock"></i>
+
+                                        <input asp-for="sPassword"
+                                               type="password"
+                                               class="form-control password-field"
+                                               placeholder="Create password" />
+
+                                        <button type="button"
+                                                class="password-toggle">
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                    <div class="password-strength">
+
+                                        <div class="strength-bars">
+
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+
+                                        </div>
+
+                                        <small id="strengthText">
+                                            Password strength
+                                        </small>
+
+                                    </div>
+
+                                    <span asp-validation-for="sPassword"
+                                          class="field-error">
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- Security Info -->
+
+                                <div class="security-info">
+
+                                    <div>
+
+                                        <i class="bi bi-check-circle-fill"></i>
+
+                                        Minimum 8 characters
+
+                                    </div>
+
+                                    <div>
+
+                                        <i class="bi bi-check-circle-fill"></i>
+
+                                        Use uppercase & numbers
+
+                                    </div>
+
+                                    <div>
+
+                                        <i class="bi bi-check-circle-fill"></i>
+
+                                        Add a special character
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Organization Benefits -->
+
+                                <div class="benefits-box">
+
+                                    <h4>
+
+                                        <i class="bi bi-stars"></i>
+
+                                        Why HuntCV?
+
+                                    </h4>
+
+                                    <div>
+
+                                        <i class="bi bi-check2"></i>
+
+                                        Discover skilled candidates
+
+                                    </div>
+
+                                    <div>
+
+                                        <i class="bi bi-check2"></i>
+
+                                        Post your job opportunities
+
+                                    </div>
+
+                                    <div>
+
+                                        <i class="bi bi-check2"></i>
+
+                                        Manage applications easily
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- =================================================
+                     TERMS
+                     ================================================= -->
+
+                    <div class="terms-box">
+
+                        <label>
+
+                            <input type="checkbox"
+                                   id="terms"
+                                   required />
+
+                            <span class="custom-check"></span>
+
+                            <span>
+
+                                I agree to HuntCV's
+
+                                <a href="#">
+                                    Terms & Conditions
+                                </a>
+
+                                and
+
+                                <a href="#">
+                                    Privacy Policy
+                                </a>.
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <!-- =================================================
+                     SUBMIT
+                     ================================================= -->
+
+                    <div class="register-submit">
+
+                        <button type="submit"
+                                class="create-account-btn">
+
+                            <span>
+                                Create Organization Account
+                            </span>
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                    <!-- LOGIN -->
+
+                    <div class="already-account">
+
+                        Already have an organization account?
+
+                        <a asp-controller="Account"
+                           asp-action="OrganizationLogin">
+
+                            Sign In
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Footer -->
+
+            <div class="register-footer">
+
+                <span>
+                    © @DateTime.Now.Year HuntCV
+                </span>
+
+                <span>•</span>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <span>•</span>
+
+                <a href="#">
+                    Terms
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+     SCRIPTS
+     ========================================================= -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+        /* =========================================================
+        PASSWORD SHOW / HIDE
+        ========================================================= */
+
+        document
+        .querySelectorAll(".password-toggle")
+        .forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+        const input =
+        this.parentElement
+        .querySelector(".password-field");
+
+        const icon =
+        this.querySelector("i");
+
+        if (input.type === "password") {
+
+        input.type = "text";
+
+        icon.classList.remove("bi-eye");
+
+        icon.classList.add("bi-eye-slash");
+
+        }
+        else {
+
+        input.type = "password";
+
+        icon.classList.remove("bi-eye-slash");
+
+        icon.classList.add("bi-eye");
+
+        }
+
+        });
+
+        });
+
+
+        /* =========================================================
+        PASSWORD STRENGTH
+        ========================================================= */
+
+        const password =
+        document.getElementById("sPassword");
+
+        if (password) {
+
+        password.addEventListener("input", function () {
+
+        const value = this.value;
+
+        const bars =
+        document.querySelectorAll(
+        ".strength-bars span"
+        );
+
+        const text =
+        document.getElementById(
+        "strengthText"
+        );
+
+        let strength = 0;
+
+        if (value.length >= 8)
+        strength++;
+
+        if (/[A-Z]/.test(value))
+        strength++;
+
+        if (/[0-9]/.test(value))
+        strength++;
+
+        if (/[^A-Za-z0-9]/.test(value))
+        strength++;
+
+        bars.forEach(function (bar, index) {
+
+        bar.classList.remove(
+        "weak",
+        "medium",
+        "strong"
+        );
+
+        if (index < strength) {
+
+        if (strength <= 1)
+        bar.classList.add("weak");
+
+        else if (strength <= 3)
+        bar.classList.add("medium");
+
+        else
+        bar.classList.add("strong");
+
+        }
+
+        });
+
+        if (strength === 0)
+
+        text.textContent =
+        "Password strength";
+
+        else if (strength === 1)
+
+        text.textContent =
+        "Weak password";
+
+        else if (strength <= 3)
+
+        text.textContent =
+        "Good password";
+
+        else
+
+        text.textContent =
+        "Strong password";
+
+        });
+
+        }
+
+
+        /* =========================================================
+        SEND OTP
+        ========================================================= */
+
+        const sendOtpButton =
+        document.getElementById("sendOtpBtn");
+
+        if (sendOtpButton) {
+
+        sendOtpButton.addEventListener(
+        "click",
+        function () {
+
+        const email =
+        document.getElementById(
+        "sEmail"
+        ).value.trim();
+
+        const message =
+        document.getElementById(
+        "otpMessage"
+        );
+
+        if (!email) {
+
+        message.textContent =
+        "Please enter your email address first.";
+
+        message.className =
+        "otp-message error";
+
+        return;
+        }
+
+        const button = this;
+
+        let seconds = 30;
+
+        button.disabled = true;
+
+        message.textContent =
+        "OTP has been sent to your email.";
+
+        message.className =
+        "otp-message success";
+
+        button.innerHTML =
+        '<i class="bi bi-clock"></i> Resend in '
+        + seconds + 's';
+
+        const timer =
+        setInterval(function () {
+
+        seconds--;
+
+        button.innerHTML =
+        '<i class="bi bi-clock"></i> Resend in '
+        + seconds + 's';
+
+        if (seconds <= 0) {
+
+        clearInterval(timer);
+
+        button.disabled = false;
+
+        button.innerHTML =
+        '<i class="bi bi-send"></i> Send OTP';
+
+        }
+
+        }, 1000);
+
+        });
+
+        }
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll("#organizationRegisterForm input").forEach(function (input) {
+
+        // Prevent space when textbox is empty
+        input.addEventListener("keydown", function (e) {
+
+        if (e.key === " " && this.value.length === 0) {
+        e.preventDefault();
+        }
+
+        });
+
+        // Remove spaces only from the beginning
+        input.addEventListener("input", function () {
+
+        this.value = this.value.replace(/^\s+/, "");
+
+        });
+
+        });
+
+        });
+    </script>
+
+</body>
+
+</html>
