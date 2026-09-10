@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace HuntCV_Portal.Repositories
 {
@@ -13,9 +14,11 @@ namespace HuntCV_Portal.Repositories
     {
         private readonly IConfiguration _configuration;
 
+
         public AccountRepository(IConfiguration configuration)
         {
             _configuration = configuration;
+
         }
 
         public int Register(CandidateRegisterM model)
@@ -95,6 +98,55 @@ namespace HuntCV_Portal.Repositories
             }
 
             return candidateID;
+        }
+
+        public (int CandidateID, DateTime? DOB, DateTime? RegDate)?
+      GetCandidateRegistrationDetails(int candidateId)
+        {
+            string connectionString =
+                _configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException(
+                    "DefaultConnection connection string not found.");
+
+            using (SqlConnection cn = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT
+                nID,
+                DOB,
+                RegDate
+            FROM tblCandidateReg
+            WHERE nID = @nID";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add("@nID", SqlDbType.Int).Value = candidateId;
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            int id = Convert.ToInt32(dr["nID"]);
+
+                            DateTime? dob =
+                                dr["DOB"] == DBNull.Value
+                                    ? null
+                                    : Convert.ToDateTime(dr["DOB"]);
+
+                            DateTime? regDate =
+                                dr["RegDate"] == DBNull.Value
+                                    ? null
+                                    : Convert.ToDateTime(dr["RegDate"]);
+
+                            return (id, dob, regDate);
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
 
         // candidate login
@@ -247,6 +299,50 @@ namespace HuntCV_Portal.Repositories
             }
         }
 
+        public (int OrganizationID, DateTime? RegDate)?
+    GetOrganizationRegistrationDetails(int orgId)
+        {
+            string connectionString =
+                _configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException(
+                    "DefaultConnection connection string not found.");
+
+            using (SqlConnection cn = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT
+                nID,
+                RegDate
+            FROM tblOrgRegistration
+            WHERE nID = @nID";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add("@nID", SqlDbType.Int).Value = orgId;
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            int organizationId =
+                                Convert.ToInt32(dr["nID"]);
+
+                            DateTime? regDate =
+                                dr["RegDate"] == DBNull.Value
+                                    ? null
+                                    : Convert.ToDateTime(dr["RegDate"]);
+
+                            return (organizationId, regDate);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         //org Login
         public OrganizationRegisterM? OrganizationLogin(OrganizationLoginM model)
         {
@@ -369,7 +465,7 @@ namespace HuntCV_Portal.Repositories
         // =========================================================
 
         public OrgProfileM? GetOrganizationProfile(int orgId)
-            {
+        {
             string connectionString =
                 _configuration.GetConnectionString(
                     "DefaultConnection")!;

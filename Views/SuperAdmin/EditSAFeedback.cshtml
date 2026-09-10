@@ -749,7 +749,7 @@
                             <input type="radio"
                                    name="Ans1"
                                    value="True"
-                            @(Model.Ans1 == "True" ? "checked" : "") />
+                                   @(Model.Ans1 == "True" ? "checked" : "") />
 
                             <span>True</span>
 
@@ -761,7 +761,7 @@
                             <input type="radio"
                                    name="Ans1"
                                    value="False"
-                            @(Model.Ans1 == "False" ? "checked" : "") />
+                                   @(Model.Ans1 == "False" ? "checked" : "") />
 
                             <span>False</span>
 
@@ -799,7 +799,7 @@
                             <input type="radio"
                                    name="Ans2"
                                    value="1"
-                            @(Model.Ans2 == "1" ? "checked" : "") />
+                                   @(Model.Ans2 == "1" ? "checked" : "") />
 
                             <span class="star">★</span>
 
@@ -811,7 +811,7 @@
                             <input type="radio"
                                    name="Ans2"
                                    value="2"
-                            @(Model.Ans2 == "2" ? "checked" : "") />
+                                   @(Model.Ans2 == "2" ? "checked" : "") />
 
                             <span class="star">★</span>
 
@@ -823,7 +823,7 @@
                             <input type="radio"
                                    name="Ans2"
                                    value="3"
-                            @(Model.Ans2 == "3" ? "checked" : "") />
+                                   @(Model.Ans2 == "3" ? "checked" : "") />
 
                             <span class="star">★</span>
 
@@ -835,7 +835,7 @@
                             <input type="radio"
                                    name="Ans2"
                                    value="4"
-                            @(Model.Ans2 == "4" ? "checked" : "") />
+                                   @(Model.Ans2 == "4" ? "checked" : "") />
 
                             <span class="star">★</span>
 
@@ -847,7 +847,7 @@
                             <input type="radio"
                                    name="Ans2"
                                    value="5"
-                            @(Model.Ans2 == "5" ? "checked" : "") />
+                                   @(Model.Ans2 == "5" ? "checked" : "") />
 
                             <span class="star">★</span>
 
@@ -884,7 +884,7 @@
                             <input type="radio"
                                    name="Ans3"
                                    value="Yes"
-                            @(Model.Ans3 == "Yes" ? "checked" : "") />
+                                   @(Model.Ans3 == "Yes" ? "checked" : "") />
 
                             <span>Yes</span>
 
@@ -896,7 +896,7 @@
                             <input type="radio"
                                    name="Ans3"
                                    value="No"
-                            @(Model.Ans3 == "No" ? "checked" : "") />
+                                   @(Model.Ans3 == "No" ? "checked" : "") />
 
                             <span>No</span>
 
@@ -937,7 +937,7 @@
                             <input type="radio"
                                    name="Ans4"
                                    value="😞"
-                            @(Model.Ans4 == "😞" ? "checked" : "") />
+                                   @(Model.Ans4 == "😞" ? "checked" : "") />
 
                             <span class="emoji">😞</span>
 
@@ -951,7 +951,7 @@
                             <input type="radio"
                                    name="Ans4"
                                    value="😟"
-                            @(Model.Ans4 == "😟" ? "checked" : "") />
+                                   @(Model.Ans4 == "😟" ? "checked" : "") />
 
                             <span class="emoji">😟</span>
 
@@ -965,7 +965,7 @@
                             <input type="radio"
                                    name="Ans4"
                                    value="😐"
-                            @(Model.Ans4 == "😐" ? "checked" : "") />
+                                   @(Model.Ans4 == "😐" ? "checked" : "") />
 
                             <span class="emoji">😐</span>
 
@@ -979,7 +979,7 @@
                             <input type="radio"
                                    name="Ans4"
                                    value="🙂"
-                            @(Model.Ans4 == "🙂" ? "checked" : "") />
+                                   @(Model.Ans4 == "🙂" ? "checked" : "") />
 
                             <span class="emoji">🙂</span>
 
@@ -993,7 +993,7 @@
                             <input type="radio"
                                    name="Ans4"
                                    value="😍"
-                            @(Model.Ans4 == "😍" ? "checked" : "") />
+                                   @(Model.Ans4 == "😍" ? "checked" : "") />
 
                             <span class="emoji">😍</span>
 
@@ -1262,912 +1262,9 @@
 
 }
 
-@{
 
-    ViewData["Title"] = "Edit Trainee Feedback";
-}
 
-@* <style>
 
-    .feedback-edit-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
 
-    .feedback-edit-card {
-        width: 870px;
-        max-width: 100%;
-        background: #eef4ff;
-        border: 1px solid #d9d9d9;
-        border-radius: 0 0 20px 20px;
-        padding: 38px 35px 42px 35px;
-        box-sizing: border-box;
-        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
-    }
 
-    .feedback-edit-title {
-        margin: 0 0 24px 0;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 30px;
-        font-weight: 400;
-        color: #111;
-    }
 
-    .feedback-question {
-        margin-bottom: 18px;
-    }
-
-    .question-label {
-        display: block;
-        margin-bottom: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 17px;
-        font-weight: 400;
-        color: #111;
-    }
-
-    .question-textarea {
-        display: block;
-        width: 100%;
-        min-height: 58px;
-        padding: 7px 12px;
-        border: 1px solid #999;
-        border-radius: 2px;
-        background: #fff;
-        color: #111;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        line-height: 1.45;
-        resize: vertical;
-        box-sizing: border-box;
-        outline: none;
-    }
-
-        .question-textarea:focus {
-            border-color: #777;
-            box-shadow: none;
-        }
-
-    .answer-area {
-        margin-left: 23px;
-        margin-top: 10px;
-        margin-bottom: 13px;
-    }
-
-    .radio-options {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 17px;
-        color: #555;
-    }
-
-        .radio-options label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-right: 4px;
-            cursor: pointer;
-        }
-
-        .radio-options input[type="radio"] {
-            width: 14px;
-            height: 14px;
-            margin: 0;
-            cursor: pointer;
-            accent-color: #555;
-        }
-
-    .star-options {
-        display: flex;
-        align-items: center;
-        gap: 3px;
-    }
-
-        .star-options label {
-            position: relative;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .star-options input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-    .star {
-        display: inline-block;
-        font-size: 30px;
-        line-height: 1;
-        color: #c7c7c7;
-        transition: all 0.15s ease;
-        cursor: pointer;
-    }
-
-        .star.active {
-            color: #ffc107;
-        }
-
-    .star-options label:hover .star {
-        color: #ffc107;
-        transform: scale(1.15);
-    }
-
-    .emoji-options {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-        .emoji-options label {
-            position: relative;
-            width: 43px;
-            height: 43px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .emoji-options input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-    .emoji {
-        display: inline-block;
-        font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
-        font-size: 27px;
-        filter: grayscale(100%);
-        opacity: 0.55;
-        transition: all 0.2s ease;
-        cursor: pointer;
-    }
-
-    .emoji-options label:hover {
-        background: #ffffff;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
-    }
-
-        .emoji-options label:hover .emoji {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.15);
-        }
-
-    .emoji-options label.selected {
-        background: #ffffff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
-        transform: translateY(-2px);
-    }
-
-        .emoji-options label.selected .emoji {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-    .description-label {
-        display: block;
-        margin-left: 23px;
-        margin-top: 3px;
-        margin-bottom: 7px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 17px;
-        color: #111;
-    }
-
-    .description-textarea {
-        display: block;
-        width: calc(100% - 46px);
-        min-height: 72px;
-        margin-left: 23px;
-        padding: 8px 12px;
-        border: 1px solid #999;
-        border-radius: 2px;
-        background: #fff;
-        color: #111;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        line-height: 1.4;
-        resize: vertical;
-        box-sizing: border-box;
-        outline: none;
-    }
-
-        .description-textarea:focus {
-            border-color: #777;
-            box-shadow: none;
-        }
-
-    .save-area {
-        margin-left: 23px;
-        margin-top: 20px;
-    }
-
-    .save-button {
-        background: #fff;
-        color: #111;
-        border: 1px solid #777;
-        border-radius: 3px;
-        padding: 7px 15px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.15s ease;
-    }
-
-        .save-button:hover {
-            background: #f2f2f2;
-            border-color: #555;
-        }
-
-    .validation-message {
-        display: block;
-        margin-left: 23px;
-        margin-top: 3px;
-        color: #dc3545;
-        font-size: 12px;
-    }
-
-    @@media (max-width: 900px) {
-
-        .feedback-edit-card {
-            width: 100%;
-            padding: 30px 25px 35px 25px;
-        }
-
-        .feedback-edit-title {
-            font-size: 28px;
-        }
-
-        .question-textarea {
-            font-size: 15px;
-        }
-
-        .answer-area,
-        .description-label,
-        .save-area {
-            margin-left: 15px;
-        }
-
-        .description-textarea {
-            width: calc(100% - 30px);
-            margin-left: 15px;
-        }
-
-        .star {
-            font-size: 27px;
-        }
-
-        .emoji {
-            font-size: 24px;
-        }
-    }
-
-    @@media (max-width: 500px) {
-
-        .feedback-edit-card {
-            padding: 25px 18px 30px 18px;
-        }
-
-        .feedback-edit-title {
-            font-size: 24px;
-        }
-
-        .question-label {
-            font-size: 16px;
-        }
-
-        .answer-area,
-        .description-label,
-        .save-area {
-            margin-left: 10px;
-        }
-
-        .description-textarea {
-            width: calc(100% - 20px);
-            margin-left: 10px;
-        }
-
-        .star-options {
-            gap: 1px;
-        }
-
-            .star-options label {
-                width: 32px;
-            }
-
-        .star {
-            font-size: 24px;
-        }
-
-        .emoji-options {
-            gap: 7px;
-        }
-
-            .emoji-options label {
-                width: 39px;
-                height: 39px;
-            }
-
-        .emoji {
-            font-size: 21px;
-        }
-    }
-
-</style> *@
-
-
-<div class="feedback-edit-container">
-
-    <div class="feedback-edit-card">
-
-        <h1 class="feedback-edit-title">
-            Edit Trainee Feedback
-        </h1>
-
-
-        <!-- ONLY ONE FORM -->
-        <form asp-controller="SuperAdmin"
-              asp-action="EditSAFeedback"
-              method="post">
-
-            @Html.AntiForgeryToken()
-
-            <!-- IMPORTANT -->
-            <input type="hidden" asp-for="nID" />
-
-            <input type="hidden" asp-for="nSAID" />
-
-
-            <!-- ================= QUESTION 1 ================= -->
-
-            <div class="feedback-question">
-
-                <label class="question-label">
-                    Question 1.
-                </label>
-
-                <textarea asp-for="Que1"
-                          class="question-textarea"></textarea>
-
-                <span asp-validation-for="Que1"
-                      class="validation-message"></span>
-
-
-                <div class="answer-area">
-
-                    <div class="radio-options">
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans1"
-                                   value="True"
-                            @(Model.Ans1 == "True" ? "checked" : "") />
-
-                            <span>True</span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans1"
-                                   value="False"
-                            @(Model.Ans1 == "False" ? "checked" : "") />
-
-                            <span>False</span>
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= QUESTION 2 ================= -->
-
-            <div class="feedback-question">
-
-                <label class="question-label">
-                    Question 2.
-                </label>
-
-                <textarea asp-for="Que2"
-                          class="question-textarea"></textarea>
-
-                <span asp-validation-for="Que2"
-                      class="validation-message"></span>
-
-
-                <div class="answer-area">
-
-                    <div class="star-options"
-                         id="starRating">
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans2"
-                                   value="1"
-                            @(Model.Ans2 == "1" ? "checked" : "") />
-
-                            <span class="star">★</span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans2"
-                                   value="2"
-                            @(Model.Ans2 == "2" ? "checked" : "") />
-
-                            <span class="star">★</span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans2"
-                                   value="3"
-                            @(Model.Ans2 == "3" ? "checked" : "") />
-
-                            <span class="star">★</span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans2"
-                                   value="4"
-                            @(Model.Ans2 == "4" ? "checked" : "") />
-
-                            <span class="star">★</span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans2"
-                                   value="5"
-                            @(Model.Ans2 == "5" ? "checked" : "") />
-
-                            <span class="star">★</span>
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= QUESTION 3 ================= -->
-
-            <div class="feedback-question">
-
-                <label class="question-label">
-                    Question 3.
-                </label>
-
-                <textarea asp-for="Que3"
-                          class="question-textarea"></textarea>
-
-                <span asp-validation-for="Que3"
-                      class="validation-message"></span>
-
-
-                <div class="answer-area">
-
-                    <div class="radio-options">
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans3"
-                                   value="Yes"
-                            @(Model.Ans3 == "Yes" ? "checked" : "") />
-
-                            <span>Yes</span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input type="radio"
-                                   name="Ans3"
-                                   value="No"
-                            @(Model.Ans3 == "No" ? "checked" : "") />
-
-                            <span>No</span>
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= QUESTION 4 ================= -->
-
-            <div class="feedback-question">
-
-                <label class="question-label">
-                    Question 4.
-                </label>
-
-                <textarea asp-for="Que4"
-                          class="question-textarea"></textarea>
-
-                <span asp-validation-for="Que4"
-                      class="validation-message"></span>
-
-
-                <div class="answer-area">
-
-                    <div class="emoji-options"
-                         id="emojiRating">
-
-
-                        <!-- VERY BAD -->
-
-                        <label title="Very Bad">
-
-                            <input type="radio"
-                                   name="Ans4"
-                                   value="😞"
-                            @(Model.Ans4 == "😞" ? "checked" : "") />
-
-                            <span class="emoji">😞</span>
-
-                        </label>
-
-
-                        <!-- BAD -->
-
-                        <label title="Bad">
-
-                            <input type="radio"
-                                   name="Ans4"
-                                   value="😟"
-                            @(Model.Ans4 == "😟" ? "checked" : "") />
-
-                            <span class="emoji">😟</span>
-
-                        </label>
-
-
-                        <!-- NEUTRAL -->
-
-                        <label title="Neutral">
-
-                            <input type="radio"
-                                   name="Ans4"
-                                   value="😐"
-                            @(Model.Ans4 == "😐" ? "checked" : "") />
-
-                            <span class="emoji">😐</span>
-
-                        </label>
-
-
-                        <!-- GOOD -->
-
-                        <label title="Good">
-
-                            <input type="radio"
-                                   name="Ans4"
-                                   value="🙂"
-                            @(Model.Ans4 == "🙂" ? "checked" : "") />
-
-                            <span class="emoji">🙂</span>
-
-                        </label>
-
-
-                        <!-- EXCELLENT -->
-
-                        <label title="Excellent">
-
-                            <input type="radio"
-                                   name="Ans4"
-                                   value="😍"
-                            @(Model.Ans4 == "😍" ? "checked" : "") />
-
-                            <span class="emoji">😍</span>
-
-                        </label>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= QUESTION 5 ================= -->
-
-            <div class="feedback-question">
-
-                <label class="question-label">
-                    Question 5.
-                </label>
-
-
-                <textarea asp-for="Que5"
-                          class="question-textarea"></textarea>
-
-                <span asp-validation-for="Que5"
-                      class="validation-message"></span>
-
-
-                <label class="description-label">
-                    Description
-                </label>
-
-
-                <textarea asp-for="Ans5"
-                          class="description-textarea"></textarea>
-
-                <span asp-validation-for="Ans5"
-                      class="validation-message"></span>
-
-            </div>
-
-
-            <!-- ================= SAVE ================= -->
-
-            <div class="save-area">
-
-                <button type="submit"
-                        class="save-button">
-
-                    Save
-
-                </button>
-
-            </div>
-
-
-        </form>
-
-    </div>
-
-</div>
-
-
-@section Scripts {
-
-    <partial name="_ValidationScriptsPartial" />
-
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-
-            // =====================================================
-            // STAR RATING
-            // =====================================================
-
-            const starRating =
-                document.getElementById("starRating");
-
-
-            if (starRating) {
-
-                const starLabels =
-                    starRating.querySelectorAll("label");
-
-                const starInputs =
-                    starRating.querySelectorAll(
-                        "input[type='radio']"
-                    );
-
-
-                function updateStars(rating) {
-
-                    starLabels.forEach(function (label, index) {
-
-                        const star =
-                            label.querySelector(".star");
-
-                        if (index < rating) {
-
-                            star.classList.add("active");
-
-                        }
-                        else {
-
-                            star.classList.remove("active");
-
-                        }
-
-                    });
-
-                }
-
-
-                // Load existing value
-
-                const checkedStar =
-                    starRating.querySelector(
-                        "input[type='radio']:checked"
-                    );
-
-
-                if (checkedStar) {
-
-                    updateStars(
-                        parseInt(checkedStar.value)
-                    );
-
-                }
-
-
-                // Change rating
-
-                starInputs.forEach(function (input) {
-
-                    input.addEventListener(
-                        "change",
-                        function () {
-
-                            updateStars(
-                                parseInt(this.value)
-                            );
-
-                        }
-                    );
-
-                });
-
-
-                // Hover
-
-                starLabels.forEach(function (label, index) {
-
-                    label.addEventListener(
-                        "mouseenter",
-                        function () {
-
-                            updateStars(index + 1);
-
-                        }
-                    );
-
-
-                    label.addEventListener(
-                        "mouseleave",
-                        function () {
-
-                            const selected =
-                                starRating.querySelector(
-                                    "input[type='radio']:checked"
-                                );
-
-
-                            if (selected) {
-
-                                updateStars(
-                                    parseInt(selected.value)
-                                );
-
-                            }
-                            else {
-
-                                updateStars(0);
-
-                            }
-
-                        }
-                    );
-
-                });
-
-            }
-
-
-            // =====================================================
-            // EMOJI RATING
-            // =====================================================
-
-            const emojiRating =
-                document.getElementById("emojiRating");
-
-
-            if (emojiRating) {
-
-                const emojiLabels =
-                    emojiRating.querySelectorAll("label");
-
-                const emojiInputs =
-                    emojiRating.querySelectorAll(
-                        "input[type='radio']"
-                    );
-
-
-                function updateEmoji() {
-
-                    emojiLabels.forEach(function (label) {
-
-                        const input =
-                            label.querySelector(
-                                "input[type='radio']"
-                            );
-
-
-                        if (input.checked) {
-
-                            label.classList.add("selected");
-
-                        }
-                        else {
-
-                            label.classList.remove("selected");
-
-                        }
-
-                    });
-
-                }
-
-
-                // Load existing emoji
-
-                updateEmoji();
-
-
-                // Change emoji
-
-                emojiInputs.forEach(function (input) {
-
-                    input.addEventListener(
-                        "change",
-                        function () {
-
-                            updateEmoji();
-
-                        }
-                    );
-
-                });
-
-            }
-
-        });
-
-    </script>
-
-}

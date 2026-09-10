@@ -166,15 +166,12 @@
 
 
                                 <td>
-
-                                    <button type="button"
-                                            class="master-view-btn"
-                                            data-id="@item.nID">
-
+                                    <a asp-controller="SuperAdmin"
+                                       asp-action="SAOrganizations"
+                                       asp-route-id="@item.nID"
+                                       class="master-view-btn">
                                         View
-
-                                    </button>
-
+                                    </a>
                                 </td>
 
                             </tr>

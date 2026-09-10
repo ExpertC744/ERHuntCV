@@ -8,8 +8,7 @@ namespace HuntCV_Portal.Controllers
     {
         private readonly AccountRepository _repository;
 
-        public SALoginController(
-            AccountRepository repository)
+        public SALoginController(AccountRepository repository)
         {
             _repository = repository;
         }
@@ -21,45 +20,40 @@ namespace HuntCV_Portal.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Index(SALoginM model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
-            SALoginM? user =
-                _repository.Login(
-                    model.sEmail,
-                    model.sPassword);
+            var user = _repository.Login(model.sEmail, model.sPassword);
 
             if (user != null)
             {
-                HttpContext.Session.SetInt32(
+                // Store Super Admin details in session
+                HttpContext.Session.SetString(
                     "SAID",
-                    user.SAID);
-
-
+                    user.nID.ToString()
+                );
 
                 HttpContext.Session.SetString(
                     "SAName",
-                    user.sFName ?? "");
-
-
+                    user.sFName
+                );
 
                 HttpContext.Session.SetString(
                     "SARole",
-                    user.sRole ?? "");
+                    user.sRole
+                );
 
+                // Pass nID to Dashboard URL
                 return RedirectToAction(
                     "Dashboard",
-                    "SuperAdmin");
+                    "SuperAdmin",
+                    new { id = user.nID }
+                );
             }
 
-            ViewBag.Error =
-                "Invalid Email or Password.";
-
+            ViewBag.Error = "Invalid Email or Password";
             return View(model);
         }
     }

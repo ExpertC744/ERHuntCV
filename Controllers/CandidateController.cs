@@ -1,35 +1,182 @@
 ﻿using ERHuntCV.Models;
+using ERHuntCV.Repositories;
 using HuntCV_Portal.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace HuntCV_Portal.Controllers
 {
     public class CandidateController : Controller
     {
+        private readonly CandidateProfileRepository _repo;
         private readonly IConfiguration _configuration;
         private readonly AccountRepository _repository;
 
-        public CandidateController(IConfiguration configuration, AccountRepository repository)
+        public CandidateController(IConfiguration configuration, AccountRepository repository, CandidateProfileRepository repo)
         {
             _configuration = configuration;
             _repository = repository;
-
+            _repo = repo;
         }
 
+        // =========================================================
+        // DASHBOARD
+        // =========================================================
 
-        public IActionResult Dashboard()
+        [HttpGet]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public IActionResult Dashboard(string? id)
         {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction(
+                    "CandidateLogin",
+                    "Account");
+            }
+
+            // =========================================================
+            // GET CANDIDATE REGISTRATION DETAILS
+            // =========================================================
+
+            var candidate =
+                _repository.GetCandidateRegistrationDetails(
+                    candidateId.Value);
+
+            if (candidate == null)
+            {
+                return NotFound("Candidate registration not found.");
+            }
+
+            // =========================================================
+            // CHECK DOB AND REGISTRATION DATE
+            // =========================================================
+
+            if (candidate.Value.DOB == null ||
+                candidate.Value.RegDate == null)
+            {
+                return BadRequest(
+                    "Candidate DOB or Registration Date is missing.");
+            }
+
+            // =========================================================
+            // CREATE CANDIDATE CODE
+            // =========================================================
+            //
+            // CD
+            // + DOB ddMMyy
+            // + Registration Date MMdd
+            // + Candidate ID 2 digits
+            //
+            // Example:
+            // DOB      = 08/05/1999
+            // RegDate  = 26/07/2026
+            // nID      = 1
+            //
+            // CD080599072601
+            // =========================================================
+
+            string candidateCode =
+                "CD" +
+                candidate.Value.DOB.Value.ToString("ddMMyy") +
+                candidate.Value.RegDate.Value.ToString("MMdd") +
+                candidate.Value.CandidateID.ToString("D2");
+
+            // =========================================================
+            // IF NORMAL URL IS OPENED
+            // REDIRECT TO CODE URL
+            // =========================================================
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction(
+                    "Dashboard",
+                    "Candidate",
+                    new { id = candidateCode });
+            }
+
+            // =========================================================
+            // OPTIONAL: CHECK THAT URL CODE BELONGS TO LOGGED-IN
+            // CANDIDATE
+            // =========================================================
+
+            if (id != candidateCode)
+            {
+                return NotFound();
+            }
+
+            // =========================================================
+            // EXISTING DASHBOARD CODE
+            // =========================================================
+
+            ViewBag.CandidateID =
+                candidateId;
+
+            ViewBag.CandidateName =
+                HttpContext.Session.GetString(
+                    "CandidateName");
+
+            ViewBag.CandidateEmail =
+                HttpContext.Session.GetString(
+                    "CandidateEmail");
+
+            ViewBag.CandidateCode =
+                candidateCode;
+
+            // =========================================================
+            // ORGANIZATION COUNT
+            // =========================================================
+
+            int organizationRegistrationCount = 0;
+
+            string connectionString =
+                _configuration.GetConnectionString(
+                    "DefaultConnection");
+
+            using (SqlConnection con =
+                   new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                string query = @"
+            SELECT COUNT(nID)
+            FROM tblOrgRegistration;";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, con))
+                {
+                    organizationRegistrationCount =
+                        Convert.ToInt32(
+                            cmd.ExecuteScalar());
+                }
+            }
+
+            // =========================================================
+            // ORGANIZATION LIST
+            // =========================================================
+
+            List<OrganizationUserM> organizations =
+                _repository.GetAllOrganizationList();
+
+            ViewBag.OrganizationRegistrationCount =
+                organizationRegistrationCount;
+
+            ViewBag.Organizations =
+                organizations;
+
             return View();
         }
-
 
         // =========================================================
         // CANDIDATE CREATE FEEDBACK - GET
         // =========================================================
         [HttpGet]
         public IActionResult CreateFeedback()
+
         {
             // =====================================================
             // GET CANDIDATE ID
@@ -129,6 +276,8 @@ namespace HuntCV_Portal.Controllers
 
             return View(feedback);
         }
+
+
 
 
 
@@ -366,6 +515,7 @@ namespace HuntCV_Portal.Controllers
                 "CreateFeedback");
         }
 
+
         // ==========================================
         // ORGANIZATION LIST
         // ==========================================
@@ -374,6 +524,353 @@ namespace HuntCV_Portal.Controllers
         {
             List<OrganizationUserM> organization = _repository.GetAllOrganizationList();
             return View(organization);
+        }
+
+        // =========================================================
+        // GET PROFILE
+        // =========================================================
+
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            int? candidateId = HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            CandidateProfileModel? profile = _repo.GetProfile(candidateId.Value);
+
+            if (profile == null)
+            {
+                profile = new CandidateProfileModel
+                {
+                    CandidateID = candidateId.Value
+                };
+            }
+
+            CandidateProfileViewModel vm = LoadProfileDropdowns(profile);
+
+            return View(vm);
+        }
+
+
+
+
+        // =========================================================
+        // LOAD ALL DROPDOWNS
+        // =========================================================
+
+        private CandidateProfileViewModel LoadProfileDropdowns(CandidateProfileModel profile)
+        {
+            return new CandidateProfileViewModel
+            {
+                Profile = profile,
+
+                Divisions = _repo.GetDivisions(),
+                Streams = _repo.GetStreams(),
+                GraduationStatuses = _repo.GetGraduationStatuses(),
+                InternshipFellowshipType = _repo.GetInternshipFellowshipType(),
+                InternshipTitles = _repo.GetInternshipTitles(),
+                InternshipDurations = _repo.GetInternshipDurations(),
+                InternshipStatuses = _repo.GetInternshipStatuses(),
+                Relationships = _repo.GetRelationships()
+            };
+        }
+
+
+
+        // =====================================================
+        // UPDATE ADDRESS
+        // =====================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateAddress(CandidateProfileViewModel model)
+        {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction(
+                    "CandidateLogin",
+                    "Account"
+                );
+            }
+
+            _repo.UpdateAddress(
+                candidateId.Value,
+                model.Profile.CountryID,
+                model.Profile.StateID,
+                model.Profile.CityID,
+                model.Profile.Pincode
+            );
+            TempData["Success"] = "Address updated successfully.";
+            return RedirectToAction("Profile");
+        }
+
+
+
+        // =====================================================
+        // UPDATE EDUCATION
+        // =====================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateEducation(
+    [Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            // TEMPORARY TEST
+            Console.WriteLine("CandidateID = " + model.CandidateID);
+            Console.WriteLine("SSC_YEAR = " + model.SSC_YEAR);
+            Console.WriteLine("SSC_DIVISION = " + model.SSC_DIVISION);
+            Console.WriteLine("Graduation_Year = " + model.Graduation_Year);
+            Console.WriteLine("PG_Year = " + model.PG_Year);
+            Console.WriteLine("PhD_Year = " + model.PhD_Year);
+
+            _repo.UpdateEducation(model);
+
+            TempData["Success"] = "Education updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateReferences([Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId = HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            _repo.UpdateReferences(model);
+
+            TempData["Success"] = "References updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+        // =========================================================
+        // UPDATE ACHIEVEMENTS
+        // =========================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateAchievements([Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId = HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            _repo.UpdateAchievements(model);
+
+            TempData["Success"] = "Achievements updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+        // =========================================================
+        // UPDATE LINKS
+        // =========================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateLinks([Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId = HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            _repo.UpdateLinks(model);
+
+            TempData["Success"] = "Links updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+        // =========================================================
+        // UPDATE OBJECTIVE
+        // =========================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateObjective(
+            [Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            _repo.UpdateObjective(model);
+
+            TempData["Success"] = "Objective updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+        // =========================================================
+        // UPDATE SKILLS
+        // =========================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateSkills([Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId = HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            _repo.UpdateSkills(model);
+
+            TempData["Success"] = "Skills updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+        // =========================================================
+        // UPDATE DOCUMENTS / HOBBIES
+        // =========================================================
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult UpdateDocuments([Bind(Prefix = "Profile")] CandidateProfileModel model)
+        //{
+        //    int? candidateId = HttpContext.Session.GetInt32("CandidateID");
+
+        //    if (candidateId == null)
+        //    {
+        //        return RedirectToAction("CandidateLogin", "Account");
+        //    }
+
+        //    model.CandidateID = candidateId.Value;
+
+        //    _repo.UpdateDocuments(model);
+
+        //    TempData["Success"] = "Documents and personal details updated successfully.";
+
+        //    return RedirectToAction("Profile");
+        //}
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateLanguages(
+    [Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction(
+                    "CandidateLogin",
+                    "Account");
+            }
+
+            // Always use CandidateID from Session
+            model.CandidateID = candidateId.Value;
+
+            // Save languages
+            _repo.UpdateLanguages(model);
+
+            TempData["Success"] =
+                "Languages updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateInternshipDetails(
+    [Bind(Prefix = "Profile")] CandidateProfileModel model)
+        {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction(
+                    "CandidateLogin",
+                    "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            _repo.UpdateInternshipDetails(model);
+
+            TempData["Success"] =
+                "Internship details updated successfully.";
+
+            return RedirectToAction("Profile");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateDocuments(
+     CandidateProfileModel model,
+     IFormFile? ResumeFile,
+     IFormFile? PhotoFile,
+     IFormFile? SignatureFile)
+        {
+            int? candidateId =
+                HttpContext.Session.GetInt32("CandidateID");
+
+            if (candidateId == null)
+            {
+                return RedirectToAction("CandidateLogin", "Account");
+            }
+
+            model.CandidateID = candidateId.Value;
+
+            // Save files here
+
+            return RedirectToAction("Profile");
         }
     }
 }

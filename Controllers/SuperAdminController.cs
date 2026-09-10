@@ -18,20 +18,109 @@ namespace ERHuntCV.Controllers
             _repository = repository;
         }
 
+        // =====================================================
+        // ADD IsValidSuperAdmin HERE
+        // =====================================================
+        private bool IsValidSuperAdmin(int id)
+        {
+            string? sessionId = HttpContext.Session.GetString("SAID");
+
+            if (string.IsNullOrEmpty(sessionId))
+                return false;
+
+            if (!int.TryParse(sessionId, out int saId))
+                return false;
+
+            return id == saId;
+        }
+
+        private int GetSuperAdminId()
+        {
+            string? sessionId = HttpContext.Session.GetString("SAID");
+
+            if (int.TryParse(sessionId, out int saId))
+            {
+                return saId;
+            }
+
+            return 0;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Dashboard()
+
+
+        [HttpGet]
+        [Route("SuperAdmin/Dashboard/{id:int}")]
+        public IActionResult Dashboard(int id)
         {
+            if (id != 1)
+            {
+                return NotFound();
+            }
+
+            int traineeRegistrationCount = 0;
+            int organizationRegistrationCount = 0;
+
+            string connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                string query = @"
+            SELECT
+                (SELECT COUNT(nID)
+                 FROM tblCandidateReg) AS CandidateCount,
+
+                (SELECT COUNT(nID)
+                 FROM tblOrgRegistration) AS OrganizationCount;";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        traineeRegistrationCount =
+                            Convert.ToInt32(dr["CandidateCount"]);
+
+                        organizationRegistrationCount =
+                            Convert.ToInt32(dr["OrganizationCount"]);
+                    }
+                }
+            }
+
+            List<SATraineeListM> trainees =
+                _repository.GetAllTrainees();
+
+            List<OrganizationUserM> organizations =
+                _repository.GetAllOrganizationList();
+
+            ViewBag.TraineeRegistrationCount =
+                traineeRegistrationCount;
+
+            ViewBag.OrganizationRegistrationCount =
+                organizationRegistrationCount;
+
+            ViewBag.Trainees = trainees;
+
+            ViewBag.Organizations = organizations;
+
+            ViewBag.SuperAdminID = id;
+
             return View();
         }
 
 
         [HttpGet]
-        public IActionResult SAFeedback()
+        [Route("SuperAdmin/SAFeedback/{id:int}")]
+        public IActionResult SAFeedback(int id)
         {
+
             List<SACandidateFeedbackM> feedbackList = new List<SACandidateFeedbackM>();
 
             string connectionString =
@@ -58,8 +147,8 @@ namespace ERHuntCV.Controllers
           nBit,
           nSABit,
           nSAID,
-          dRegDate,
-          dModDate
+          RegDate,
+          ModDate
       FROM tblSATRFeedback
       WHERE ISNULL(nBit, 1) = 1
       ORDER BY nID DESC";
@@ -126,19 +215,19 @@ namespace ERHuntCV.Controllers
                                     ? Convert.ToInt32(dr["nSAID"])
                                     : 0,
 
-                                dRegDate = dr["dRegDate"] != DBNull.Value
-                                    ? Convert.ToDateTime(dr["dRegDate"])
+                                dRegDate = dr["RegDate"] != DBNull.Value
+                                    ? Convert.ToDateTime(dr["RegDate"])
                                     : null,
 
-                                dModDate = dr["dModDate"] != DBNull.Value
-                                    ? Convert.ToDateTime(dr["dModDate"])
+                                dModDate = dr["ModDate"] != DBNull.Value
+                                    ? Convert.ToDateTime(dr["ModDate"])
                                     : null
                             });
                         }
                     }
                 }
             }
-
+            ViewBag.SuperAdminID = id;
             return View(feedbackList);
         }
 
@@ -146,6 +235,7 @@ namespace ERHuntCV.Controllers
         [HttpGet]
         public IActionResult EditSAFeedback(int id)
         {
+
             SACandidateFeedbackM model = new SACandidateFeedbackM();
 
             string connectionString =
@@ -245,14 +335,16 @@ namespace ERHuntCV.Controllers
                 }
             }
 
+
             return View(model);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditSAFeedback(SACandidateFeedbackM model)
+        public IActionResult EditSAFeedback(SACandidateFeedbackM model, int saId)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -415,12 +507,15 @@ namespace ERHuntCV.Controllers
                 }
             }
 
+
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult SAOrgFeedback()
+        [Route("SuperAdmin/SAOrgFeedback/{id:int}")]
+        public IActionResult SAOrgFeedback(int id)
         {
+
             List<SAOrgFeedbackM> feedbackList =
                 new List<SAOrgFeedbackM>();
 
@@ -548,12 +643,12 @@ namespace ERHuntCV.Controllers
                     }
                 }
             }
-
+            ViewBag.SuperAdminID = id;
             return View(feedbackList);
         }
 
         [HttpGet]
-        public IActionResult EditSAOrgFeedback(int id)
+        public IActionResult EditSAOrgFeedback(int id, int saId)
         {
             SAOrgFeedbackM model = null;
 
@@ -633,6 +728,7 @@ namespace ERHuntCV.Controllers
             if (model == null)
                 return NotFound();
 
+
             return View(model);
         }
 
@@ -641,8 +737,9 @@ namespace ERHuntCV.Controllers
         // =========================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditSAOrgFeedback(SAOrgFeedbackM model)
+        public IActionResult EditSAOrgFeedback(SAOrgFeedbackM model, int saId)
         {
+
             try
             {
                 string connectionString =
@@ -724,12 +821,14 @@ namespace ERHuntCV.Controllers
                 TempData["SuccessMessage"] =
                     "Feedback updated successfully.";
 
-                return RedirectToAction("SAOrgFeedback");
+                return RedirectToAction("SAOrgFeedback", new { id = saId });
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] =
                     "Error: " + ex.Message;
+
+
 
                 return View(model);
             }
@@ -737,8 +836,9 @@ namespace ERHuntCV.Controllers
 
 
         [HttpGet]
-        public IActionResult DetailsSAOrgFeedback(int id)
+        public IActionResult DetailsSAOrgFeedback(int id, int saId)
         {
+
             SAOrgFeedbackM model = null;
 
             string connectionString =
@@ -850,8 +950,10 @@ namespace ERHuntCV.Controllers
 
 
         [HttpGet]
-        public IActionResult CandidateFeedback()
+        [Route("SuperAdmin/CandidateFeedback/{id:int}")]
+        public IActionResult CandidateFeedback(int id)
         {
+
             List<SAFeedbackM> feedbackList = new List<SAFeedbackM>();
 
             string connectionString =
@@ -927,8 +1029,9 @@ namespace ERHuntCV.Controllers
         //Enable / Disable Method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ToggleCandidateFeedback(int id)
+        public IActionResult ToggleCandidateFeedback(int id, int saId)
         {
+
             string connectionString =
                 _configuration.GetConnectionString("DefaultConnection");
 
@@ -961,13 +1064,14 @@ namespace ERHuntCV.Controllers
                 }
             }
 
-            return RedirectToAction("CandidateFeedback");
+            return RedirectToAction("CandidateFeedback", new { id = id });
         }
 
 
         [HttpGet]
-        public IActionResult DetailsCandidateFeedback(int id)
+        public IActionResult DetailsCandidateFeedback(int id, int saId)
         {
+
             SACandidateFeedbackDetailsM model =
                 new SACandidateFeedbackDetailsM();
 
@@ -1085,8 +1189,10 @@ namespace ERHuntCV.Controllers
 
 
         [HttpGet]
-        public IActionResult OrganizationFeedback()
+        [Route("SuperAdmin/OrganizationFeedback/{id:int}")]
+        public IActionResult OrganizationFeedback(int id)
         {
+
             List<SAOrganizationFeedbackM> feedbackList =
                 new List<SAOrganizationFeedbackM>();
 
@@ -1166,7 +1272,7 @@ ORDER BY LF.FeedbackID DESC";
         // Enable / Disable Organization Feedback
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ToggleOrganizationFeedback(int id)
+        public IActionResult ToggleOrganizationFeedback(int id, int saId)
         {
             string connectionString =
                 _configuration.GetConnectionString("DefaultConnection");
@@ -1177,7 +1283,7 @@ ORDER BY LF.FeedbackID DESC";
 
                 string query = @"
             UPDATE tblSAOrgFeedback
-            SET 
+            SET
                 nSABit = CASE
                             WHEN ISNULL(nSABit, 0) = 1 THEN 0
                             ELSE 1
@@ -1204,12 +1310,13 @@ ORDER BY LF.FeedbackID DESC";
                 }
             }
 
-            return RedirectToAction("OrganizationFeedback");
+            return RedirectToAction("OrganizationFeedback", new { id = id });
         }
 
         [HttpGet]
-        public IActionResult DetailsOrgFeedback(int id)
+        public IActionResult DetailsOrgFeedback(int id, int saId)
         {
+
             SAOrgFeedbackDetailsM model = new SAOrgFeedbackDetailsM();
 
             string connectionString =
@@ -1415,9 +1522,13 @@ ORDER BY SAF.nID DESC, OFB.nID DESC;
         // CANDIDATE LIST
         // ==========================================
         [HttpGet]
-        public IActionResult SATrainees()
+        [Route("SuperAdmin/SATrainees/{id:int}")]
+        public IActionResult SATrainees(int id)
         {
+
+
             List<SATraineeListM> trainees = _repository.GetSATraineeList();
+
             return View(trainees);
         }
 
@@ -1425,9 +1536,19 @@ ORDER BY SAF.nID DESC, OFB.nID DESC;
         // ORGANIZATION LIST
         // ==========================================
         [HttpGet]
-        public IActionResult SAOrganizations()
+        [Route("SuperAdmin/SAOrganizations/{id:int}")]
+        public IActionResult SAOrganizations(int id)
         {
-            List<OrganizationUserM> organization = _repository.GetAllOrganizationList();
+            List<OrganizationUserM> organization =
+                _repository.GetAllOrganizationList();
+
+            if (organization == null)
+            {
+                organization = new List<OrganizationUserM>();
+            }
+
+            ViewBag.SuperAdminID = id;
+
             return View(organization);
         }
 
