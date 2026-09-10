@@ -1078,5 +1078,27 @@ namespace HuntCV_Portal.Controllers
         }
 
 
+
+
+
+
+        public IActionResult ViewOrgProfile()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Route("Organization/ViewOrgPost/{id?}")]
+        [ResponseCache(
+            NoStore = true,
+            Location = ResponseCacheLocation.None)]
+        public IActionResult ViewOrgPost()
+        {
+            return View();
+        }
+        public IActionResult ViewProfile()
+        {
+            return View();
+        }
+
     }
 }

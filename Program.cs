@@ -1,3 +1,4 @@
+using ERHuntCV.Repositories;
 using HuntCV_Portal.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,8 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // MVC
 builder.Services.AddControllersWithViews();
 
+
+
 // Session
 builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddHttpClient();
+
 
 builder.Services.AddSession(options =>
 {
@@ -17,6 +23,8 @@ builder.Services.AddSession(options =>
 
 // Repository
 builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<CandidateProfileRepository>();
+builder.Services.AddScoped<OrganizationRepository>();
 
 var app = builder.Build();
 
@@ -27,6 +35,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
 
 app.UseStaticFiles();
 

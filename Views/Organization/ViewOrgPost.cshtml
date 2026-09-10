@@ -1,0 +1,2734 @@
+﻿@*
+    View Organization Post
+*@
+
+@{
+	ViewData["Title"] = "View Organization Post";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0" />
+
+	<title>
+		Trainee Data Science | IT-NetworkZ Infosystems Pvt Ltd
+	</title>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+	<style>
+
+		/* =========================================================
+						   ROOT
+						========================================================= */
+
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1d4ed8;
+			--secondary: #4f46e5;
+			--gradient: linear-gradient( 135deg, #2563eb, #4f46e5 );
+			--gradient-soft: linear-gradient( 135deg, #eff6ff, #eef2ff );
+			--dark: #172554;
+			--text: #334155;
+			--muted: #64748b;
+			--light: #94a3b8;
+			--border: #e7ebf2;
+			--bg: #f5f7fb;
+			--white: #ffffff;
+			--shadow: 0 18px 45px rgba(15, 23, 42, .075);
+			--radius: 20px;
+		}
+
+
+		/* =========================================================
+						   RESET
+						========================================================= */
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+
+		body {
+			min-height: 100vh;
+			background: radial-gradient( circle at 0% 0%, rgba(37,99,235,.06), transparent 28% ), radial-gradient( circle at 100% 100%, rgba(79,70,229,.05), transparent 28% ), var(--bg);
+			font-family: "Segoe UI", Inter, Arial, sans-serif;
+			color: var(--text);
+			-webkit-font-smoothing: antialiased;
+		}
+
+
+		/* =========================================================
+						   ACTIONS
+						========================================================= */
+
+		.page-actions {
+			width: 100%;
+			max-width: 1160px;
+			margin: 14px auto 10px;
+			padding: 0 18px;
+			display: flex;
+			justify-content: flex-end;
+			gap: 7px;
+		}
+
+
+		.action-btn {
+			height: 36px;
+			padding: 0 12px;
+			border: 1px solid #dfe5ed;
+			border-radius: 9px;
+			background: #fff;
+			color: #475569;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			font-size: 12px;
+			font-weight: 650;
+			text-decoration: none;
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
+		}
+
+
+			.action-btn i {
+				font-size: 12px;
+			}
+
+
+			.action-btn:hover {
+				transform: translateY(-1px);
+				color: var(--primary);
+				border-color: rgba(37,99,235,.28);
+				box-shadow: 0 5px 15px rgba(15,23,42,.06);
+			}
+
+
+			.action-btn.download {
+				color: #fff;
+				border-color: transparent;
+				background: var(--gradient);
+				box-shadow: 0 5px 14px rgba(37,99,235,.17);
+			}
+
+
+				.action-btn.download:hover {
+					color: #fff;
+					border-color: transparent;
+					box-shadow: 0 8px 20px rgba(37,99,235,.24);
+				}
+
+
+		/* =========================================================
+						   MAIN
+						========================================================= */
+
+		.page {
+			width: 100%;
+			max-width: 1160px;
+			margin: 0 auto 25px;
+			padding: 0 18px;
+		}
+
+
+		.post {
+			overflow: hidden;
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+		}
+
+
+		/* =========================================================
+						   HERO
+						========================================================= */
+
+		.hero {
+			position: relative;
+			min-height: 210px;
+			padding: 28px 34px;
+			overflow: hidden;
+			background: var(--gradient);
+			color: #fff;
+		}
+
+
+			/* Decorative circles */
+
+			.hero::before {
+				content: "";
+				position: absolute;
+				width: 350px;
+				height: 350px;
+				right: -145px;
+				top: -235px;
+				border: 1px solid rgba(255,255,255,.13);
+				border-radius: 50%;
+			}
+
+
+			.hero::after {
+				content: "";
+				position: absolute;
+				width: 230px;
+				height: 230px;
+				right: 100px;
+				bottom: -190px;
+				border: 1px solid rgba(255,255,255,.09);
+				border-radius: 50%;
+			}
+
+
+		.hero-content {
+			position: relative;
+			z-index: 2;
+			display: flex;
+			align-items: center;
+			gap: 22px;
+		}
+
+
+		/* =========================================================
+						   LOGO
+						========================================================= */
+
+		.logo-wrap {
+			width: 92px;
+			height: 92px;
+			flex-shrink: 0;
+			padding: 9px;
+			border-radius: 18px;
+			background: #fff;
+			box-shadow: 0 12px 30px rgba(0,0,0,.17);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+
+			.logo-wrap img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+
+
+		/* =========================================================
+						   HERO CONTENT
+						========================================================= */
+
+		.company-name {
+			margin-bottom: 5px;
+			color: rgba(255,255,255,.78);
+			font-size: 12px;
+			font-weight: 600;
+		}
+
+
+		.position {
+			margin-bottom: 7px;
+			color: #fff;
+			font-size: 29px;
+			line-height: 1.15;
+			font-weight: 750;
+			letter-spacing: -.5px;
+		}
+
+
+		.opportunity {
+			margin-bottom: 13px;
+			color: rgba(255,255,255,.83);
+			font-size: 12px;
+		}
+
+
+		/* =========================================================
+						   HERO META
+						========================================================= */
+
+		.hero-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px;
+		}
+
+
+		.meta {
+			min-height: 27px;
+			padding: 5px 9px;
+			border: 1px solid rgba(255,255,255,.14);
+			border-radius: 30px;
+			background: rgba(255,255,255,.12);
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+			color: #fff;
+			font-size: 10px;
+			font-weight: 650;
+		}
+
+
+			.meta i {
+				font-size: 10px;
+			}
+
+
+		/* =========================================================
+						   BODY
+						========================================================= */
+
+		.body {
+			padding: 22px 27px 24px;
+		}
+
+
+		.main-layout {
+			display: grid;
+			grid-template-columns: minmax(0, 1.65fr) minmax(270px, .75fr);
+			gap: 22px;
+			align-items: start;
+		}
+
+
+		/* =========================================================
+						   SECTION HEADING
+						========================================================= */
+
+		.section-heading {
+			display: flex;
+			align-items: center;
+			gap: 9px;
+			margin-bottom: 11px;
+		}
+
+
+		.heading-icon {
+			width: 31px;
+			height: 31px;
+			border-radius: 8px;
+			background: var(--gradient-soft);
+			color: var(--primary);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+
+
+			.heading-icon i {
+				font-size: 12px;
+			}
+
+
+		.heading-text h2 {
+			color: var(--dark);
+			font-size: 13px;
+			line-height: 1.2;
+			font-weight: 750;
+		}
+
+
+		.heading-text p {
+			margin-top: 2px;
+			color: var(--light);
+			font-size: 12px;
+		}
+
+
+		/* =========================================================
+						   INFORMATION PANEL
+						========================================================= */
+
+		.information {
+			overflow: hidden;
+			border: 1px solid var(--border);
+			border-radius: 13px;
+			background: #fff;
+		}
+
+
+		.info-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+
+		.info-item {
+			min-height: 51px;
+			padding: 8px 12px;
+			display: flex;
+			align-items: center;
+			gap: 9px;
+			border-bottom: 1px solid #edf0f4;
+		}
+
+
+			.info-item:nth-child(odd) {
+				border-right: 1px solid #edf0f4;
+			}
+
+
+			.info-item:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+
+
+		.info-icon {
+			width: 29px;
+			height: 29px;
+			flex-shrink: 0;
+			border-radius: 8px;
+			background: #f5f7ff;
+			color: var(--primary);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+
+			.info-icon i {
+				font-size: 12px;
+			}
+
+
+		.info-label {
+			display: block;
+			margin-bottom: 2px;
+			color: var(--light);
+			font-size: 10px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: .45px;
+		}
+
+
+		.info-value {
+			display: block;
+			color: var(--text);
+			font-size: 12px;
+			line-height: 1.3;
+			font-weight: 650;
+			word-break: break-word;
+		}
+
+
+		/* =========================================================
+						   SUMMARY
+						========================================================= */
+
+		.summary {
+			padding: 17px;
+			border: 1px solid #e1e7f2;
+			border-radius: 14px;
+			background: linear-gradient( 145deg, #f8fbff, #f4f5ff );
+		}
+
+
+		.summary-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 11px;
+		}
+
+
+			.summary-head h2 {
+				color: var(--dark);
+				font-size: 12px;
+				font-weight: 750;
+			}
+
+
+		.summary-badge {
+			padding: 4px 7px;
+			border-radius: 5px;
+			color: var(--primary);
+			background: #eaf1ff;
+			font-size: 10px;
+			font-weight: 750;
+			text-transform: uppercase;
+		}
+
+
+		.summary-item {
+			min-height: 39px;
+			display: flex;
+			align-items: center;
+			gap: 9px;
+			border-bottom: 1px solid #e4e9f2;
+		}
+
+
+			.summary-item:last-child {
+				border-bottom: none;
+			}
+
+
+		.summary-icon {
+			width: 27px;
+			height: 27px;
+			flex-shrink: 0;
+			border-radius: 7px;
+			background: #fff;
+			color: var(--primary);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 3px 8px rgba(15,23,42,.045);
+		}
+
+
+			.summary-icon i {
+				font-size: 12px;
+			}
+
+
+		.summary-label {
+			display: block;
+			color: var(--light);
+			font-size: 10px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: .35px;
+		}
+
+
+		.summary-value {
+			display: block;
+			margin-top: 1px;
+			color: var(--dark);
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+
+		/* =========================================================
+						   LOWER AREA
+						========================================================= */
+
+		.lower-area {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 18px;
+			margin-top: 18px;
+			padding-top: 17px;
+			border-top: 1px solid var(--border);
+		}
+
+
+		/* =========================================================
+						   FACILITIES
+						========================================================= */
+
+		.facility-list {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 6px;
+		}
+
+
+		.facility {
+			min-height: 57px;
+			padding: 7px 4px;
+			border: 1px solid #e5e9f1;
+			border-radius: 9px;
+			background: #fff;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			text-decoration: none;
+			transition: .2s ease;
+		}
+
+
+			.facility:hover {
+				transform: translateY(-2px);
+				border-color: rgba(37,99,235,.28);
+				box-shadow: 0 6px 15px rgba(37,99,235,.07);
+			}
+
+
+			.facility i {
+				width: 23px;
+				height: 23px;
+				margin-bottom: 4px;
+				border-radius: 6px;
+				background: #f1f5ff;
+				color: var(--primary);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 10px;
+			}
+
+
+			.facility span {
+				color: var(--text);
+				font-size: 10px;
+				line-height: 1.15;
+				font-weight: 650;
+			}
+
+
+		/* =========================================================
+						   TAG SECTION
+						========================================================= */
+
+		.tag-box {
+			padding: 13px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			background: #fff;
+		}
+
+
+		.tag-title {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			margin-bottom: 8px;
+			color: var(--muted);
+			font-size: 10px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: .4px;
+		}
+
+
+			.tag-title i {
+				color: var(--primary);
+				font-size: 10px;
+			}
+
+
+		.tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 5px;
+		}
+
+
+		.tag {
+			padding: 5px 7px;
+			border: 1px solid #e5e9f1;
+			border-radius: 6px;
+			background: #f8fafc;
+			color: var(--text);
+			font-size: 10px;
+			font-weight: 650;
+		}
+
+
+		/* =========================================================
+						   FOOTER
+						========================================================= */
+
+		.footer {
+			min-height: 42px;
+			padding: 9px 27px;
+			background: #fafbfd;
+			border-top: 1px solid var(--border);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+
+		.powered {
+			color: var(--light);
+			font-size: 10px;
+		}
+
+
+			.powered strong {
+				color: var(--primary);
+				font-weight: 700;
+			}
+
+
+		.footer-note {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			color: var(--light);
+			font-size: 10px;
+		}
+
+
+			.footer-note i {
+				color: var(--primary);
+				font-size: 10px;
+			}
+
+
+		/* =========================================================
+						   LARGE LAPTOP
+						========================================================= */
+
+		@@media (min-width: 1100px) {
+
+			.hero {
+				min-height: 205px;
+			}
+
+
+			.body {
+				padding: 21px 27px 22px;
+			}
+		}
+
+
+		/* =========================================================
+						   TABLET
+						========================================================= */
+
+		@@media (max-width: 850px) {
+
+			.main-layout {
+				grid-template-columns: 1fr;
+			}
+
+
+			.summary {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 0 15px;
+			}
+
+
+			.summary-head {
+				grid-column: 1 / -1;
+			}
+
+
+			.summary-item {
+				border-bottom: none;
+				min-height: 48px;
+			}
+
+
+			.lower-area {
+				grid-template-columns: 1fr;
+			}
+		}
+
+
+		/* =========================================================
+						   MOBILE
+						========================================================= */
+
+		@@media (max-width: 600px) {
+
+			.page-actions {
+				margin: 9px auto;
+				padding: 0 10px;
+				gap: 5px;
+			}
+
+
+			.action-btn {
+				width: 36px;
+				height: 36px;
+				padding: 0;
+			}
+
+
+				.action-btn span {
+					display: none;
+				}
+
+
+			.page {
+				padding: 0 8px;
+				margin-bottom: 15px;
+			}
+
+
+			.post {
+				border-radius: 15px;
+			}
+
+
+			.hero {
+				padding: 20px 16px;
+			}
+
+
+			.hero-content {
+				align-items: flex-start;
+				gap: 12px;
+			}
+
+
+			.logo-wrap {
+				width: 65px;
+				height: 65px;
+				padding: 6px;
+				border-radius: 12px;
+			}
+
+
+			.company-name {
+				font-size: 10px;
+				margin-bottom: 4px;
+			}
+
+
+			.position {
+				font-size: 19px;
+				letter-spacing: -.2px;
+			}
+
+
+			.opportunity {
+				font-size: 8px;
+				margin-bottom: 9px;
+			}
+
+
+			.meta {
+				min-height: 23px;
+				padding: 4px 6px;
+				font-size: 7px;
+			}
+
+
+				.meta i {
+					font-size: 7px;
+				}
+
+
+			.body {
+				padding: 16px 11px 17px;
+			}
+
+
+			.main-layout {
+				gap: 14px;
+			}
+
+
+			.section-heading {
+				margin-bottom: 9px;
+			}
+
+
+			.heading-icon {
+				width: 28px;
+				height: 28px;
+			}
+
+
+			.heading-text h2 {
+				font-size: 11px;
+			}
+
+
+			.heading-text p {
+				font-size: 7px;
+			}
+
+
+			.info-grid {
+				grid-template-columns: 1fr;
+			}
+
+
+			.info-item {
+				min-height: 48px;
+				padding: 8px 10px;
+				border-right: none !important;
+				border-bottom: 1px solid #edf0f4;
+			}
+
+
+				.info-item:last-child {
+					border-bottom: none;
+				}
+
+
+			.info-icon {
+				width: 27px;
+				height: 27px;
+			}
+
+
+			.info-label {
+				font-size: 7px;
+			}
+
+
+			.info-value {
+				font-size: 9px;
+			}
+
+
+			.summary {
+				display: block;
+				padding: 13px;
+			}
+
+
+			.summary-item {
+				min-height: 42px;
+				border-bottom: 1px solid #e4e9f2;
+			}
+
+
+			.lower-area {
+				margin-top: 14px;
+				padding-top: 14px;
+				gap: 14px;
+			}
+
+
+			.facility-list {
+				grid-template-columns: repeat(3, 1fr);
+			}
+
+
+			.facility {
+				min-height: 58px;
+			}
+
+
+			.footer {
+				justify-content: center;
+				padding: 10px 12px;
+			}
+
+
+			.footer-note {
+				display: none;
+			}
+		}
+
+
+		/* =========================================================
+						   VERY SMALL MOBILE
+						========================================================= */
+
+		@@media (max-width: 380px) {
+
+			.hero {
+				padding: 17px 13px;
+			}
+
+
+			.logo-wrap {
+				width: 58px;
+				height: 58px;
+			}
+
+
+			.position {
+				font-size: 17px;
+			}
+
+
+			.meta {
+				font-size: 6.5px;
+			}
+
+
+			.facility-list {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+
+		/* =========================================================
+						   PRINT
+						========================================================= */
+
+		@@media print {
+
+			@@page {
+				size: A4;
+				margin: 7mm;
+			}
+
+
+			body {
+				background: #fff;
+			}
+
+
+			.page-actions {
+				display: none !important;
+			}
+
+
+			.page {
+				max-width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+
+			.post {
+				border-radius: 0;
+				box-shadow: none;
+				border: 1px solid #ddd;
+			}
+
+
+			.hero {
+				-webkit-print-color-adjust: exact;
+				print-color-adjust: exact;
+			}
+
+
+			.summary,
+			.facility {
+				break-inside: avoid;
+			}
+
+
+			.footer {
+				-webkit-print-color-adjust: exact;
+				print-color-adjust: exact;
+			}
+		}
+
+	</style>
+
+</head>
+
+
+<body>
+
+
+	<!-- =========================================================
+		 ACTION BUTTONS
+	========================================================== -->
+
+	<div class="page-actions">
+
+
+		<a href="/"
+		   class="action-btn"
+		   title="Home">
+
+			<i class="fa-solid fa-house"></i>
+
+			<span>Home</span>
+
+		</a>
+
+
+		<button type="button"
+				class="action-btn"
+				title="Print"
+				onclick="window.print();">
+
+			<i class="fa-solid fa-print"></i>
+
+			<span>Print</span>
+
+		</button>
+
+
+		<button type="button"
+				class="action-btn download"
+				title="Download"
+				onclick="downloadPost();">
+
+			<i class="fa-solid fa-download"></i>
+
+			<span>Download</span>
+
+		</button>
+
+
+	</div>
+
+
+
+	<!-- =========================================================
+		 MAIN POST
+	========================================================== -->
+
+	<main class="page">
+
+
+		<article class="post"
+				 id="organizationPost">
+
+
+			<!-- =================================================
+				 HERO
+			================================================== -->
+
+			<header class="hero">
+
+
+				<div class="hero-content">
+
+
+					<div class="logo-wrap">
+
+						<img src="~/images/it-networkz-logo.png"
+							 alt="IT-NetworkZ Infosystems Pvt Ltd" />
+
+					</div>
+
+
+					<div>
+
+
+						<div class="company-name">
+
+							IT-NetworkZ Infosystems Pvt Ltd
+
+						</div>
+
+
+						<h1 class="position">
+
+							Trainee Data Science
+
+						</h1>
+
+
+						<div class="opportunity">
+
+							Internship / Fellowship Opportunity
+
+						</div>
+
+
+						<div class="hero-meta">
+
+
+							<span class="meta">
+
+								<i class="fa-solid fa-location-dot"></i>
+
+								Nagpur, Maharashtra
+
+							</span>
+
+
+							<span class="meta">
+
+								<i class="fa-solid fa-laptop-house"></i>
+
+								Hybrid
+
+							</span>
+
+
+							<span class="meta">
+
+								<i class="fa-solid fa-clock"></i>
+
+								Part Time
+
+							</span>
+
+
+							<span class="meta">
+
+								<i class="fa-solid fa-indian-rupee-sign"></i>
+
+								Paid by Trainee
+
+							</span>
+
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+
+
+			</header>
+
+
+
+			<!-- =================================================
+				 BODY
+			================================================== -->
+
+			<div class="body">
+
+
+				<div class="main-layout">
+
+
+					<!-- =================================================
+						 INFORMATION
+					================================================= -->
+
+					<section>
+
+
+						<div class="section-heading">
+
+
+							<div class="heading-icon">
+
+								<i class="fa-solid fa-briefcase"></i>
+
+							</div>
+
+
+							<div class="heading-text">
+
+								<h2>
+									Internship Information
+								</h2>
+
+								<p>
+									Complete opportunity details
+								</p>
+
+							</div>
+
+
+						</div>
+
+
+
+						<div class="information">
+
+
+							<div class="info-grid">
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-calendar-plus"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Post Created
+										</span>
+
+										<span class="info-value">
+											15-05-2025
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-venus-mars"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Gender
+										</span>
+
+										<span class="info-value">
+											Any
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-globe"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Country
+										</span>
+
+										<span class="info-value">
+											India
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-map-location-dot"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											State
+										</span>
+
+										<span class="info-value">
+											Maharashtra
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-city"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											City
+										</span>
+
+										<span class="info-value">
+											Nagpur
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-user-clock"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Internship Type
+										</span>
+
+										<span class="info-value">
+											Part Time
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-chalkboard-user"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Training Involved
+										</span>
+
+										<span class="info-value">
+											Yes
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-calendar-check"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Start Date
+										</span>
+
+										<span class="info-value">
+											18-07-2025
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-hourglass-end"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Post Validity
+										</span>
+
+										<span class="info-value">
+											15-08-2025
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-graduation-cap"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Minimum Qualification
+										</span>
+
+										<span class="info-value">
+											SSC / 10th
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-code"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Technical Skills
+										</span>
+
+										<span class="info-value">
+											Basic Computer Knowledge
+										</span>
+
+									</div>
+
+								</div>
+
+
+								<div class="info-item">
+
+									<div class="info-icon">
+
+										<i class="fa-solid fa-universal-access"></i>
+
+									</div>
+
+									<div>
+
+										<span class="info-label">
+											Divyang Allowed
+										</span>
+
+										<span class="info-value">
+											Yes
+										</span>
+
+									</div>
+
+								</div>
+
+
+							</div>
+
+
+						</div>
+
+
+					</section>
+
+
+
+					<!-- =================================================
+						 SUMMARY
+					================================================== -->
+
+					<aside>
+
+
+						<div class="summary">
+
+
+							<div class="summary-head">
+
+								<h2>
+									Opportunity Summary
+								</h2>
+
+								<span class="summary-badge">
+									Internship
+								</span>
+
+							</div>
+
+
+							<div class="summary-item">
+
+
+								<div class="summary-icon">
+
+									<i class="fa-solid fa-calendar-week"></i>
+
+								</div>
+
+
+								<div>
+
+									<span class="summary-label">
+										Duration
+									</span>
+
+									<span class="summary-value">
+										4 Weeks
+									</span>
+
+								</div>
+
+
+							</div>
+
+
+							<div class="summary-item">
+
+
+								<div class="summary-icon">
+
+									<i class="fa-solid fa-users"></i>
+
+								</div>
+
+
+								<div>
+
+									<span class="summary-label">
+										Required Trainees
+									</span>
+
+									<span class="summary-value">
+										20 Trainees
+									</span>
+
+								</div>
+
+
+							</div>
+
+
+							<div class="summary-item">
+
+
+								<div class="summary-icon">
+
+									<i class="fa-solid fa-indian-rupee-sign"></i>
+
+								</div>
+
+
+								<div>
+
+									<span class="summary-label">
+										Total Charges
+									</span>
+
+									<span class="summary-value">
+										₹1,800
+									</span>
+
+								</div>
+
+
+							</div>
+
+
+							<div class="summary-item">
+
+
+								<div class="summary-icon">
+
+									<i class="fa-solid fa-business-time"></i>
+
+								</div>
+
+
+								<div>
+
+									<span class="summary-label">
+										Working Hours
+									</span>
+
+									<span class="summary-value">
+										Up to 4 Hrs / Day
+									</span>
+
+								</div>
+
+
+							</div>
+
+
+							<div class="summary-item">
+
+
+								<div class="summary-icon">
+
+									<i class="fa-solid fa-sun"></i>
+
+								</div>
+
+
+								<div>
+
+									<span class="summary-label">
+										Working Shift
+									</span>
+
+									<span class="summary-value">
+										Day
+									</span>
+
+								</div>
+
+
+							</div>
+
+
+							<div class="summary-item">
+
+
+								<div class="summary-icon">
+
+									<i class="fa-solid fa-money-bill-wave"></i>
+
+								</div>
+
+
+								<div>
+
+									<span class="summary-label">
+										Fellowship Type
+									</span>
+
+									<span class="summary-value">
+										Paid by Trainee
+									</span>
+
+								</div>
+
+
+							</div>
+
+
+						</div>
+
+
+					</aside>
+
+
+				</div>
+
+
+
+				<!-- =================================================
+					 LOWER SECTION
+				================================================== -->
+
+				<div class="lower-area">
+
+
+					<!-- =================================================
+						 FACILITIES
+					================================================== -->
+
+					<section>
+
+
+						<div class="section-heading">
+
+
+							<div class="heading-icon">
+
+								<i class="fa-solid fa-gift"></i>
+
+							</div>
+
+
+							<div class="heading-text">
+
+								<h2>
+									Facilities Available
+								</h2>
+
+								<p>
+									Benefits offered with this opportunity
+								</p>
+
+							</div>
+
+
+						</div>
+
+
+						<div class="facility-list">
+
+
+							<a href="https://1trainee.com/Facilities/Flexible_Schedule.jpg"
+							   target="_blank"
+							   class="facility">
+
+								<i class="fa-solid fa-clock"></i>
+
+								<span>
+									Flexible Schedule
+								</span>
+
+							</a>
+
+
+							<a href="https://1trainee.com/Facilities/Offer_and_Completion_Letter.jpg"
+							   target="_blank"
+							   class="facility">
+
+								<i class="fa-solid fa-file-circle-check"></i>
+
+								<span>
+									Offer & Completion Letter
+								</span>
+
+							</a>
+
+
+							<a href="https://1trainee.com/Facilities/Training.jpg"
+							   target="_blank"
+							   class="facility">
+
+								<i class="fa-solid fa-chalkboard-user"></i>
+
+								<span>
+									Training
+								</span>
+
+							</a>
+
+
+							<a href="https://1trainee.com/Facilities/Work_From_Home.png"
+							   target="_blank"
+							   class="facility">
+
+								<i class="fa-solid fa-house-laptop"></i>
+
+								<span>
+									Work From Home
+								</span>
+
+							</a>
+
+
+							<a href="https://1trainee.com/Facilities/LOR.png"
+							   target="_blank"
+							   class="facility">
+
+								<i class="fa-solid fa-file-signature"></i>
+
+								<span>
+									LOR
+								</span>
+
+							</a>
+
+
+						</div>
+
+
+					</section>
+
+
+
+					<!-- =================================================
+						 LANGUAGE + DAYS
+					================================================== -->
+
+					<section>
+
+
+						<div class="tag-box">
+
+
+							<div class="tag-title">
+
+								<i class="fa-solid fa-language"></i>
+
+								Language Known
+
+							</div>
+
+
+							<div class="tags">
+
+								<span class="tag">
+									English
+								</span>
+
+								<span class="tag">
+									Hindi
+								</span>
+
+							</div>
+
+
+						</div>
+
+
+						<div class="tag-box"
+							 style="margin-top:8px;">
+
+
+							<div class="tag-title">
+
+								<i class="fa-solid fa-calendar-days"></i>
+
+								Weekly Working Days
+
+							</div>
+
+
+							<div class="tags">
+
+								<span class="tag">
+									Monday
+								</span>
+
+								<span class="tag">
+									Tuesday
+								</span>
+
+								<span class="tag">
+									Wednesday
+								</span>
+
+								<span class="tag">
+									Thursday
+								</span>
+
+								<span class="tag">
+									Friday
+								</span>
+
+								<span class="tag">
+									Saturday
+								</span>
+
+							</div>
+
+
+						</div>
+
+
+					</section>
+
+
+				</div>
+
+
+			</div>
+
+
+
+			<!-- =================================================
+				 FOOTER
+			================================================== -->
+
+			<footer class="footer">
+
+
+				<div class="powered">
+
+					Powered by
+
+					<strong>
+						www.1trainee.com
+					</strong>
+
+				</div>
+
+
+				<div class="footer-note">
+
+					<i class="fa-solid fa-shield-halved"></i>
+
+					Professional Internship Opportunity
+
+				</div>
+
+
+			</footer>
+
+
+		</article>
+
+
+	</main>
+
+
+
+	<!-- =========================================================
+		 DOWNLOAD / PRINT
+	========================================================== -->
+
+	<script>
+
+		function downloadPost() {
+
+			const logoUrl =
+				window.location.origin +
+				"/images/it-networkz-logo.png";
+
+
+			const printWindow =
+				window.open("", "_blank");
+
+
+			if (!printWindow) {
+
+				alert(
+					"Please allow pop-ups for the download option."
+				);
+
+				return;
+			}
+
+
+			printWindow.document.write(`
+
+				<!DOCTYPE html>
+
+				<html>
+
+				<head>
+
+					<meta charset="UTF-8">
+
+					<title>
+						Trainee Data Science - IT-NetworkZ
+					</title>
+
+
+					<style>
+
+						* {
+
+							box-sizing: border-box;
+
+						}
+
+
+						body {
+
+							margin: 0;
+
+							padding: 25px;
+
+							background: #fff;
+
+							color: #334155;
+
+							font-family: Arial, sans-serif;
+						}
+
+
+						.post {
+
+							max-width: 950px;
+
+							margin: auto;
+
+							overflow: hidden;
+
+							border:
+								1px solid #e2e8f0;
+
+							border-radius: 15px;
+						}
+
+
+						.hero {
+
+							padding: 27px 30px;
+
+							background:
+								linear-gradient(
+									135deg,
+									#2563eb,
+									#4f46e5
+								);
+
+							color: white;
+						}
+
+
+						.logo {
+
+							width: 70px;
+
+							height: 70px;
+
+							padding: 7px;
+
+							margin-bottom: 11px;
+
+							border-radius: 11px;
+
+							background: white;
+						}
+
+
+						.logo img {
+
+							width: 100%;
+
+							height: 100%;
+
+							object-fit: contain;
+						}
+
+
+						.company {
+
+							margin-bottom: 4px;
+
+							font-size: 10px;
+
+							opacity: .8;
+						}
+
+
+						h1 {
+
+							margin: 0 0 6px;
+
+							font-size: 25px;
+						}
+
+
+						.sub {
+
+							font-size: 10px;
+
+							opacity: .85;
+						}
+
+
+						.content {
+
+							padding: 23px;
+						}
+
+
+						.layout {
+
+							display: grid;
+
+							grid-template-columns:
+								1.6fr .75fr;
+
+							gap: 20px;
+						}
+
+
+						.title {
+
+							margin-bottom: 10px;
+
+							color: #172554;
+
+							font-size: 14px;
+
+							font-weight: bold;
+						}
+
+
+						.information {
+
+							overflow: hidden;
+
+							border:
+								1px solid #e2e8f0;
+
+							border-radius: 10px;
+						}
+
+
+						.grid {
+
+							display: grid;
+
+							grid-template-columns:
+								1fr 1fr;
+						}
+
+
+						.row {
+
+							min-height: 48px;
+
+							padding: 9px;
+
+							border-bottom:
+								1px solid #edf0f4;
+						}
+
+
+						.row:nth-child(odd) {
+
+							border-right:
+								1px solid #edf0f4;
+						}
+
+
+						.label {
+
+							display: block;
+
+							margin-bottom: 3px;
+
+							color: #94a3b8;
+
+							font-size: 7px;
+
+							font-weight: bold;
+
+							text-transform: uppercase;
+						}
+
+
+						.value {
+
+							color: #334155;
+
+							font-size: 9px;
+
+							font-weight: bold;
+						}
+
+
+						.summary {
+
+							padding: 15px;
+
+							border:
+								1px solid #e1e7f2;
+
+							border-radius: 11px;
+
+							background: #f5f8ff;
+						}
+
+
+						.summary-title {
+
+							margin-bottom: 8px;
+
+							color: #172554;
+
+							font-size: 12px;
+
+							font-weight: bold;
+						}
+
+
+						.summary-item {
+
+							padding: 8px 0;
+
+							border-bottom:
+								1px solid #e1e7f2;
+						}
+
+
+						.summary-item:last-child {
+
+							border-bottom: none;
+						}
+
+
+						.summary-label {
+
+							display: block;
+
+							margin-bottom: 2px;
+
+							color: #94a3b8;
+
+							font-size: 7px;
+
+							font-weight: bold;
+
+							text-transform: uppercase;
+						}
+
+
+						.summary-value {
+
+							color: #172554;
+
+							font-size: 9px;
+
+							font-weight: bold;
+						}
+
+
+						.facilities {
+
+							margin-top: 17px;
+
+							padding-top: 15px;
+
+							border-top:
+								1px solid #e2e8f0;
+						}
+
+
+						.facility {
+
+							display: inline-block;
+
+							padding:
+								6px 8px;
+
+							margin:
+								0 4px 4px 0;
+
+							border:
+								1px solid #dbeafe;
+
+							border-radius: 5px;
+
+							background: #f8fbff;
+
+							color: #334155;
+
+							font-size: 8px;
+						}
+
+
+						.footer {
+
+							padding: 11px;
+
+							text-align: center;
+
+							border-top:
+								1px solid #e2e8f0;
+
+							background: #fafbfd;
+
+							color: #94a3b8;
+
+							font-size: 8px;
+						}
+
+
+						.footer strong {
+
+							color: #2563eb;
+						}
+
+
+						@@media print {
+
+							body {
+
+								padding: 0;
+							}
+
+						}
+
+					</style>
+
+				</head>
+
+
+				<body>
+
+
+					<div class="post">
+
+
+						<div class="hero">
+
+
+							<div class="logo">
+
+								<img
+									src="${logoUrl}"
+									alt="Company Logo" />
+
+							</div>
+
+
+							<div class="company">
+
+								IT-NetworkZ Infosystems Pvt Ltd
+
+							</div>
+
+
+							<h1>
+
+								Trainee Data Science
+
+							</h1>
+
+
+							<div class="sub">
+
+								Internship / Fellowship Opportunity
+
+							</div>
+
+
+						</div>
+
+
+						<div class="content">
+
+
+							<div class="layout">
+
+
+								<div>
+
+
+									<div class="title">
+
+										Internship Information
+
+									</div>
+
+
+									<div class="information">
+
+
+										<div class="grid">
+
+
+											<div class="row">
+
+												<span class="label">
+													Post Created
+												</span>
+
+												<span class="value">
+													15-05-2025
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Gender
+												</span>
+
+												<span class="value">
+													Any
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Country
+												</span>
+
+												<span class="value">
+													India
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													State
+												</span>
+
+												<span class="value">
+													Maharashtra
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													City
+												</span>
+
+												<span class="value">
+													Nagpur
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Internship Type
+												</span>
+
+												<span class="value">
+													Part Time
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Training Involved
+												</span>
+
+												<span class="value">
+													Yes
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Start Date
+												</span>
+
+												<span class="value">
+													18-07-2025
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Post Validity
+												</span>
+
+												<span class="value">
+													15-08-2025
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Qualification
+												</span>
+
+												<span class="value">
+													SSC / 10th
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Technical Skills
+												</span>
+
+												<span class="value">
+													Basic Computer Knowledge
+												</span>
+
+											</div>
+
+
+											<div class="row">
+
+												<span class="label">
+													Divyang Allowed
+												</span>
+
+												<span class="value">
+													Yes
+												</span>
+
+											</div>
+
+
+										</div>
+
+
+									</div>
+
+
+								</div>
+
+
+								<div>
+
+
+									<div class="title">
+
+										Opportunity Summary
+
+									</div>
+
+
+									<div class="summary">
+
+
+										<div class="summary-title">
+
+											Internship Details
+
+										</div>
+
+
+										<div class="summary-item">
+
+											<span class="summary-label">
+												Duration
+											</span>
+
+											<span class="summary-value">
+												4 Weeks
+											</span>
+
+										</div>
+
+
+										<div class="summary-item">
+
+											<span class="summary-label">
+												Required Trainees
+											</span>
+
+											<span class="summary-value">
+												20
+											</span>
+
+										</div>
+
+
+										<div class="summary-item">
+
+											<span class="summary-label">
+												Total Charges
+											</span>
+
+											<span class="summary-value">
+												₹1,800
+											</span>
+
+										</div>
+
+
+										<div class="summary-item">
+
+											<span class="summary-label">
+												Working Hours
+											</span>
+
+											<span class="summary-value">
+												Up to 4 Hrs / Day
+											</span>
+
+										</div>
+
+
+										<div class="summary-item">
+
+											<span class="summary-label">
+												Working Shift
+											</span>
+
+											<span class="summary-value">
+												Day
+											</span>
+
+										</div>
+
+
+										<div class="summary-item">
+
+											<span class="summary-label">
+												Mode
+											</span>
+
+											<span class="summary-value">
+												Hybrid
+											</span>
+
+										</div>
+
+
+									</div>
+
+
+								</div>
+
+
+							</div>
+
+
+							<div class="facilities">
+
+
+								<div class="title">
+
+									Facilities Available
+
+								</div>
+
+
+								<span class="facility">
+									Flexible Schedule
+								</span>
+
+								<span class="facility">
+									Offer & Completion Letter
+								</span>
+
+								<span class="facility">
+									Training
+								</span>
+
+								<span class="facility">
+									Work From Home
+								</span>
+
+								<span class="facility">
+									LOR
+								</span>
+
+
+							</div>
+
+
+						</div>
+
+
+						<div class="footer">
+
+							Powered by
+
+							<strong>
+								www.1trainee.com
+							</strong>
+
+						</div>
+
+
+					</div>
+
+
+					<script>
+
+						window.onload = function () {
+
+							setTimeout(function () {
+
+								window.print();
+
+							}, 400);
+
+						};
+
+					<\/script>
+
+
+				</body>
+
+				</html>
+
+			`);
+
+
+			printWindow.document.close();
+
+		}
+
+	</script>
+
+
+</body>
+
+</html>
