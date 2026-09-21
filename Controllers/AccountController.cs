@@ -1,19 +1,25 @@
-﻿using HuntCV_Portal.Models;
+﻿using ERHuntCV.Models;
+using ERHuntCV.Services;
+using HuntCV_Portal.Models;
 using HuntCV_Portal.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Matching;
-using Microsoft.Data.SqlClient;
-using System.Data;
+
+
+
 
 namespace HuntCV_Portal.Controllers
 {
     public class AccountController : Controller
     {
         private readonly AccountRepository _accountRepository;
+        private readonly EmailService _emailService;
 
-        public AccountController(AccountRepository accountRepository)
+        public AccountController(
+            AccountRepository accountRepository,
+            EmailService emailService)
         {
             _accountRepository = accountRepository;
+            _emailService = emailService;
         }
 
 
@@ -321,5 +327,357 @@ namespace HuntCV_Portal.Controllers
                 return View(model);
             }
         }
+
+        // shrirang 18/09/26 -- candidate
+        // =========================================================
+        // CANDIDATE FORGOT PASSWORD
+        // =========================================================
+
+        [HttpGet]
+        public IActionResult CandidateForgotPassword()
+        {
+            return View(new CandidateForgotPassword());
+        }
+
+
+        // =========================================================
+        // CANDIDATE FORGOT PASSWORD - POST
+        // =========================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CandidateForgotPassword(
+            CandidateForgotPassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                string email = model.sEmail.Trim();
+
+                // ==========================================
+                // GET CANDIDATE
+                // ==========================================
+
+                CandidateRegisterM? candidate =
+                    _accountRepository.GetCandidateByEmail(email);
+
+                if (candidate == null)
+                {
+                    ViewBag.Error =
+                        "No candidate account was found with this email address.";
+
+                    return View(model);
+                }
+
+                // ==========================================
+                // CHECK EMAIL
+                // ==========================================
+
+                if (string.IsNullOrWhiteSpace(candidate.sEmail))
+                {
+                    ViewBag.Error =
+                        "Candidate email address is empty in database.";
+
+                    return View(model);
+                }
+
+                // ==========================================
+                // CHECK PASSWORD
+                // ==========================================
+
+                if (string.IsNullOrWhiteSpace(candidate.sPassword))
+                {
+                    ViewBag.Error =
+                        "Password information is not available for this candidate account.";
+
+                    return View(model);
+                }
+
+                // ==========================================
+                // USE ACTUAL EMAIL FROM DATABASE
+                // ==========================================
+
+                string candidateEmail =
+                    candidate.sEmail.Trim();
+
+                // ==========================================
+                // SEND EMAIL
+                // ==========================================
+
+                await _emailService.SendCandidateLoginDetailsAsync(
+                    candidateEmail,
+                    candidate.sPassword);
+
+                // ==========================================
+                // SUCCESS
+                // ==========================================
+
+                TempData["Success"] =
+                    "Your login details have been sent to your registered email address. Please check your inbox and spam folder.";
+
+                return RedirectToAction(
+                    "CandidateForgotPassword",
+                    "Account");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error =
+                    "Email sending failed: " + ex.Message;
+
+                return View(model);
+            }
+        }
+
+        // shrirang 18/09/26
+
+        //// =========================================================
+        //// CANDIDATE RESET PASSWORD - GET
+        //// =========================================================
+
+        [HttpGet]
+        public IActionResult CandidateResetPassword()
+        {
+            return View(new CandidateResetPassword());
+        }
+
+
+        // =========================================================
+        // CANDIDATE RESET PASSWORD - POST
+        // =========================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CandidateResetPassword(
+      CandidateResetPassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                CandidateRegisterM? candidate =
+                    _accountRepository.GetCandidateByEmail(
+                        model.sEmail);
+
+                if (candidate == null)
+                {
+                    ModelState.AddModelError(
+                        "sEmail",
+                        "No candidate account was found with this email address.");
+
+                    return View(model);
+                }
+
+                bool updated =
+                    _accountRepository.ResetCandidatePassword(
+                        model.sEmail,
+                        model.NewPassword);
+
+                if (!updated)
+                {
+                    ViewBag.Error =
+                        "Unable to reset password. Please try again.";
+
+                    return View(model);
+                }
+
+                TempData["Success"] =
+                    "Password reset successfully. Please login with your new password.";
+
+                return RedirectToAction(
+                    "CandidateLogin",
+                    "Account");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error =
+                    "Password reset failed: " + ex.Message;
+
+                return View(model);
+            }
+        }
+
+
+
+        // =========================================================
+        // ORGANIZATION FORGOT PASSWORD - GET
+        // =========================================================
+
+        [HttpGet]
+        public IActionResult OrganizationForgotPassword()
+        {
+            return View(new OrganizationForgotPassword());
+        }
+
+
+        // =========================================================
+        // ORGANIZATION FORGOT PASSWORD - POST
+        // =========================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OrganizationForgotPassword(
+            OrganizationForgotPassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                string email = model.sEmail.Trim();
+
+                // ==========================================
+                // CHECK ORGANIZATION EMAIL IN DATABASE
+                // ==========================================
+
+                OrganizationRegisterM? organization =
+                    _accountRepository.GetOrganizationByEmail(email);
+
+                if (organization == null)
+                {
+                    ViewBag.Error =
+                        "No organization account was found with this email address.";
+
+                    return View(model);
+                }
+
+                // ==========================================
+                // CHECK PASSWORD
+                // ==========================================
+
+                if (string.IsNullOrWhiteSpace(
+                    organization.sPassword))
+                {
+                    ViewBag.Error =
+                        "Password information is not available for this organization account.";
+
+                    return View(model);
+                }
+
+                // ==========================================
+                // GET ACTUAL EMAIL FROM DATABASE
+                // ==========================================
+
+                string organizationEmail =
+                    organization.sEmail?.Trim() ?? "";
+
+                if (string.IsNullOrWhiteSpace(organizationEmail))
+                {
+                    ViewBag.Error =
+                        "Organization email address is empty in database.";
+
+                    return View(model);
+                }
+
+                // ==========================================
+                // SEND LOGIN CREDENTIALS
+                // ==========================================
+
+                await _emailService.SendOrganizationLoginDetailsAsync(
+                    organizationEmail,
+                    organization.sPassword);
+
+                // ==========================================
+                // SUCCESS
+                // ==========================================
+
+                TempData["Success"] =
+                    "Your login details have been sent successfully to your registered email address. Please check your inbox and spam folder.";
+
+                return RedirectToAction(
+                    "OrganizationForgotPassword",
+                    "Account");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error =
+                    "Email sending failed: " + ex.Message;
+
+                return View(model);
+            }
+        }
+
+
+        // org
+
+        // ============================================================
+        // ORGANIZATION RESET PASSWORD - GET
+        // ============================================================
+
+        [HttpGet]
+        public IActionResult OrganizationResetPassword()
+        {
+            return View(new OrganizationResetPassword());
+        }
+
+
+        // ============================================================
+        // ORGANIZATION RESET PASSWORD - POST
+        // ============================================================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OrganizationResetPassword(
+            OrganizationResetPassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                string email = model.sEmail.Trim();
+
+                // Check whether organization exists
+                OrganizationRegisterM? organization =
+                    _accountRepository.GetOrganizationByEmail(email);
+
+                if (organization == null)
+                {
+                    ModelState.AddModelError(
+                        "sEmail",
+                        "No organization account was found with this email address.");
+
+                    return View(model);
+                }
+
+                // Reset password
+                bool updated =
+                    _accountRepository.ResetOrganizationPassword(
+                        email,
+                        model.NewPassword);
+
+                if (!updated)
+                {
+                    ViewBag.Error =
+                        "Unable to reset password. Please try again.";
+
+                    return View(model);
+                }
+
+                TempData["Success"] =
+                    "Password reset successfully. Please login with your new password.";
+
+                return RedirectToAction(
+                    "OrganizationLogin",
+                    "Account");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error =
+                    "Password reset failed: " + ex.Message;
+
+                return View(model);
+            }
+        }
+
     }
 }

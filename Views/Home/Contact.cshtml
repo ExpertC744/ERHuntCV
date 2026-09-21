@@ -1,0 +1,1132 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<style>
+    /* =========================================================
+           CONTACT PAGE
+           1TRAINEE - TEAL & WHITE
+           ========================================================= */
+
+    body.site-modern .contact-page {
+        margin-top: 100px;
+        padding: 50px 0 70px;
+        background: #f6faf9;
+        color: #172033;
+    }
+
+    /* =========================================================
+           HERO
+           ========================================================= */
+
+    body.site-modern .contact-hero {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #0d9488, #0f766e);
+        padding: 55px 20px;
+        text-align: center;
+    }
+
+        body.site-modern .contact-hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.07);
+            top: -150px;
+            right: -60px;
+        }
+
+        body.site-modern .contact-hero::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.06);
+            bottom: -130px;
+            left: -60px;
+        }
+
+    body.site-modern .contact-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 850px;
+        margin: auto;
+    }
+
+    body.site-modern .contact-hero h1 {
+        margin: 0 0 12px;
+        color: #fff !important;
+        font-size: 38px;
+        line-height: 1.2;
+        font-weight: 800;
+    }
+
+    body.site-modern .contact-hero p {
+        margin: 0;
+        color: rgba(255,255,255,.88);
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    /* =========================================================
+           MAIN CONTAINER
+           ========================================================= */
+
+    body.site-modern .contact-container {
+        width: 100%;
+        max-width: 1150px;
+        margin: -35px auto 0;
+        padding: 0 20px;
+        position: relative;
+        z-index: 5;
+    }
+
+    body.site-modern .contact-grid {
+        display: grid;
+        grid-template-columns: .9fr 1.1fr;
+        gap: 25px;
+        align-items: stretch;
+    }
+
+    /* =========================================================
+           LEFT INFORMATION CARD
+           ========================================================= */
+
+    body.site-modern .contact-info {
+        background: #fff;
+        border: 1px solid #e2eeee;
+        border-radius: 22px;
+        padding: 32px;
+        box-shadow: 0 15px 40px rgba(15,42,39,.07);
+    }
+
+    body.site-modern .contact-info-title {
+        margin-bottom: 25px;
+    }
+
+        body.site-modern .contact-info-title span {
+            display: inline-block;
+            margin-bottom: 7px;
+            color: #0d9488;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        body.site-modern .contact-info-title h2 {
+            margin: 0;
+            color: #172033;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+    /* =========================================================
+           CONTACT ITEM
+           ========================================================= */
+
+    body.site-modern .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 18px 0;
+        border-bottom: 1px solid #edf3f2;
+    }
+
+        body.site-modern .contact-item:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+    body.site-modern .contact-icon {
+        flex: 0 0 45px;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        background: #e8f7f5;
+        color: #0d9488;
+        font-size: 18px;
+    }
+
+    body.site-modern .contact-item-content {
+        min-width: 0;
+    }
+
+        body.site-modern .contact-item-content span {
+            display: block;
+            margin-bottom: 5px;
+            color: #7a858d;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        body.site-modern .contact-item-content h4,
+        body.site-modern .contact-item-content p {
+            margin: 0;
+            color: #26333c;
+            font-size: 14px;
+            line-height: 1.65;
+            font-weight: 500;
+        }
+
+        body.site-modern .contact-item-content a {
+            color: #26333c;
+            text-decoration: none;
+            transition: color .25s ease;
+        }
+
+            body.site-modern .contact-item-content a:hover {
+                color: #0d9488;
+            }
+
+    /* =========================================================
+           GET IN TOUCH DESCRIPTION
+           ========================================================= */
+
+    body.site-modern .contact-description {
+        margin-top: 28px;
+        padding: 20px;
+        border-radius: 15px;
+        background: #f3faf9;
+        border: 1px solid #e0efed;
+    }
+
+        body.site-modern .contact-description h3 {
+            margin: 0 0 8px;
+            color: #172033;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        body.site-modern .contact-description p {
+            margin: 0;
+            color: #687580;
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+    /* =========================================================
+           FORM CARD
+           ========================================================= */
+
+    body.site-modern .contact-form-card {
+        background: #fff;
+        border: 1px solid #e2eeee;
+        border-radius: 22px;
+        padding: 32px;
+        box-shadow: 0 15px 40px rgba(15,42,39,.07);
+    }
+
+    body.site-modern .contact-form-header {
+        margin-bottom: 25px;
+    }
+
+        body.site-modern .contact-form-header span {
+            display: inline-block;
+            margin-bottom: 7px;
+            color: #0d9488;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        body.site-modern .contact-form-header h2 {
+            margin: 0;
+            color: #172033;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        body.site-modern .contact-form-header p {
+            margin: 8px 0 0;
+            color: #78838b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+    /* =========================================================
+           FORM GRID
+           ========================================================= */
+
+    body.site-modern .contact-form-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    body.site-modern .contact-form-group {
+        margin-bottom: 18px;
+    }
+
+        body.site-modern .contact-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        body.site-modern .contact-form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #26333c;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        body.site-modern .contact-form-group input,
+        body.site-modern .contact-form-group textarea,
+        body.site-modern .contact-form-group select {
+            width: 100%;
+            border: 1px solid #dce9e7;
+            border-radius: 10px;
+            background: #fbfdfd;
+            color: #26333c;
+            font-size: 13px;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+
+        body.site-modern .contact-form-group input,
+        body.site-modern .contact-form-group select {
+            height: 46px;
+        }
+
+        body.site-modern .contact-form-group textarea {
+            min-height: 125px;
+            resize: vertical;
+        }
+
+            body.site-modern .contact-form-group input:focus,
+            body.site-modern .contact-form-group textarea:focus,
+            body.site-modern .contact-form-group select:focus {
+                border-color: #0d9488;
+                background: #fff;
+                box-shadow: 0 0 0 3px rgba(13,148,136,.10);
+            }
+
+            body.site-modern .contact-form-group input::placeholder,
+            body.site-modern .contact-form-group textarea::placeholder {
+                color: #a1aaaf;
+            }
+
+    /* =========================================================
+           SUBMIT BUTTON
+           ========================================================= */
+    /* =========================================================
+       SMALL CENTERED SUBMIT BUTTON
+       ========================================================= */
+
+    body.site-modern .contact-submit {
+        width: 150px;
+        min-height: 40px;
+        margin: 5px auto 0;
+        padding: 9px 16px;
+        border: 0;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #0d9488, #0f766e);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        box-shadow: 0 6px 16px rgba(13,148,136,.18);
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+        body.site-modern .contact-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13,148,136,.25);
+        }
+    /* =========================================================
+           BOTTOM NOTE
+           ========================================================= */
+
+    body.site-modern .contact-form-note {
+        margin-top: 15px;
+        text-align: center;
+        color: #8a949b;
+        font-size: 11px;
+    }
+
+    /* =========================================================
+           TABLET
+           ========================================================= */
+
+    @@media only screen and (max-width: 991px) {
+
+        body.site-modern .contact-page {
+            margin-top: 100px;
+            padding-top: 40px;
+        }
+
+        body.site-modern .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        body.site-modern .contact-info,
+        body.site-modern .contact-form-card {
+            padding: 28px;
+        }
+
+        body.site-modern .contact-hero h1 {
+            font-size: 32px;
+        }
+    }
+
+    /* =========================================================
+           MOBILE
+           ========================================================= */
+
+    @@media only screen and (max-width: 767px) {
+
+        body.site-modern .contact-page {
+            margin-top: 100px;
+            padding-top: 30px;
+            padding-bottom: 45px;
+        }
+
+        body.site-modern .contact-hero {
+            padding: 42px 18px 55px;
+        }
+
+            body.site-modern .contact-hero h1 {
+                font-size: 27px;
+            }
+
+            body.site-modern .contact-hero p {
+                font-size: 13px;
+            }
+
+        body.site-modern .contact-container {
+            padding: 0 14px;
+            margin-top: -25px;
+        }
+
+        body.site-modern .contact-grid {
+            gap: 18px;
+        }
+
+        body.site-modern .contact-info,
+        body.site-modern .contact-form-card {
+            padding: 22px;
+            border-radius: 17px;
+        }
+
+        body.site-modern .contact-info-title h2,
+        body.site-modern .contact-form-header h2 {
+            font-size: 21px;
+        }
+
+        body.site-modern .contact-form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        body.site-modern .contact-form-group.full-width {
+            grid-column: auto;
+        }
+
+        body.site-modern .contact-item {
+            gap: 12px;
+        }
+
+        body.site-modern .contact-icon {
+            flex-basis: 42px;
+            width: 42px;
+            height: 42px;
+        }
+    }
+
+    /* =========================================================
+           SMALL MOBILE
+           ========================================================= */
+
+    @@media only screen and (max-width: 480px) {
+
+        body.site-modern .contact-page {
+            margin-top: 100px;
+        }
+
+        body.site-modern .contact-hero {
+            padding: 36px 14px 48px;
+        }
+
+            body.site-modern .contact-hero h1 {
+                font-size: 23px;
+            }
+
+        body.site-modern .contact-container {
+            padding: 0 10px;
+        }
+
+        body.site-modern .contact-info,
+        body.site-modern .contact-form-card {
+            padding: 19px;
+        }
+
+        body.site-modern .contact-item-content h4,
+        body.site-modern .contact-item-content p {
+            font-size: 13px;
+        }
+    }
+</style>
+
+
+<div class="contact-page">
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="contact-hero">
+
+        <div class="contact-hero-content">
+
+            <h1>Contact Us</h1>
+
+            <p>
+                Get in touch with us and discover how we can support
+                technology, training, internship, and career needs.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="contact-container">
+
+        <div class="contact-grid">
+
+
+            <!-- =================================================
+                 CONTACT INFORMATION
+            ================================================== -->
+
+            <section class="contact-info">
+
+                <div class="contact-info-title">
+
+                    <span>Contact Information</span>
+
+                    <h2>Our Office</h2>
+
+                </div>
+
+
+                <!-- OFFICE -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="ti-location-pin"></i>
+                    </div>
+
+                    <div class="contact-item-content">
+
+                        <span>Office</span>
+
+                        <p>
+                            <strong>Kavin India Pvt.Ltd</strong><br />
+                            4th Floor, West Tower,<br />
+                            Nelson Mandela Square,<br />
+                            Sandton City, Johannesburg – 2157,<br />
+                            South Africa
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="ti-email"></i>
+                    </div>
+
+                    <div class="contact-item-content">
+
+                        <span>Email Us</span>
+
+                        <p>
+                            <a href="mailto:contact@kavin.co.za">
+                                contact@kavin.com
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="ti-mobile"></i>
+                    </div>
+
+                    <div class="contact-item-content">
+
+                        <span>Call Us</span>
+
+                        <p>
+                            <a href="tel:+27111002598">
+                                +0027-11-1002598 (SA)
+                            </a>
+                            <br />
+
+                            <a href="tel:+919309117317">
+                                +91-93091-17317 (IN)
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FAX -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="ti-printer"></i>
+                    </div>
+
+                    <div class="contact-item-content">
+
+                        <span>Fax</span>
+
+                        <p>
+                            +086-6880750
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="contact-description">
+
+                    <h3>Get in Touch</h3>
+
+                    <p>
+                        Along with facility to search suitable Internship
+                        opportunities and talented Trainees we are available
+                        with few more services, whether you’re looking to
+                        enhance  IT infrastructure, advance  career
+                        through professional training, or develop a custom
+                        software solution, IT-NetworkZ (Kavin India Pvt.Ltd)
+                        is here to help.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 CONTACT FORM
+            ================================================== -->
+
+            <section class="contact-form-card">
+
+                <div class="contact-form-header">
+
+                    <span>Send Message</span>
+
+                    <h2>Get In Touch</h2>
+
+                    <p>
+                        Fill in the form below and our team will get
+                        back to you.
+                    </p>
+
+                </div>
+
+
+                <form method="post"
+                      asp-controller="Home"
+                      asp-action="ContactUs">
+
+                    @Html.AntiForgeryToken()
+                    <div class="contact-form-row">
+
+
+                        <!-- NAME -->
+
+                        <div class="contact-form-group">
+
+                            <label for="FullName">
+                                Full Name
+                            </label>
+
+                            <input type="text"
+                                   id="FullName"
+                                   name="FullName"
+                                   placeholder="Full Name"
+                                   required />
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="contact-form-group">
+
+                            <label for="Email">
+                                Email Address
+                            </label>
+
+                            <input type="email"
+                                   id="Email"
+                                   name="Email"
+                                   placeholder="Email"
+                                   required />
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="contact-form-group">
+
+                            <label for="MobileNo">
+                                Phone Number
+                            </label>
+
+                            <input type="tel"
+                                   id="MobileNo"
+                                   name="MobileNo"
+                                   placeholder="Phone Number" />
+
+                        </div>
+
+
+                        <!-- SUBJECT -->
+
+                        <div class="contact-form-group">
+
+                            <label for="Subject">
+                                Subject
+                            </label>
+
+                            <input type="text"
+                                   id="Subject"
+                                   name="Subject"
+                                   placeholder="Subject"
+                                   required />
+
+                        </div>
+
+
+                        <!-- MESSAGE -->
+
+                        <div class="contact-form-group full-width">
+
+                            <label for="Message">
+                                Message
+                            </label>
+
+                            <textarea id="Description"
+                                      name="Description"
+                                      placeholder="Write message here..."
+                                      required></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button type="submit"
+                            class="contact-submit">
+
+                        Send Message
+
+                        <i class="ti-arrow-right"></i>
+
+                    </button>
+
+
+                    <div class="contact-form-note">
+                        We will get back to you as soon as possible.
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var contactForm = document.getElementById("contactForm");
+
+        var FullName1 = document.getElementById("FullName");
+        var Email1 = document.getElementById("Email");
+        var MobileNo1 = document.getElementById("MobileNo");
+        var Subject1 = document.getElementById("Subject");
+        var Description1 = document.getElementById("Description");
+
+
+        /* =====================================================
+           FULL NAME VALIDATION
+           ===================================================== */
+
+        FullName1.addEventListener("input", function () {
+
+            var value = FullName1.value;
+
+            // Remove leading spaces
+            value = value.trimStart();
+
+            // Allow letters and spaces only
+            value = value.replace(/[^a-zA-Z ]/g, "");
+
+            // Capitalize first letter after every space
+            value = value.replace(/\b\w/g, function (char) {
+                return char.toUpperCase();
+            });
+
+            // Maximum 50 characters
+            if (value.length > 50) {
+                value = value.substring(0, 50);
+            }
+
+            FullName1.value = value;
+
+            document.getElementById("fullNameError").innerText = "";
+        });
+
+
+        /* =====================================================
+           EMAIL VALIDATION
+           ===================================================== */
+
+        Email1.addEventListener("input", function () {
+
+            // Convert email to lowercase
+            Email1.value = Email1.value.toLowerCase();
+
+            // Remove leading spaces
+            Email1.value = Email1.value.trimStart();
+
+            var email = Email1.value;
+
+            var emailPattern =
+                /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+            if (email === "") {
+
+                document.getElementById("emailError").innerText =
+                    "Email is required.";
+
+            }
+            else if (!emailPattern.test(email)) {
+
+                document.getElementById("emailError").innerText =
+                    "Please enter a valid email.";
+
+            }
+            else {
+
+                document.getElementById("emailError").innerText = "";
+
+            }
+
+        });
+
+
+        /* =====================================================
+           MOBILE NUMBER VALIDATION
+           ===================================================== */
+
+        MobileNo1.addEventListener("input", function () {
+
+            // Numbers only
+            MobileNo1.value =
+                MobileNo1.value.replace(/\D/g, "");
+
+            // Maximum 20 digits
+            if (MobileNo1.value.length > 20) {
+
+                MobileNo1.value =
+                    MobileNo1.value.substring(0, 20);
+
+            }
+
+            var mobile = MobileNo1.value;
+
+            if (mobile !== "" &&
+                (mobile.length < 6 || mobile.length > 20)) {
+
+                document.getElementById("mobileError").innerText =
+                    "Phone number must contain 6 to 20 digits.";
+
+            }
+            else {
+
+                document.getElementById("mobileError").innerText = "";
+
+            }
+
+        });
+
+
+        /* =====================================================
+           SUBJECT VALIDATION
+           ===================================================== */
+
+        Subject1.addEventListener("input", function () {
+
+            var value = Subject1.value;
+
+            // Remove leading spaces
+            value = value.trimStart();
+
+            // Maximum 50 characters
+            if (value.length > 50) {
+
+                value = value.substring(0, 50);
+
+            }
+
+            // Capitalize first letter
+            if (value.length > 0) {
+
+                value =
+                    value.charAt(0).toUpperCase() +
+                    value.slice(1);
+
+            }
+
+            Subject1.value = value;
+
+            document.getElementById("subjectError").innerText = "";
+
+        });
+
+
+        /* =====================================================
+           DESCRIPTION VALIDATION
+           ===================================================== */
+
+        Description1.addEventListener("input", function () {
+
+            var value = Description1.value;
+
+            // Remove leading spaces
+            value = value.trimStart();
+
+            // Maximum 200 characters
+            if (value.length > 200) {
+
+                value = value.substring(0, 200);
+
+            }
+
+            // Capitalize first letter
+            if (value.length > 0) {
+
+                value =
+                    value.charAt(0).toUpperCase() +
+                    value.slice(1);
+
+            }
+
+            Description1.value = value;
+
+            if (value.length > 0 && value.length < 15) {
+
+                document.getElementById("descriptionError").innerText =
+                    "Message must be at least 15 characters.";
+
+            }
+            else {
+
+                document.getElementById("descriptionError").innerText = "";
+
+            }
+
+        });
+
+
+        /* =====================================================
+           FORM SUBMIT VALIDATION
+           ===================================================== */
+
+        contactForm.addEventListener("submit", function (event) {
+
+            var isValid = true;
+
+
+            /* ---------- FULL NAME ---------- */
+
+            var fullName = FullName1.value.trim();
+
+            if (fullName === "") {
+
+                document.getElementById("fullNameError").innerText =
+                    "Full Name is required.";
+
+                isValid = false;
+
+            }
+            else if (fullName.length < 2) {
+
+                document.getElementById("fullNameError").innerText =
+                    "Please enter a valid name.";
+
+                isValid = false;
+
+            }
+
+
+            /* ---------- EMAIL ---------- */
+
+            var email = Email1.value.trim();
+
+            var emailPattern =
+                /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+            if (email === "") {
+
+                document.getElementById("emailError").innerText =
+                    "Email is required.";
+
+                isValid = false;
+
+            }
+            else if (!emailPattern.test(email)) {
+
+                document.getElementById("emailError").innerText =
+                    "Please enter a valid email.";
+
+                isValid = false;
+
+            }
+
+
+            /* ---------- MOBILE ---------- */
+
+            var mobile = MobileNo1.value.trim();
+
+            if (mobile !== "" &&
+                (mobile.length < 6 || mobile.length > 20)) {
+
+                document.getElementById("mobileError").innerText =
+                    "Phone number must contain 6 to 20 digits.";
+
+                isValid = false;
+
+            }
+
+
+            /* ---------- SUBJECT ---------- */
+
+            var subject = Subject1.value.trim();
+
+            if (subject === "") {
+
+                document.getElementById("subjectError").innerText =
+                    "Subject is required.";
+
+                isValid = false;
+
+            }
+
+
+            /* ---------- DESCRIPTION ---------- */
+
+            var description = Description1.value.trim();
+
+            if (description === "") {
+
+                document.getElementById("descriptionError").innerText =
+                    "Message is required.";
+
+                isValid = false;
+
+            }
+            else if (description.length < 15) {
+
+                document.getElementById("descriptionError").innerText =
+                    "Message must be at least 15 characters.";
+
+                isValid = false;
+
+            }
+            else if (description.length > 200) {
+
+                document.getElementById("descriptionError").innerText =
+                    "Message must be within 200 characters.";
+
+                isValid = false;
+
+            }
+
+
+            /* =================================================
+               STOP FORM IF INVALID
+               ================================================= */
+
+            if (!isValid) {
+
+                event.preventDefault();
+
+                return false;
+
+            }
+
+
+            /* =================================================
+               PREVENT DOUBLE SUBMIT
+               ================================================= */
+
+            var submitButton =
+                contactForm.querySelector('button[type="submit"]');
+
+            if (submitButton) {
+
+                submitButton.disabled = true;
+
+                submitButton.innerHTML =
+                    'Sending...';
+
+            }
+
+        });
+
+    });
+
+</script>
+

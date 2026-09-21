@@ -1552,5 +1552,76 @@ ORDER BY SAF.nID DESC, OFB.nID DESC;
             return View(organization);
         }
 
+
+        [HttpGet]
+        [Route("SuperAdmin/ContactList")]
+        public IActionResult ContactList()
+        {
+            List<ViewModelTrainee> contactList = new List<ViewModelTrainee>();
+
+            try
+            {
+                string connectionString =
+                    _configuration.GetConnectionString("DefaultConnection");
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    string query = @"
+         SELECT
+             FullName,
+             Email,
+             MobileNo,
+             Subject,
+             Description
+         FROM tblContactUs
+         ORDER BY nID DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ViewModelTrainee model = new ViewModelTrainee
+                                {
+                                    FullName = reader["FullName"] == DBNull.Value
+                                        ? ""
+                                        : reader["FullName"].ToString(),
+
+                                    Email = reader["Email"] == DBNull.Value
+                                        ? ""
+                                        : reader["Email"].ToString(),
+
+                                    MobileNo = reader["MobileNo"] == DBNull.Value
+                                        ? ""
+                                        : reader["MobileNo"].ToString(),
+
+                                    Subject = reader["Subject"] == DBNull.Value
+                                        ? ""
+                                        : reader["Subject"].ToString(),
+
+                                    Description = reader["Description"] == DBNull.Value
+                                        ? ""
+                                        : reader["Description"].ToString()
+                                };
+
+                                contactList.Add(model);
+                            }
+                        }
+                    }
+                }
+
+                return View(contactList);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Unable to load contact list: " + ex.Message;
+
+                return View(contactList);
+            }
+        }
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ERHuntCV.Models;
-using ErJobPortal.Models;
 using HuntCV_Portal.Models;
 using Microsoft.AspNetCore.Routing.Matching;
 using Microsoft.Data.SqlClient;
@@ -7,12 +6,16 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
 using System.Data.Common;
+using ERHuntCV.Models;
+using System.Data;
+
 
 namespace HuntCV_Portal.Repositories
 {
     public class AccountRepository
     {
         private readonly IConfiguration _configuration;
+
 
 
         public AccountRepository(IConfiguration configuration)
@@ -1043,5 +1046,564 @@ namespace HuntCV_Portal.Repositories
 
         #endregion
 
+
+        // shrirang 18/09/26
+
+        // =========================================================
+        // CANDIDATE - GET BY EMAIL
+        // =========================================================
+        //public CandidateRegisterM? GetCandidateByEmail(string email)
+        //{
+        //    string? connectionString =
+        //        _configuration.GetConnectionString("DefaultConnection");
+
+        //    if (string.IsNullOrWhiteSpace(connectionString))
+        //    {
+        //        throw new InvalidOperationException(
+        //            "DefaultConnection not found.");
+        //    }
+
+        //    using (SqlConnection cn =
+        //           new SqlConnection(connectionString))
+        //    {
+        //        string query = @"
+        //    SELECT
+        //        nID,
+        //        sFName,
+        //        sLName,
+        //        nGender,
+        //        DOB,
+        //        sMobile,
+        //        sEmail,
+        //        sProfileImage,
+        //        sPassword
+        //    FROM tblCandidateReg
+        //    WHERE sEmail = @Email
+        //      AND nBit = 1";
+
+        //        using (SqlCommand cmd =
+        //               new SqlCommand(query, cn))
+        //        {
+        //            cmd.Parameters.Add(
+        //                "@Email",
+        //                SqlDbType.NVarChar,
+        //                255).Value =
+        //                email.Trim();
+
+        //            cn.Open();
+
+        //            using (SqlDataReader dr =
+        //                   cmd.ExecuteReader())
+        //            {
+        //                if (dr.Read())
+        //                {
+        //                    return new CandidateRegisterM
+        //                    {
+        //                        nID =
+        //                            dr["nID"] != DBNull.Value
+        //                                ? Convert.ToInt32(dr["nID"])
+        //                                : 0,
+
+        //                        sFName =
+        //                            dr["sFName"] != DBNull.Value
+        //                                ? dr["sFName"].ToString()
+        //                                : "",
+
+        //                        sLName =
+        //                            dr["sLName"] != DBNull.Value
+        //                                ? dr["sLName"].ToString()
+        //                                : "",
+
+        //                        nGender =
+        //                            dr["nGender"] != DBNull.Value
+        //                                ? Convert.ToInt32(dr["nGender"])
+        //                                : null,
+
+        //                        DOB =
+        //                            dr["DOB"] != DBNull.Value
+        //                                ? Convert.ToDateTime(dr["DOB"])
+        //                                : null,
+
+        //                        sMobile =
+        //                            dr["sMobile"] != DBNull.Value
+        //                                ? dr["sMobile"].ToString()
+        //                                : "",
+
+        //                        sEmail =
+        //                            dr["sEmail"] != DBNull.Value
+        //                                ? dr["sEmail"].ToString()
+        //                                : "",
+
+        //                        sProfileImage =
+        //                            dr["sProfileImage"] != DBNull.Value
+        //                                ? dr["sProfileImage"].ToString()
+        //                                : "",
+
+        //                        sPassword =
+        //                            dr["sPassword"] != DBNull.Value
+        //                                ? dr["sPassword"].ToString()
+        //                                : ""
+        //                    };
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return null;
+        //}
+
+
+        // =========================================================
+        // CANDIDATE - RESET PASSWORD
+        // =========================================================
+        public bool ResetCandidatePassword(
+            string email,
+            string newPassword)
+        {
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection not found.");
+            }
+
+            using (SqlConnection cn =
+                   new SqlConnection(connectionString))
+            {
+                string query = @"
+            UPDATE tblCandidateReg
+            SET
+                sPassword = @Password,
+                ModDate = GETDATE()
+            WHERE sEmail = @Email
+              AND nBit = 1";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add(
+                        "@Password",
+                        SqlDbType.NVarChar,
+                        500).Value =
+                        newPassword;
+
+                    cmd.Parameters.Add(
+                        "@Email",
+                        SqlDbType.NVarChar,
+                        255).Value =
+                        email.Trim();
+
+                    cn.Open();
+
+                    int rowsAffected =
+                        cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        // =========================================================
+        // CANDIDATE - GET BY EMAIL
+        // =========================================================
+        public CandidateRegisterM? GetCandidateByEmail(string email)
+        {
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection not found.");
+            }
+
+            using (SqlConnection cn =
+                   new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT
+                nID,
+                sFName,
+                sLName,
+                nGender,
+                DOB,
+                sMobile,
+                sEmail,
+                sProfileImage,
+                sPassword
+            FROM tblCandidateReg
+            WHERE sEmail = @Email
+              AND nBit = 1";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add(
+                        "@Email",
+                        SqlDbType.NVarChar,
+                        255).Value = email.Trim();
+
+                    cn.Open();
+
+                    using (SqlDataReader dr =
+                           cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new CandidateRegisterM
+                            {
+                                nID =
+                                    dr["nID"] != DBNull.Value
+                                        ? Convert.ToInt32(dr["nID"])
+                                        : 0,
+
+                                sFName =
+                                    dr["sFName"] != DBNull.Value
+                                        ? dr["sFName"].ToString()
+                                        : "",
+
+                                sLName =
+                                    dr["sLName"] != DBNull.Value
+                                        ? dr["sLName"].ToString()
+                                        : "",
+
+                                nGender =
+                                    dr["nGender"] != DBNull.Value
+                                        ? Convert.ToInt32(dr["nGender"])
+                                        : null,
+
+                                DOB =
+                                    dr["DOB"] != DBNull.Value
+                                        ? Convert.ToDateTime(dr["DOB"])
+                                        : null,
+
+                                sMobile =
+                                    dr["sMobile"] != DBNull.Value
+                                        ? dr["sMobile"].ToString()
+                                        : "",
+
+                                sEmail =
+                                    dr["sEmail"] != DBNull.Value
+                                        ? dr["sEmail"].ToString()
+                                        : "",
+
+                                sProfileImage =
+                                    dr["sProfileImage"] != DBNull.Value
+                                        ? dr["sProfileImage"].ToString()
+                                        : "",
+
+                                sPassword =
+                                    dr["sPassword"] != DBNull.Value
+                                        ? dr["sPassword"].ToString()
+                                        : ""
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        // =========================================================
+        // SUPER ADMIN - GET BY EMAIL
+        // =========================================================
+        public SALoginM? GetSuperAdminByEmail(string email)
+        {
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection not found.");
+            }
+
+            using (SqlConnection cn =
+                   new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT
+                nID,
+                SAID,
+                sFName,
+                sLName,
+                sEmail,
+                sMobile,
+                sPassword,
+                RegDate,
+                ModDate,
+                nBit,
+                sRole
+            FROM tblSuperAdmin
+            WHERE sEmail = @Email
+              AND nBit = 1";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add(
+                        "@Email",
+                        SqlDbType.NVarChar,
+                        255).Value = email.Trim();
+
+                    cn.Open();
+
+                    using (SqlDataReader dr =
+                           cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new SALoginM
+                            {
+                                nID = dr["nID"] != DBNull.Value
+                                    ? Convert.ToInt32(dr["nID"])
+                                    : 0,
+
+                                SAID = dr["SAID"] != DBNull.Value
+                                    ? Convert.ToInt32(dr["SAID"])
+                                    : 0,
+
+                                sFName = dr["sFName"] != DBNull.Value
+                                    ? dr["sFName"].ToString()
+                                    : null,
+
+                                sLName = dr["sLName"] != DBNull.Value
+                                    ? dr["sLName"].ToString()
+                                    : null,
+
+                                sEmail = dr["sEmail"] != DBNull.Value
+                                    ? dr["sEmail"].ToString()!
+                                    : "",
+
+                                sMobile = dr["sMobile"] != DBNull.Value
+                                    ? dr["sMobile"].ToString()
+                                    : null,
+
+                                sPassword = dr["sPassword"] != DBNull.Value
+                                    ? dr["sPassword"].ToString()!
+                                    : "",
+
+                                RegDate = dr["RegDate"] != DBNull.Value
+                                    ? Convert.ToDateTime(dr["RegDate"])
+                                    : DateTime.MinValue,
+
+                                ModDate = dr["ModDate"] != DBNull.Value
+                                    ? Convert.ToDateTime(dr["ModDate"])
+                                    : null,
+
+                                nBit = dr["nBit"] != DBNull.Value &&
+                                       Convert.ToBoolean(dr["nBit"]),
+
+                                sRole = dr["sRole"] != DBNull.Value
+                                    ? dr["sRole"].ToString()
+                                    : null
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+
+        // =========================================================
+        // SUPER ADMIN - RESET PASSWORD
+        // =========================================================
+        public bool ResetSuperAdminPassword(
+            string email,
+            string newPassword)
+        {
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection not found.");
+            }
+
+            using (SqlConnection cn =
+                   new SqlConnection(connectionString))
+            {
+                string query = @"
+            UPDATE tblSuperAdmin
+            SET
+                sPassword = @Password,
+                ModDate = GETDATE()
+            WHERE sEmail = @Email
+              AND nBit = 1";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add(
+                        "@Password",
+                        SqlDbType.NVarChar,
+                        500
+                    ).Value = newPassword;
+
+                    cmd.Parameters.Add(
+                        "@Email",
+                        SqlDbType.NVarChar,
+                        255
+                    ).Value = email.Trim();
+
+                    cn.Open();
+
+                    int rowsAffected =
+                        cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        /// org 
+        /// 
+
+        // =========================================================
+        // ORGANIZATION - GET BY EMAIL
+        // =========================================================
+
+        public OrganizationRegisterM? GetOrganizationByEmail(string email)
+        {
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection not found.");
+            }
+
+            using (SqlConnection cn =
+                   new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT
+                nID,
+                sOrgName,
+                sOrgUrl,
+                sName,
+                sDesignation,
+                sMobile,
+                sEmail,
+                sPassword
+            FROM tblOrgRegistration
+            WHERE sEmail = @Email
+              AND nBit = 1";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add(
+                        "@Email",
+                        SqlDbType.NVarChar,
+                        255).Value = email.Trim();
+
+                    cn.Open();
+
+                    using (SqlDataReader dr =
+                           cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new OrganizationRegisterM
+                            {
+                                nID =
+                                    dr["nID"] != DBNull.Value
+                                        ? Convert.ToInt32(dr["nID"])
+                                        : 0,
+
+                                sOrgName =
+                                    dr["sOrgName"] != DBNull.Value
+                                        ? dr["sOrgName"].ToString()
+                                        : "",
+
+                                sOrgUrl =
+                                    dr["sOrgUrl"] != DBNull.Value
+                                        ? dr["sOrgUrl"].ToString()
+                                        : "",
+
+                                sName =
+                                    dr["sName"] != DBNull.Value
+                                        ? dr["sName"].ToString()
+                                        : "",
+
+                                sDesignation =
+                                    dr["sDesignation"] != DBNull.Value
+                                        ? dr["sDesignation"].ToString()
+                                        : "",
+
+                                sMobile =
+                                    dr["sMobile"] != DBNull.Value
+                                        ? dr["sMobile"].ToString()
+                                        : "",
+
+                                sEmail =
+                                    dr["sEmail"] != DBNull.Value
+                                        ? dr["sEmail"].ToString()
+                                        : "",
+
+                                sPassword =
+                                    dr["sPassword"] != DBNull.Value
+                                        ? dr["sPassword"].ToString()
+                                        : ""
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public bool ResetOrganizationPassword(
+    string email,
+    string newPassword)
+        {
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection not found.");
+            }
+
+            using (SqlConnection cn =
+                   new SqlConnection(connectionString))
+            {
+                string query = @"
+            UPDATE tblOrgRegistration
+            SET
+                sPassword = @Password,
+                ModDate = GETDATE()
+            WHERE sEmail = @Email
+              AND nBit = 1";
+
+                using (SqlCommand cmd =
+                       new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add(
+                        "@Password",
+                        SqlDbType.NVarChar,
+                        500).Value = newPassword;
+
+                    cmd.Parameters.Add(
+                        "@Email",
+                        SqlDbType.NVarChar,
+                        255).Value = email.Trim();
+
+                    cn.Open();
+
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
     }
 }

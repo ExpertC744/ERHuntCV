@@ -1,0 +1,541 @@
+﻿@model List<ERHuntCV.Models.ViewModelTrainee>
+
+@{
+    ViewData["Title"] = "Contact List";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+<style>
+
+    /* =========================================================
+               SUPER ADMIN - CONTACT LIST
+               ========================================================= */
+
+    .contact-page {
+        padding: 38px 36px 50px;
+        background: #f5f7fb;
+        min-height: calc(100vh - 70px);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* ================= PAGE HEADER ================= */
+
+    .contact-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 26px;
+    }
+
+    .contact-header-left h2 {
+        margin: 0 0 5px;
+        color: #263a56;
+        font-size: 29px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
+
+    .contact-header-left p {
+        margin: 0;
+        color: #718096;
+        font-size: 15px;
+    }
+
+    /* ================= TOTAL BADGE ================= */
+
+    .contact-total {
+        background: #1677f0;
+        color: #ffffff;
+        padding: 9px 17px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 700;
+        box-shadow: 0 3px 8px rgba(22, 119, 240, 0.15);
+    }
+
+    /* ================= ALERT ================= */
+
+    .contact-alert {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fbdada;
+        color: #a13a3a;
+        border: 1px solid #f4caca;
+        border-radius: 4px;
+        padding: 14px 17px;
+        margin-bottom: 17px;
+        font-size: 14px;
+    }
+
+    .contact-alert-message {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-alert-close {
+        border: 0;
+        background: transparent;
+        color: #7b6666;
+        font-size: 25px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    /* ================= MAIN CARD ================= */
+
+    .contact-card {
+        background: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 7px rgba(38, 58, 86, 0.08);
+        border: 1px solid #edf0f5;
+        /* IMPORTANT */
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    /* ================= CARD HEADER ================= */
+
+    .contact-card-header {
+        padding: 18px 18px 17px;
+        background: #ffffff;
+    }
+
+    .contact-card-title {
+        margin: 0;
+        color: #263a56;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    /* ================= TABLE ================= */
+
+    .contact-table-wrapper {
+        padding: 0 16px 16px;
+        /* Keep table inside card */
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        box-sizing: border-box;
+    }
+
+    .contact-table {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-collapse: collapse;
+        font-size: 14px;
+        /* IMPORTANT */
+        table-layout: fixed;
+    }
+
+        /* ================= TABLE HEADER ================= */
+
+        .contact-table thead th {
+            background: #00695C;
+            color: #ffffff;
+            padding: 13px 10px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: left;
+            white-space: nowrap;
+            border: 1px solid #30353a;
+            box-sizing: border-box;
+        }
+
+        /* ================= TABLE BODY ================= */
+
+        .contact-table tbody td {
+            padding: 14px 10px;
+            color: #4b5563;
+            background: #ffffff;
+            border: 1px solid #e5e9ef;
+            vertical-align: top;
+            /* IMPORTANT:
+                   Prevent long text from expanding table */
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            white-space: normal;
+            box-sizing: border-box;
+        }
+
+        .contact-table tbody tr:hover td {
+            background: #f8fbfc;
+        }
+
+    /* ================= COLUMN WIDTHS ================= */
+
+    .contact-number {
+        width: 60px;
+        text-align: center;
+        color: #526176 !important;
+        font-weight: 600;
+    }
+
+    .contact-name {
+        width: 16%;
+        color: #263a56 !important;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .contact-email {
+        width: 20%;
+        color: #53657c !important;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .contact-mobile {
+        width: 13%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .contact-subject {
+        width: 16%;
+        color: #263a56 !important;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .contact-description {
+        width: 35%;
+        /* IMPORTANT */
+        min-width: 0;
+        max-width: none;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    /* ================= EMPTY STATE ================= */
+
+    .contact-empty {
+        text-align: center;
+        padding: 55px 20px 50px !important;
+        background: #ffffff !important;
+    }
+
+    .contact-empty-icon {
+        width: 55px;
+        height: 55px;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b7681;
+        font-size: 27px;
+    }
+
+    .contact-empty-title {
+        margin: 0 0 8px;
+        color: #5b6572;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .contact-empty-text {
+        margin: 0;
+        color: #718096;
+        font-size: 14px;
+    }
+
+    /* =========================================================
+               RESPONSIVE - TABLET
+               ========================================================= */
+
+    @@media (max-width: 1200px) {
+
+        .contact-page {
+            padding: 32px 25px 45px;
+        }
+
+        .contact-table {
+            min-width: 850px;
+        }
+
+        .contact-table-wrapper {
+            overflow-x: auto;
+        }
+    }
+
+    /* =========================================================
+               RESPONSIVE - MOBILE
+               ========================================================= */
+
+    @@media (max-width: 992px) {
+
+        .contact-page {
+            padding: 30px 20px;
+        }
+
+        .contact-header-left h2 {
+            font-size: 25px;
+        }
+
+        .contact-table {
+            min-width: 850px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+
+        .contact-page {
+            padding: 25px 15px;
+        }
+
+        .contact-header {
+            align-items: flex-start;
+            gap: 15px;
+            flex-direction: column;
+        }
+
+        .contact-header-left h2 {
+            font-size: 23px;
+        }
+
+        .contact-header-left p {
+            font-size: 13px;
+        }
+
+        .contact-total {
+            font-size: 13px;
+            padding: 8px 12px;
+        }
+
+        .contact-card-title {
+            font-size: 18px;
+        }
+
+        .contact-table-wrapper {
+            padding: 0 10px 10px;
+        }
+
+        .contact-table {
+            min-width: 850px;
+        }
+    }
+
+</style>
+
+
+<div class="contact-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <div class="contact-header">
+
+        <div class="contact-header-left">
+
+            <h2>
+                Contact Details
+            </h2>
+
+            <p>
+                Contact messages received from users.
+            </p>
+
+        </div>
+
+        @* Uncomment if you want total count
+
+        <div class="contact-total">
+            Total: @(Model?.Count ?? 0)
+        </div>
+
+        *@
+
+    </div>
+
+
+    <!-- =====================================================
+         ERROR MESSAGE
+         ===================================================== -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="contact-alert">
+
+            <div class="contact-alert-message">
+
+                <span>
+                    @TempData["Error"]
+                </span>
+
+            </div>
+
+            <button type="button"
+                    class="contact-alert-close"
+                    onclick="this.parentElement.remove();">
+                &times;
+            </button>
+
+        </div>
+    }
+
+
+    <!-- =====================================================
+         CONTACT CARD
+         ===================================================== -->
+
+    <div class="contact-card">
+
+        <!-- =================================================
+             CARD HEADER
+             ================================================= -->
+
+        <div class="contact-card-header">
+
+            @*   <h5 class="contact-card-title">
+                Contact Messages received from User
+            </h5> *@
+
+        </div>
+
+
+        <!-- =================================================
+             TABLE
+             ================================================= -->
+
+        <div class="contact-table-wrapper">
+
+            <table class="contact-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:60px;">
+                            Sr. No
+                        </th>
+
+                        <th style="width:16%;">
+                            Full Name
+                        </th>
+
+                        <th style="width:20%;">
+                            Email
+                        </th>
+
+                        <th style="width:13%;">
+                            Mobile No
+                        </th>
+
+                        <th style="width:16%;">
+                            Subject
+                        </th>
+
+                        <th style="width:35%;">
+                            Description
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        int srNo = 1;
+
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <!-- NUMBER -->
+
+                                <td class="contact-number">
+                                    @srNo
+                                </td>
+
+
+                                <!-- NAME -->
+
+                                <td class="contact-name">
+                                    @item.FullName
+                                </td>
+
+
+                                <!-- EMAIL -->
+
+                                <td class="contact-email">
+                                    @item.Email
+                                </td>
+
+
+                                <!-- MOBILE -->
+
+                                <td class="contact-mobile">
+                                    @item.MobileNo
+                                </td>
+
+
+                                <!-- SUBJECT -->
+
+                                <td class="contact-subject">
+                                    @item.Subject
+                                </td>
+
+
+                                <!-- DESCRIPTION -->
+
+                                <td class="contact-description">
+                                    @item.Description
+                                </td>
+
+                            </tr>
+
+                            srNo++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="6"
+                                class="contact-empty">
+
+                                <div class="contact-empty-icon">
+
+                                    <i class="fas fa-envelope-open-text"></i>
+
+                                </div>
+
+                                <p class="contact-empty-title">
+                                    No Contact Messages Found
+                                </p>
+
+                                <p class="contact-empty-text">
+                                    There are currently no messages submitted
+                                    through the Contact Us page.
+                                </p>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
