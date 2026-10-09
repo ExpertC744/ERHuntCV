@@ -1506,6 +1506,136 @@
 		</div>
 	</section>
 
+	@{
+		int traineeCount = Convert.ToInt32(ViewBag.TraineeCount ?? 0);
+		int organizationCount = Convert.ToInt32(ViewBag.OrganizationCount ?? 0);
+		int postCount = Convert.ToInt32(ViewBag.PostCount ?? 0);
+		int stateCount = Convert.ToInt32(ViewBag.StateCount ?? 0);
+		int countryCount = Convert.ToInt32(ViewBag.CountryCount ?? 0);
+	}
+
+	<section class="platform-dashboard">
+
+		<div class="platform-stats">
+
+			<!-- TRAINEES -->
+			<div class="platform-stat-card platform-orange">
+
+				<div class="platform-stat-icon">
+					<i class="fas fa-venus-mars"></i>
+				</div>
+
+				<div class="platform-stat-label">
+					Trainees
+				</div>
+
+				<div class="platform-stat-value counter"
+					 data-target="@traineeCount">
+					0
+				</div>
+
+				<div class="platform-stat-progress">
+					<span></span>
+				</div>
+
+			</div>
+
+
+			<!-- ORGANIZATIONS -->
+			<div class="platform-stat-card platform-green">
+
+				<div class="platform-stat-icon">
+					<i class="fas fa-building"></i>
+				</div>
+
+				<div class="platform-stat-label">
+					Organizations
+				</div>
+
+				<div class="platform-stat-value counter"
+					 data-target="@organizationCount">
+					0
+				</div>
+
+				<div class="platform-stat-progress">
+					<span></span>
+				</div>
+
+			</div>
+
+
+			<!-- POSTS -->
+			<div class="platform-stat-card platform-blue">
+
+				<div class="platform-stat-icon">
+					<i class="fas fa-briefcase"></i>
+				</div>
+
+				<div class="platform-stat-label">
+					No. Of Posts
+				</div>
+
+				<div class="platform-stat-value counter"
+					 data-target="@postCount">
+					0
+				</div>
+
+				<div class="platform-stat-progress">
+					<span></span>
+				</div>
+
+			</div>
+
+
+			<!-- STATES -->
+			<div class="platform-stat-card platform-purple">
+
+				<div class="platform-stat-icon">
+					<i class="fas fa-map-marker-alt"></i>
+				</div>
+
+				<div class="platform-stat-label">
+					States
+				</div>
+
+				<div class="platform-stat-value counter"
+					 data-target="@stateCount">
+					0
+				</div>
+
+				<div class="platform-stat-progress">
+					<span></span>
+				</div>
+
+			</div>
+
+
+			<!-- COUNTRIES -->
+			<div class="platform-stat-card platform-pink">
+
+				<div class="platform-stat-icon">
+					<i class="fas fa-plane"></i>
+				</div>
+
+				<div class="platform-stat-label">
+					Countries
+				</div>
+
+				<div class="platform-stat-value counter"
+					 data-target="@countryCount">
+					0
+				</div>
+
+				<div class="platform-stat-progress">
+					<span></span>
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
 	<!-- FINAL CTA SECTION -->
 	<section class="final-cta-section">
 		<div class="container-lg">

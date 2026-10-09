@@ -7001,3 +7001,531 @@ body::before {
         padding: 0;
     }
 }
+
+.platform-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+    position: relative;
+    z-index: 3;
+}
+
+
+    /* =========================================================
+   CONNECTING LINE
+   ========================================================= */
+
+    .platform-stats::before {
+        content: "";
+        position: absolute;
+        top: 42px;
+        left: 7%;
+        right: 7%;
+        height: 2px;
+        background: linear-gradient( 90deg, #ff7a00 0%, #22c55e 25%, #3b82f6 50%, #a855f7 75%, #ec4899 100% );
+        opacity: 0.18;
+        z-index: 0;
+        animation: platformLineGlow 3s ease-in-out infinite;
+    }
+
+
+@keyframes platformLineGlow {
+
+    0%, 100% {
+        opacity: 0.12;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+
+/* =========================================================
+   STAT CARD
+   ========================================================= */
+
+.platform-stat-card {
+    min-width: 0;
+    min-height: 220px;
+    padding: 25px 20px 22px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    border-radius: 24px;
+    background: linear-gradient( 145deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.82) );
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 1);
+    opacity: 0;
+    transform: translateY(50px) scale(0.92);
+    animation: platformCardIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease;
+}
+
+
+    /* =========================================================
+   CARD ANIMATION DELAY
+   ========================================================= */
+
+    .platform-stat-card:nth-child(1) {
+        animation-delay: 0.15s;
+    }
+
+    .platform-stat-card:nth-child(2) {
+        animation-delay: 0.30s;
+    }
+
+    .platform-stat-card:nth-child(3) {
+        animation-delay: 0.45s;
+    }
+
+    .platform-stat-card:nth-child(4) {
+        animation-delay: 0.60s;
+    }
+
+    .platform-stat-card:nth-child(5) {
+        animation-delay: 0.75s;
+    }
+
+
+@keyframes platformCardIn {
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   CARD HOVER
+   ========================================================= */
+
+.platform-stat-card:hover {
+    transform: translateY(-12px) scale(1.025);
+    box-shadow: 0 25px 55px rgba(15, 23, 42, 0.14), 0 5px 20px var(--stat-shadow);
+}
+
+
+/* =========================================================
+   CARD GLOW
+   ========================================================= */
+
+.platform-stat-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    top: -70px;
+    border-radius: 50%;
+    background: var(--stat-color);
+    opacity: 0.13;
+    filter: blur(18px);
+    pointer-events: none;
+    transition: 0.5s ease;
+    animation: platformGlowMove 4s ease-in-out infinite;
+}
+
+
+@keyframes platformGlowMove {
+
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-15px, 15px) scale(1.15);
+    }
+}
+
+
+.platform-stat-card:hover::before {
+    opacity: 0.25;
+    transform: scale(1.4);
+}
+
+
+/* =========================================================
+   SHINE EFFECT
+   ========================================================= */
+
+.platform-stat-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient( 90deg, transparent, rgba(255, 255, 255, 0.55), transparent );
+    transform: skewX(-20deg);
+    pointer-events: none;
+    transition: 0.7s;
+}
+
+
+.platform-stat-card:hover::after {
+    left: 140%;
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.platform-stat-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 18px;
+    background: linear-gradient( 135deg, var(--stat-color), var(--stat-dark) );
+    color: #ffffff;
+    font-size: 25px;
+    box-shadow: 0 12px 25px var(--stat-shadow);
+    margin-bottom: 26px;
+    transition: 0.4s ease;
+    animation: platformIconFloat 3s ease-in-out infinite;
+}
+
+
+@keyframes platform-stat-icon {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+.platform-stat-card:hover .platform-stat-icon {
+    transform: scale(1.12) rotate(-5deg);
+    box-shadow: 0 15px 35px var(--stat-shadow);
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.platform-stat-label {
+    margin-bottom: 6px;
+    color: #7b8499;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   NUMBER
+   ========================================================= */
+
+.platform-stat-value {
+    display: inline-block;
+    color: #172033;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: 35px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    transition: 0.3s ease;
+}
+
+
+.platform-stat-card:hover
+.platform-stat-value {
+    color: var(--stat-color);
+    text-shadow: 0 0 18px var(--stat-shadow);
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+.platform-stat-progress {
+    width: 100%;
+    height: 6px;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #edf0f5;
+}
+
+
+    .platform-stat-progress span {
+        display: block;
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient( 90deg, var(--stat-color), var(--stat-light) );
+        box-shadow: 0 0 12px var(--stat-shadow);
+        animation: platformProgressLoad 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation-delay: 1s;
+    }
+
+
+@keyframes platformProgressLoad {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: var(--stat-progress);
+    }
+}
+
+
+/* =========================================================
+   ORANGE
+   ========================================================= */
+
+.platform-orange {
+    --stat-color: #ff7a00;
+    --stat-dark: #ff4d00;
+    --stat-light: #ffb000;
+    --stat-shadow: rgba(255, 122, 0, 0.25);
+    --stat-progress: 90%;
+}
+
+
+/* =========================================================
+   GREEN
+   ========================================================= */
+
+.platform-green {
+    --stat-color: #22c55e;
+    --stat-dark: #16a34a;
+    --stat-light: #86efac;
+    --stat-shadow: rgba(34, 197, 94, 0.25);
+    --stat-progress: 35%;
+}
+
+
+/* =========================================================
+   BLUE
+   ========================================================= */
+
+.platform-blue {
+    --stat-color: #3b82f6;
+    --stat-dark: #2563eb;
+    --stat-light: #60a5fa;
+    --stat-shadow: rgba(59, 130, 246, 0.25);
+    --stat-progress: 65%;
+}
+
+
+/* =========================================================
+   PURPLE
+   ========================================================= */
+
+.platform-purple {
+    --stat-color: #a855f7;
+    --stat-dark: #7e22ce;
+    --stat-light: #d8b4fe;
+    --stat-shadow: rgba(168, 85, 247, 0.25);
+    --stat-progress: 50%;
+}
+
+
+/* =========================================================
+   PINK
+   ========================================================= */
+
+.platform-pink {
+    --stat-color: #ec4899;
+    --stat-dark: #db2777;
+    --stat-light: #f9a8d4;
+    --stat-shadow: rgba(236, 72, 153, 0.25);
+    --stat-progress: 30%;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+    .platform-dashboard {
+        max-width: 1450px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .platform-dashboard {
+        margin: 35px auto;
+        padding: 30px;
+    }
+
+    .platform-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+        .platform-stats::before {
+            display: none;
+        }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 750px) {
+
+    .platform-dashboard {
+        margin: 30px 15px;
+        padding: 25px 20px;
+        border-radius: 25px;
+    }
+
+    .platform-dashboard-header {
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .platform-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .platform-stat-value {
+        font-size: 30px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .platform-dashboard {
+        margin: 25px 10px;
+        padding: 22px 16px;
+        border-radius: 22px;
+    }
+
+    .platform-dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 28px;
+    }
+
+    .platform-heading h2 {
+        font-size: 25px;
+    }
+
+    .platform-heading p {
+        font-size: 13px;
+    }
+
+    .platform-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .platform-stat-card {
+        min-height: 200px;
+        padding: 22px 19px;
+    }
+
+    .platform-stat-icon {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 22px;
+    }
+
+    .platform-stat-value {
+        font-size: 32px;
+    }
+}
+
+/* =========================================================
+   PLATFORM STAT ICON
+   ========================================================= */
+
+/* =========================================================
+   PLATFORM STAT ICON
+   ========================================================= */
+
+.platform-stat-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 18px;
+    background: linear-gradient( 135deg, var(--stat-color), var(--stat-dark) );
+    color: #ffffff;
+    font-size: 25px;
+    line-height: 1;
+    box-shadow: 0 12px 25px var(--stat-shadow);
+    margin-bottom: 26px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: platformIconFloat 3s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ICON FLOAT
+   ========================================================= */
+
+@keyframes platformIconFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* =========================================================
+   ICON HOVER
+   ========================================================= */
+
+.platform-stat-card:hover .platform-stat-icon {
+    transform: translateY(0) scale(1.12) rotate(-5deg);
+    box-shadow: 0 15px 35px var(--stat-shadow);
+}
+
+
+/* =========================================================
+   ICON FONT AWESOME
+   ========================================================= */
+
+.platform-stat-icon i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 25px;
+    line-height: 1;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+l
