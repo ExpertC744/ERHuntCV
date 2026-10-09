@@ -1,133 +1,133 @@
-﻿
-/* =========================================================
-   HUNTCV ORGANIZATION REGISTRATION
+﻿/* =========================================================
+   HuntCV – Organization Registration  (CSS only, no HTML changes)
+   Place at: wwwroot/css/OrganizationRegister.css
+   Same design as the candidate page:
+   - Desktop (>= 1200px wide, >= 700px tall): single screen, no scroll.
+     Navy side panel left, organization form middle, security right.
+   - Smaller screens: stacked card with docked stepper (page scrolls).
    ========================================================= */
+
+:root {
+    --hc-ink: #0b1437;
+    --hc-navy: #111c4e;
+    --hc-blue: #2f5bea;
+    --hc-indigo: #5b3df0;
+    --hc-sky: #e8eeff;
+    --hc-mist: #f4f7ff;
+    --hc-line: #dfe5f5;
+    --hc-text: #1b2447;
+    --hc-muted: #66719a;
+    --hc-danger: #e5484d;
+    --hc-warn: #f59e0b;
+    --hc-ok: #12b886;
+    --hc-grad: linear-gradient(120deg, #2f5bea 0%, #5b3df0 100%);
+    --hc-radius: 14px;
+}
+
 * {
     box-sizing: border-box;
 }
 
-html,
 body {
     margin: 0;
-    padding: 0;
-    min-height: 100%;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--hc-text);
+    background: var(--hc-mist);
+    -webkit-font-smoothing: antialiased;
 }
 
-body {
-    background: #f5f8f7;
-    color: #25322e;
-}
-
-
-/* =========================================================
-   PAGE
-   ========================================================= */
+/* ---------- PAGE + BACKGROUND ---------- */
 
 .organization-register-page {
-    min-height: 100vh;
-    padding: 45px 0;
     position: relative;
+    min-height: 100vh;
+    padding: 40px 0 28px;
     overflow: hidden;
-    background: radial-gradient( circle at 5% 5%, rgba(30,123,103,.10), transparent 28% ), radial-gradient( circle at 95% 95%, rgba(30,123,103,.08), transparent 30% ), #f7faf9;
+    background: radial-gradient(circle at 1px 1px, rgba(47, 91, 234, .13) 1.2px, transparent 1.4px) 0 0 / 26px 26px, linear-gradient(180deg, #f7f9ff 0%, #eef2ff 100%);
 }
 
-
-/* =========================================================
-   BACKGROUND SHAPES
-   ========================================================= */
+    .organization-register-page .container {
+        position: relative;
+        z-index: 2;
+        max-width: 1120px;
+    }
 
 .register-bg-shape {
     position: absolute;
     border-radius: 50%;
+    filter: blur(70px);
     pointer-events: none;
+    z-index: 1;
 }
 
 .shape-one {
-    width: 430px;
-    height: 430px;
-    top: -210px;
-    left: -180px;
-    background: rgba(30,123,103,.045);
+    width: 460px;
+    height: 460px;
+    top: -160px;
+    right: -120px;
+    background: rgba(91, 61, 240, .22);
 }
 
 .shape-two {
-    width: 330px;
-    height: 330px;
-    right: -150px;
-    bottom: -170px;
-    background: rgba(30,123,103,.05);
+    width: 420px;
+    height: 420px;
+    bottom: -160px;
+    left: -140px;
+    background: rgba(47, 91, 234, .18);
 }
 
 .shape-three {
-    width: 170px;
-    height: 170px;
-    right: 45%;
-    top: 13%;
-    border: 1px solid rgba(30,123,103,.10);
+    width: 260px;
+    height: 260px;
+    top: 38%;
+    right: 22%;
+    background: rgba(47, 91, 234, .08);
 }
 
-
-/* =========================================================
-   CONTAINER
-   ========================================================= */
-
-.organization-register-page .container {
-    max-width: 1180px;
-    position: relative;
-    z-index: 2;
-}
-
-
-/* =========================================================
-   BRAND
-   ========================================================= */
+/* ---------- BRAND ---------- */
 
 .register-brand {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    margin-bottom: 27px;
-    font-size: 27px;
+    margin-bottom: 26px;
+    font-size: 28px;
     font-weight: 800;
-    letter-spacing: -1px;
-    color: #18241f;
+    letter-spacing: -.5px;
+    color: var(--hc-ink);
 }
 
     .register-brand > span > span {
-        color: #1e7b67;
+        color: var(--hc-blue);
     }
-
 
 .brand-logo {
     width: 44px;
     height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: #1e7b67;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--hc-grad);
     color: #fff;
-    box-shadow: 0 10px 25px rgba(30,123,103,.22);
+    font-size: 20px;
+    box-shadow: 0 10px 22px rgba(47, 91, 234, .35);
+    transform: rotate(-6deg);
 }
 
-
-/* =========================================================
-   MAIN CARD
-   ========================================================= */
+/* ---------- CARD ---------- */
 
 .organization-register-card {
-    padding: 42px;
-    background: rgba(255,255,255,.96);
-    border: 1px solid #e4ebe8;
-    border-radius: 25px;
-    box-shadow: 0 25px 70px rgba(26,52,45,.08), 0 5px 20px rgba(26,52,45,.03);
-    animation: registerAppear .6s ease;
+    position: relative;
+    background: #fff;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid var(--hc-line);
+    box-shadow: 0 2px 4px rgba(17, 28, 78, .04), 0 30px 70px -20px rgba(17, 28, 78, .28);
+    animation: hcRise .6s cubic-bezier(.2, .8, .2, 1) both;
 }
 
-
-@keyframes registerAppear {
-
+@keyframes hcRise {
     from {
         opacity: 0;
         transform: translateY(18px);
@@ -135,779 +135,1266 @@ body {
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
     }
 }
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
+/* ---------- HEADER ---------- */
 
 .register-header {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 17px;
-    margin-bottom: 32px;
+    gap: 20px;
+    padding: 34px 44px 74px;
+    color: #fff;
+    background: radial-gradient(circle at 92% 0%, rgba(91, 61, 240, .65), transparent 45%), radial-gradient(circle at 0% 100%, rgba(47, 91, 234, .45), transparent 50%), linear-gradient(135deg, var(--hc-ink), var(--hc-navy));
+    overflow: hidden;
 }
 
+    .register-header::after {
+        content: "";
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, .12);
+        box-shadow: 0 0 0 28px rgba(255, 255, 255, .03), 0 0 0 56px rgba(255, 255, 255, .02);
+        pointer-events: none;
+    }
 
 .register-header-icon {
-    width: 60px;
-    height: 60px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 17px;
-    background: rgba(30,123,103,.09);
-    color: #1e7b67;
-    font-size: 25px;
+    flex: 0 0 62px;
+    width: 62px;
+    height: 62px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    font-size: 26px;
+    color: #fff;
+    background: rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .22);
+    backdrop-filter: blur(6px);
 }
-
 
 .organization-label {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 6px;
-    color: #1e7b67;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
+    gap: 7px;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    color: #d5ddff;
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 999px;
 }
-
 
 .register-header h1 {
-    margin: 0;
-    color: #17231f;
-    font-size: 27px;
+    margin: 0 0 4px;
+    font-size: 32px;
     font-weight: 800;
     letter-spacing: -.8px;
+    line-height: 1.15;
+    color: #fff;
 }
-
 
 .register-header p {
-    margin: 6px 0 0;
-    color: #8b9692;
-    font-size: 12px;
+    margin: 0;
+    font-size: 15px;
+    color: rgba(255, 255, 255, .72);
 }
 
-
-/* =========================================================
-   PROGRESS
-   ========================================================= */
+/* ---------- PROGRESS ---------- */
 
 .registration-progress {
+    position: relative;
+    z-index: 3;
     display: flex;
     align-items: center;
-    padding: 15px 20px;
-    margin-bottom: 35px;
-    border: 1px solid #edf1ef;
-    border-radius: 14px;
-    background: #f8fbfa;
+    gap: 14px;
+    width: calc(100% - 88px);
+    max-width: 640px;
+    margin: -34px 44px 6px;
+    padding: 12px 18px;
+    background: #fff;
+    border: 1px solid var(--hc-line);
+    border-radius: 18px;
+    box-shadow: 0 16px 36px -12px rgba(17, 28, 78, .3);
 }
-
 
 .progress-step {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    opacity: .55;
 }
 
-
     .progress-step > span {
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        display: grid;
+        place-items: center;
         border-radius: 50%;
-        background: #e6eeeb;
-        color: #8b9692;
-        font-size: 11px;
+        font-size: 14px;
         font-weight: 700;
+        color: var(--hc-muted);
+        background: var(--hc-sky);
     }
-
-
-    .progress-step.active > span {
-        background: #1e7b67;
-        color: #fff;
-        box-shadow: 0 5px 15px rgba(30,123,103,.20);
-    }
-
 
     .progress-step strong {
         display: block;
-        color: #35423e;
-        font-size: 11px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--hc-ink);
+        line-height: 1.2;
     }
-
 
     .progress-step small {
-        color: #99a39f;
-        font-size: 9px;
+        display: block;
+        font-size: 12px;
+        color: var(--hc-muted);
     }
 
+    .progress-step.active {
+        opacity: 1;
+    }
+
+        .progress-step.active > span {
+            color: #fff;
+            background: var(--hc-grad);
+            box-shadow: 0 0 0 5px rgba(47, 91, 234, .15);
+        }
 
 .progress-line {
-    width: 100px;
-    height: 1px;
-    margin: 0 18px;
-    background: #dfe7e4;
+    flex: 1;
+    height: 0;
+    min-width: 24px;
+    border-top: 2px dashed #c3cdee;
 }
 
+/* ---------- FORM ---------- */
 
-/* =========================================================
-   SECTION
-   ========================================================= */
+#organizationRegisterForm {
+    padding: 30px 44px 36px;
+}
+
+.validation-summary,
+.validation-summary-errors {
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #b42318;
+    background: #fff1f1;
+    border: 1px solid #ffd0d0;
+}
+
+    .validation-summary ul,
+    .validation-summary-errors ul {
+        margin: 0;
+        padding-left: 18px;
+    }
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* ---------- SECTION TITLES ---------- */
 
 .section-title {
     display: flex;
     align-items: center;
-    gap: 11px;
+    gap: 14px;
     margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--hc-line);
 }
-
 
 .section-icon {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background: #edf7f4;
-    color: #1e7b67;
-    font-size: 14px;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 18px;
+    color: var(--hc-blue);
+    background: var(--hc-sky);
 }
-
 
 .section-title h3 {
     margin: 0;
-    color: #26332f;
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.2px;
+    color: var(--hc-ink);
 }
-
 
 .section-title p {
-    margin: 3px 0 0;
-    color: #929c98;
-    font-size: 10px;
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: var(--hc-muted);
 }
 
-
-/* =========================================================
-   FIELD
-   ========================================================= */
+/* ---------- FIELDS ---------- */
 
 .field-group {
-    margin-bottom: 18px;
+    margin-bottom: 4px;
 }
-
 
     .field-group > label,
     .otp-header label {
         display: block;
-        margin-bottom: 8px;
-        color: #34413d;
-        font-size: 11px;
-        font-weight: 700;
+        margin-bottom: 7px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--hc-ink);
     }
 
-
-    .field-group label span {
-        color: #1e7b67;
-    }
-
-
-.input-box {
-    position: relative;
-}
-
-
-    .input-box > i {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #9aa5a1;
-        font-size: 15px;
-        z-index: 2;
-    }
-
-
-    .input-box .form-control {
-        height: 48px;
-        padding: 0 42px;
-        border: 1px solid #e0e7e4;
-        border-radius: 11px;
-        background: #fbfcfc;
-        color: #293631;
-        font-size: 12px;
-        box-shadow: none;
-        transition: .2s ease;
-    }
-
-
-        .input-box .form-control::placeholder {
-            color: #aab2af;
+        .field-group > label span {
+            color: var(--hc-danger);
+            margin-left: 2px;
         }
 
-
-        .input-box .form-control:focus {
-            border-color: #1e7b67;
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(30,123,103,.07);
-        }
-
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-.field-error {
-    display: block;
-    margin-top: 5px;
-    color: #d9534f;
-    font-size: 10px;
-}
-
-
-.validation-summary {
-    margin-bottom: 18px;
-    color: #d9534f;
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   OTP
-   ========================================================= */
-
-.otp-box {
-    padding: 18px;
-    border: 1px solid #e4ebe8;
-    border-radius: 13px;
-    background: #f9fbfa;
-}
-
-
-.otp-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 12px;
-}
-
-
-    .otp-header label {
-        margin: 0;
-    }
-
-
-    .otp-header p {
-        margin: 3px 0 0;
-        color: #98a29f;
-        font-size: 9px;
-    }
-
-
-.send-otp-btn {
-    height: 34px;
-    flex-shrink: 0;
-    padding: 0 13px;
-    border: 1px solid #1e7b67;
-    border-radius: 8px;
-    background: #fff;
-    color: #1e7b67;
-    font-size: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .2s ease;
-}
-
-
-    .send-otp-btn:hover {
-        background: #1e7b67;
-        color: #fff;
-    }
-
-
-    .send-otp-btn:disabled {
-        opacity: .6;
-        cursor: not-allowed;
-    }
-
-
+.input-box,
 .otp-input-box {
     position: relative;
 }
 
-
+    .input-box > i,
     .otp-input-box > i {
         position: absolute;
         left: 14px;
         top: 50%;
         transform: translateY(-50%);
-        color: #1e7b67;
         z-index: 2;
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 9px;
+        font-size: 15px;
+        color: var(--hc-blue);
+        background: var(--hc-sky);
+        pointer-events: none;
+        transition: .2s;
     }
 
-
+    .input-box .form-control,
     .otp-input-box .form-control {
-        height: 48px;
-        padding-left: 42px;
-        letter-spacing: 4px;
-        font-weight: 700;
-        border: 1px solid #e0e7e4;
-        border-radius: 10px;
+        height: 52px;
+        padding: 0 16px 0 54px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--hc-ink);
+        background: #fbfcff;
+        border: 1.5px solid var(--hc-line);
+        border-radius: var(--hc-radius);
+        box-shadow: none;
+        transition: border-color .2s, box-shadow .2s, background .2s;
     }
 
-
-.otp-message {
-    margin-top: 8px;
-    font-size: 9px;
+.form-control::placeholder {
+    color: #9aa5c8;
+    font-weight: 400;
 }
 
-
-    .otp-message.success {
-        color: #1e7b67;
-    }
-
-
-    .otp-message.error {
-        color: #d9534f;
-    }
-
-
-/* =========================================================
-   SECURITY CARD
-   ========================================================= */
-
-.security-card {
-    padding: 22px;
-    border: 1px solid #e5ece9;
-    border-radius: 15px;
-    background: #fbfcfc;
+.input-box .form-control:hover,
+.otp-input-box .form-control:hover {
+    border-color: #c3cdee;
 }
 
-
-/* =========================================================
-   PASSWORD TOGGLE
-   ========================================================= */
-
-.password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: transparent;
-    color: #9aa5a1;
-    cursor: pointer;
+.input-box .form-control:focus,
+.otp-input-box .form-control:focus {
+    background: #fff;
+    border-color: var(--hc-blue);
+    box-shadow: 0 0 0 4px rgba(47, 91, 234, .14);
+    outline: 0;
 }
 
-
-    .password-toggle:hover {
-        color: #1e7b67;
-    }
-
-
-/* =========================================================
-   PASSWORD STRENGTH
-   ========================================================= */
-
-.password-strength {
-    margin-top: 8px;
+.input-box:focus-within > i,
+.otp-input-box:focus-within > i {
+    color: #fff;
+    background: var(--hc-grad);
 }
 
-
-.strength-bars {
-    display: flex;
-    gap: 4px;
+.input-validation-error,
+.input-box .form-control.input-validation-error {
+    border-color: var(--hc-danger) !important;
+    background: #fffafa !important;
 }
 
-
-    .strength-bars span {
-        height: 3px;
-        flex: 1;
-        border-radius: 10px;
-        background: #e5ebe9;
-    }
-
-
-        .strength-bars span.weak {
-            background: #dc6b67;
-        }
-
-
-        .strength-bars span.medium {
-            background: #d3a943;
-        }
-
-
-        .strength-bars span.strong {
-            background: #1e7b67;
-        }
-
-
-.password-strength small {
+.field-error,
+.field-validation-error {
     display: block;
     margin-top: 5px;
-    color: #98a29f;
-    font-size: 9px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--hc-danger);
 }
 
-
-/* =========================================================
-   SECURITY INFO
-   ========================================================= */
-
-.security-info {
-    padding: 13px;
-    margin-top: 5px;
-    border-radius: 10px;
-    background: #f1f7f5;
-}
-
-
-    .security-info div {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        margin-bottom: 7px;
-        color: #74817c;
-        font-size: 9px;
-    }
-
-
-        .security-info div:last-child {
-            margin-bottom: 0;
-        }
-
-
-    .security-info i {
-        color: #1e7b67;
-        font-size: 11px;
-    }
-
-
-/* =========================================================
-   BENEFITS
-   ========================================================= */
-
-.benefits-box {
-    padding-top: 18px;
-    margin-top: 18px;
-    border-top: 1px solid #e5ece9;
-}
-
-
-    .benefits-box h4 {
-        margin: 0 0 11px;
-        color: #35423e;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-
-        .benefits-box h4 i {
-            color: #1e7b67;
-            margin-right: 4px;
-        }
-
-
-    .benefits-box div {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        margin-bottom: 8px;
-        color: #7d8884;
-        font-size: 9px;
-    }
-
-
-        .benefits-box div:last-child {
-            margin-bottom: 0;
-        }
-
-
-        .benefits-box div i {
-            color: #1e7b67;
-            font-size: 12px;
-        }
-
-
-/* =========================================================
-   TERMS
-   ========================================================= */
-
-.terms-box {
-    padding: 15px 17px;
-    margin-top: 25px;
-    border: 1px solid #e9efed;
-    border-radius: 11px;
-    background: #f7faf9;
-}
-
-
-    .terms-box label {
-        display: flex;
-        align-items: flex-start;
-        gap: 9px;
-        color: #7c8783;
-        font-size: 10px;
-        cursor: pointer;
-    }
-
-
-    .terms-box input {
+    /* no reserved space when there is no error */
+    .field-error.field-validation-valid {
         display: none;
     }
 
+/* ---------- OTP ---------- */
 
-.custom-check {
-    width: 17px;
-    height: 17px;
-    flex-shrink: 0;
-    position: relative;
-    border: 1px solid #d5dfdb;
-    border-radius: 5px;
+.otp-box {
+    padding: 18px 20px;
+    border-radius: 18px;
+    background: var(--hc-mist);
+    border: 1.5px dashed #bccaf5;
 }
 
-
-.terms-box input:checked + .custom-check {
-    background: #1e7b67;
-    border-color: #1e7b67;
+.otp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
 }
 
-
-    .terms-box input:checked + .custom-check::after {
-        content: "";
-        position: absolute;
-        width: 5px;
-        height: 9px;
-        border-right: 2px solid #fff;
-        border-bottom: 2px solid #fff;
-        transform: rotate(45deg);
-        left: 5px;
-        top: 2px;
+    .otp-header label {
+        margin-bottom: 2px;
+        font-size: 15px;
     }
 
+    .otp-header p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--hc-muted);
+    }
+
+.send-otp-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--hc-grad);
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px -8px rgba(47, 91, 234, .65);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform .2s, box-shadow .2s;
+}
+
+    .send-otp-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 24px -8px rgba(47, 91, 234, .7);
+    }
+
+    .send-otp-btn:disabled {
+        color: var(--hc-muted);
+        background: #e3e9fb;
+        box-shadow: none;
+        cursor: not-allowed;
+    }
+
+.otp-input-box .form-control {
+    letter-spacing: 8px;
+    font-weight: 700;
+    font-size: 17px;
+    background: #fff;
+}
+
+    .otp-input-box .form-control::placeholder {
+        letter-spacing: normal;
+        font-size: 15px;
+        font-weight: 400;
+    }
+
+.otp-message {
+    margin-top: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+    .otp-message:not(.error):not(.success) {
+        display: none;
+    }
+
+    .otp-message.error {
+        color: var(--hc-danger);
+    }
+
+    .otp-message.success {
+        color: var(--hc-ok);
+    }
+
+/* ---------- SECURITY CARD ---------- */
+
+.security-card {
+    padding: 22px;
+    background: linear-gradient(180deg, #f6f8ff 0%, #eef2ff 100%);
+    border: 1px solid var(--hc-line);
+    border-radius: 20px;
+}
+
+    .security-card .section-icon {
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(47, 91, 234, .12);
+    }
+
+    .security-card .section-title {
+        border-bottom-color: #d6defa;
+    }
+
+.password-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    font-size: 17px;
+    color: var(--hc-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+    .password-toggle:hover {
+        color: var(--hc-blue);
+        background: var(--hc-sky);
+    }
+
+.password-field {
+    padding-right: 48px !important;
+}
+
+.password-strength {
+    margin-top: 10px;
+}
+
+.strength-bars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+    .strength-bars span {
+        height: 6px;
+        border-radius: 99px;
+        background: #d9e0f6;
+        transition: background .25s;
+    }
+
+        .strength-bars span.weak {
+            background: var(--hc-danger);
+        }
+
+        .strength-bars span.medium {
+            background: var(--hc-warn);
+        }
+
+        .strength-bars span.strong {
+            background: var(--hc-ok);
+        }
+
+#strengthText {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--hc-muted);
+}
+
+/* password rules */
+.security-info {
+    display: grid;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+    .security-info > div {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--hc-muted);
+    }
+
+    .security-info i {
+        font-size: 14px;
+        color: var(--hc-ok);
+    }
+
+/* why HuntCV */
+.benefits-box {
+    position: relative;
+    display: grid;
+    gap: 9px;
+    margin-top: 16px;
+    padding: 18px;
+    color: rgba(255, 255, 255, .86);
+    font-size: 13.5px;
+    background: radial-gradient(circle at 100% 0%, rgba(91, 61, 240, .6), transparent 55%), linear-gradient(150deg, var(--hc-ink), var(--hc-navy));
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+    .benefits-box h4 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 4px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+        .benefits-box h4 i {
+            color: #ffd166;
+        }
+
+    .benefits-box > div {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
+
+        .benefits-box > div i {
+            flex: 0 0 18px;
+            width: 18px;
+            height: 18px;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            color: #0b1437;
+            background: #7ee8c5;
+            border-radius: 50%;
+        }
+
+/* ---------- TERMS ---------- */
+
+.terms-box {
+    margin-top: 26px;
+    padding: 16px 18px;
+    background: var(--hc-mist);
+    border: 1px solid var(--hc-line);
+    border-radius: 14px;
+}
+
+    .terms-box label {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--hc-muted);
+        cursor: pointer;
+    }
+
+    .terms-box input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 22px;
+        height: 22px;
+        margin: 0;
+        cursor: pointer;
+    }
+
+.custom-check {
+    position: relative;
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    background: #fff;
+    border: 2px solid #b3c0ea;
+    border-radius: 7px;
+    transition: .2s;
+}
+
+    .custom-check::after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 2px;
+        width: 6px;
+        height: 11px;
+        border: solid #fff;
+        border-width: 0 2.5px 2.5px 0;
+        transform: rotate(45deg) scale(0);
+        transition: transform .15s;
+    }
+
+.terms-box input:checked + .custom-check {
+    background: var(--hc-grad);
+    border-color: transparent;
+}
+
+    .terms-box input:checked + .custom-check::after {
+        transform: rotate(45deg) scale(1);
+    }
+
+.terms-box input:focus-visible + .custom-check {
+    box-shadow: 0 0 0 4px rgba(47, 91, 234, .25);
+}
 
 .terms-box a {
-    color: #1e7b67;
-    font-weight: 700;
+    font-weight: 600;
+    color: var(--hc-blue);
     text-decoration: none;
 }
 
+    .terms-box a:hover {
+        text-decoration: underline;
+    }
 
-/* =========================================================
-   SUBMIT
-   ========================================================= */
+/* ---------- SUBMIT ---------- */
 
 .register-submit {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
+    margin-top: 22px;
 }
 
-
 .create-account-btn {
-    min-width: 300px;
-    height: 52px;
+    position: relative;
+    width: 20%;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    border: none;
-    border-radius: 11px;
-    background: #1e7b67;
-    color: #fff;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
+    letter-spacing: .2px;
+    color: #fff;
+    background: var(--hc-grad);
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 18px 30px -12px rgba(47, 91, 234, .7);
+    overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 12px 25px rgba(30,123,103,.20);
-    transition: .25s ease;
+    transition: transform .2s, box-shadow .2s;
 }
 
+    .create-account-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -60%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .28), transparent);
+        transform: skewX(-20deg);
+        transition: left .6s;
+    }
 
     .create-account-btn:hover {
-        background: #176b5a;
         transform: translateY(-2px);
-        box-shadow: 0 17px 30px rgba(30,123,103,.25);
+        box-shadow: 0 24px 36px -12px rgba(47, 91, 234, .75);
     }
 
+        .create-account-btn:hover::before {
+            left: 120%;
+        }
 
     .create-account-btn i {
-        transition: .25s;
+        transition: transform .2s;
     }
-
 
     .create-account-btn:hover i {
         transform: translateX(5px);
     }
 
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-.already-account {
-    text-align: center;
-    margin-top: 19px;
-    color: #8b9591;
-    font-size: 11px;
-}
-
-
-    .already-account a {
-        color: #1e7b67;
-        font-weight: 700;
-        text-decoration: none;
+    .create-account-btn:active {
+        transform: translateY(0);
     }
 
+/* ---------- LOGIN LINK + FOOTER ---------- */
+
+.already-account {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14.5px;
+    color: var(--hc-muted);
+}
+
+    .already-account a {
+        margin-left: 4px;
+        font-weight: 700;
+        color: var(--hc-blue);
+        text-decoration: none;
+    }
 
         .already-account a:hover {
             text-decoration: underline;
         }
 
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
 .register-footer {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-top: 20px;
-    color: #9aa39f;
-    font-size: 9px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--hc-muted);
 }
 
-
     .register-footer a {
-        color: #7d8884;
+        color: var(--hc-muted);
         text-decoration: none;
     }
 
-
         .register-footer a:hover {
-            color: #1e7b67;
+            color: var(--hc-blue);
         }
 
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 991px) {
-
-    .organization-register-page {
-        padding: 30px 0;
-    }
-
-
-    .organization-register-card {
-        padding: 30px;
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
     }
 }
 
+/* =========================================================
+   TABLET + MOBILE (stacked, page scrolls)
+   ========================================================= */
 
-@media (max-width: 576px) {
-
-    .organization-register-page {
-        padding: 20px 10px;
-    }
-
-
-    .register-brand {
-        margin-left: 7px;
-        font-size: 23px;
-    }
-
-
-    .brand-logo {
-        width: 39px;
-        height: 39px;
-    }
-
-
-    .organization-register-card {
-        padding: 23px 17px;
-        border-radius: 19px;
-    }
-
-
+@media (max-width: 991.98px) {
     .register-header {
-        align-items: flex-start;
-        margin-bottom: 25px;
+        padding: 28px 28px 70px;
     }
-
-
-    .register-header-icon {
-        width: 47px;
-        height: 47px;
-        border-radius: 13px;
-        font-size: 20px;
-    }
-
-
-    .register-header h1 {
-        font-size: 20px;
-    }
-
-
-    .register-header p {
-        font-size: 10px;
-    }
-
 
     .registration-progress {
-        padding: 13px;
+        width: calc(100% - 56px);
+        margin: -34px 28px 6px;
     }
 
+    #organizationRegisterForm {
+        padding: 26px 28px 32px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .organization-register-page {
+        padding: 22px 0;
+    }
+
+    .organization-register-card {
+        border-radius: 20px;
+    }
+
+    .register-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 24px 20px 64px;
+    }
+
+        .register-header h1 {
+            font-size: 24px;
+        }
+
+    .registration-progress {
+        width: calc(100% - 32px);
+        margin: -30px 16px 4px;
+        padding: 10px 12px;
+        gap: 8px;
+    }
 
     .progress-step small {
         display: none;
     }
 
-
     .progress-step strong {
-        font-size: 9px;
+        font-size: 12.5px;
     }
 
-
-    .progress-line {
-        margin: 0 10px;
+    .progress-step > span {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
     }
 
+    #organizationRegisterForm {
+        padding: 22px 16px 26px;
+    }
 
     .otp-header {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: stretch;
     }
-
 
     .send-otp-btn {
-        width: 100%;
+        justify-content: center;
     }
-
 
     .create-account-btn {
-        width: 100%;
-        min-width: 0;
-    }
-
-
-    .register-footer {
-        flex-wrap: wrap;
+        position: relative;
+        width: 50%;
     }
 }
 
+/* =========================================================
+   DESKTOP SINGLE VIEW – NO SCROLL
+   (>= 1200px wide and >= 700px tall)
+   ========================================================= */
 
+@media (min-width: 1200px) and (min-height: 700px) {
+
+    html, body {
+        height: 100%;
+    }
+
+    .organization-register-page {
+        height: 100vh;
+        min-height: 0;
+        padding: 14px 0;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+        .organization-register-page::-webkit-scrollbar {
+            display: none;
+        }
+
+    /* glows fixed so they never create page scroll */
+    .register-bg-shape {
+        position: fixed;
+    }
+
+    .organization-register-page .container {
+        max-width: 1240px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    /* brand */
+    .register-brand {
+        margin-bottom: 10px;
+        gap: 10px;
+        font-size: 22px;
+    }
+
+    .brand-logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    /* card = side panel + form */
+    .organization-register-card {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        border-radius: 22px;
+        background: radial-gradient(circle at 100% 0%, rgba(91, 61, 240, .55), transparent 55%) left top / 250px 100% no-repeat, radial-gradient(circle at 0% 100%, rgba(47, 91, 234, .5), transparent 60%) left top / 250px 100% no-repeat, linear-gradient(165deg, var(--hc-ink), var(--hc-navy)) left top / 250px 100% no-repeat, #fff;
+    }
+
+    /* ----- side panel ----- */
+    .register-header {
+        grid-column: 1;
+        grid-row: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 30px 24px 14px;
+        background: transparent;
+    }
+
+        .register-header::after {
+            right: auto;
+            left: -70px;
+            top: auto;
+            bottom: -90px;
+        }
+
+    .register-header-icon {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+        font-size: 22px;
+        border-radius: 15px;
+    }
+
+    .organization-label {
+        margin-bottom: 8px;
+        padding: 4px 10px;
+        font-size: 10px;
+    }
+
+    .register-header h1 {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .register-header p {
+        font-size: 13.5px;
+        line-height: 1.55;
+    }
+
+    .registration-progress {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        width: auto;
+        max-width: none;
+        margin: 0;
+        padding: 6px 24px 28px;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .progress-step {
+        opacity: .5;
+    }
+
+        .progress-step.active {
+            opacity: 1;
+        }
+
+        .progress-step > span {
+            width: 32px;
+            height: 32px;
+            flex-basis: 32px;
+            color: #fff;
+            background: rgba(255, 255, 255, .14);
+            border: 1px solid rgba(255, 255, 255, .22);
+        }
+
+        .progress-step.active > span {
+            background: var(--hc-grad);
+            border-color: transparent;
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, .14);
+        }
+
+        .progress-step strong {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .progress-step small {
+            color: rgba(255, 255, 255, .62);
+            font-size: 11.5px;
+        }
+
+    .progress-line {
+        flex: 0 0 30px;
+        min-width: 0;
+        height: 30px;
+        margin-left: 15px;
+        border-top: 0;
+        border-left: 2px dashed rgba(255, 255, 255, .3);
+    }
+
+    /* ----- form ----- */
+    #organizationRegisterForm {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        padding: 22px 28px 16px;
+        background: #fff;
+    }
+
+    .validation-summary,
+    .validation-summary-errors {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    #organizationRegisterForm > .row {
+        --bs-gutter-x: 1.25rem;
+        --bs-gutter-y: 0;
+        align-items: flex-start;
+    }
+
+        #organizationRegisterForm > .row > .col-lg-7 {
+            flex: 0 0 auto;
+            width: 60%;
+        }
+
+        #organizationRegisterForm > .row > .col-lg-5 {
+            flex: 0 0 auto;
+            width: 40%;
+        }
+
+    #organizationRegisterForm .g-3 {
+        --bs-gutter-x: .8rem;
+        --bs-gutter-y: .5rem;
+    }
+
+    /* section titles */
+    .section-title {
+        gap: 11px;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+    }
+
+    .section-icon {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+
+    .section-title h3 {
+        font-size: 16px;
+    }
+
+    .section-title p {
+        font-size: 12px;
+        margin-top: 1px;
+    }
+
+    /* fields */
+    .field-group {
+        margin-bottom: 0;
+    }
+
+        .field-group > label,
+        .otp-header label {
+            margin-bottom: 4px;
+            font-size: 12.5px;
+        }
+
+    .input-box > i,
+    .otp-input-box > i {
+        left: 10px;
+        width: 26px;
+        height: 26px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .input-box .form-control,
+    .otp-input-box .form-control {
+        height: 44px;
+        padding-left: 44px;
+        font-size: 14px;
+        border-radius: 12px;
+    }
+
+    .field-error,
+    .field-validation-error {
+        margin-top: 3px;
+        font-size: 11.5px;
+    }
+
+    /* OTP: one compact row  [text] [button] [input] */
+    .otp-box {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.1fr);
+        align-items: center;
+        gap: 6px 12px;
+        padding: 10px 14px;
+        border-radius: 14px;
+    }
+
+    .otp-header {
+        display: contents;
+    }
+
+        .otp-header label {
+            margin-bottom: 0;
+            font-size: 13px;
+        }
+
+        .otp-header p {
+            font-size: 11.5px;
+            line-height: 1.35;
+        }
+
+    .otp-box .field-error,
+    .otp-box .otp-message {
+        grid-column: 1 / -1;
+        margin-top: 0;
+    }
+
+    .send-otp-btn {
+        height: 40px;
+        padding: 0 16px;
+        font-size: 13px;
+        border-radius: 11px;
+    }
+
+    .otp-input-box .form-control {
+        letter-spacing: 6px;
+        font-size: 15px;
+    }
+
+        .otp-input-box .form-control::placeholder {
+            font-size: 13px;
+        }
+
+    .otp-message {
+        font-size: 11.5px;
+    }
+
+    /* security column */
+    .security-card {
+        padding: 14px 16px;
+        border-radius: 18px;
+    }
+
+    .password-toggle {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+
+    .password-field {
+        padding-right: 42px !important;
+    }
+
+    .password-strength {
+        margin-top: 8px;
+    }
+
+    .strength-bars span {
+        height: 5px;
+    }
+
+    #strengthText {
+        margin-top: 4px;
+        font-size: 11.5px;
+    }
+
+    .security-info {
+        gap: 6px;
+        margin-top: 12px;
+    }
+
+        .security-info > div {
+            font-size: 12.5px;
+        }
+
+    .benefits-box {
+        gap: 7px;
+        margin-top: 12px;
+        padding: 14px 16px;
+        font-size: 12.5px;
+        border-radius: 14px;
+    }
+
+        .benefits-box h4 {
+            font-size: 14px;
+        }
+
+    /* terms, submit, login */
+    .terms-box {
+        margin-top: 14px;
+        padding: 10px 14px;
+        border-radius: 12px;
+    }
+
+        .terms-box label {
+            font-size: 13px;
+            gap: 10px;
+        }
+
+    .register-submit {
+        margin-top: 12px;
+    }
+
+    .create-account-btn {
+        height: 50px;
+        font-size: 15px;
+        border-radius: 14px;
+    }
+
+    .already-account {
+        margin-top: 10px;
+        font-size: 13.5px;
+    }
+
+    .register-footer {
+        margin-top: 10px;
+        gap: 8px;
+        font-size: 12px;
+    }
+}
+
+/* shorter screens (about 13–14" laptops or scaled displays) */
+@media (min-width: 1200px) and (min-height: 700px) and (max-height: 840px) {
+
+    .organization-register-page {
+        padding: 8px 0;
+    }
+
+    .register-brand,
+    .register-footer {
+        display: none;
+    }
+
+    #organizationRegisterForm {
+        padding: 18px 26px 12px;
+    }
+
+    .input-box .form-control,
+    .otp-input-box .form-control {
+        height: 40px;
+    }
+
+    .send-otp-btn {
+        height: 36px;
+    }
+
+    .section-title {
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+
+        .section-title p,
+        .otp-header p {
+            display: none;
+        }
+
+    .security-info {
+        margin-top: 10px;
+    }
+
+    .benefits-box {
+        margin-top: 10px;
+        padding: 12px 14px;
+    }
+
+    .terms-box {
+        margin-top: 10px;
+        padding: 8px 12px;
+    }
+
+    .register-submit {
+        margin-top: 10px;
+    }
+
+    .create-account-btn {
+        height: 46px;
+    }
+
+    .already-account {
+        margin-top: 8px;
+    }
+}

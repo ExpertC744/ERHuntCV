@@ -1,0 +1,483 @@
+﻿
+.ep-page {
+    --ink: #0b1437;
+    --txt: #1b2447;
+    --mute: #66719a;
+    --line: #dfe5f5;
+    --line-2: #c9d4f7;
+    --sky: #e8eeff;
+    --blue: #2f5bea;
+    --indigo: #5b3df0;
+    --ok: #12b886;
+    --danger: #e5484d;
+    --grad: linear-gradient(120deg, #2f5bea 0%, #5b3df0 100%);
+    --card: rgba(255, 255, 255, .78);
+    min-height: 100%;
+    padding: 36px 40px 40px;
+    color: var(--txt);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    background: radial-gradient(circle at 8% -5%, rgba(91, 61, 240, .20), transparent 42%), radial-gradient(circle at 95% 25%, rgba(47, 91, 234, .16), transparent 40%), radial-gradient(circle at 45% 105%, rgba(18, 184, 134, .14), transparent 45%), radial-gradient(circle at 1px 1px, rgba(47, 91, 234, .10) 1.1px, transparent 1.4px) 0 0 / 26px 26px, linear-gradient(135deg, #eef3ff 0%, #f6f2ff 55%, #edf9f6 100%);
+}
+
+.ep-page *, .ep-page *::before, .ep-page *::after {
+    box-sizing: border-box;
+}
+
+.ep-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+/* ---------- HEADER ---------- */
+
+.ep-header {
+    margin-bottom: 28px;
+}
+
+.ep-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--blue);
+    background: #fff;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    box-shadow: 0 8px 18px -10px rgba(47, 91, 234, .4);
+}
+
+    .ep-eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--ok);
+        box-shadow: 0 0 0 4px rgba(18, 184, 134, .18);
+    }
+
+.ep-header h1 {
+    margin: 0 0 12px;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1.4px;
+    line-height: 1.1;
+    background: linear-gradient(100deg, #0b1437 10%, #2f5bea 60%, #5b3df0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.ep-header p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--mute);
+}
+
+.ep-orgid {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 3px 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--sky);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+}
+
+/* ---------- ALERTS ---------- */
+
+.ep-alert {
+    margin-bottom: 18px;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 14px;
+}
+
+.ep-success {
+    color: #0b7a5a;
+    background: #e6faf3;
+    border: 1px solid #b4ecd8;
+}
+
+.ep-error {
+    color: #b42318;
+    background: #fff1f1;
+    border: 1px solid #ffd0d0;
+}
+
+/* ---------- FORM + SECTIONS ---------- */
+
+.ep-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    counter-reset: sec;
+}
+
+.ep-section {
+    position: relative;
+    counter-increment: sec;
+    padding: 26px 30px 30px;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, .95);
+    border-radius: 24px;
+    box-shadow: 0 0 0 1px var(--line), 0 24px 50px -28px rgba(17, 28, 78, .28);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+    .ep-section::after {
+        content: counter(sec, decimal-leading-zero);
+        position: absolute;
+        right: 28px;
+        top: 10px;
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1;
+        color: rgba(47, 91, 234, .08);
+        pointer-events: none;
+    }
+
+    .ep-section::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 28px;
+        width: 4px;
+        height: 46px;
+        background: var(--grad);
+        border-radius: 0 6px 6px 0;
+    }
+
+.ep-section-head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--line-2);
+}
+
+.ep-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--sky);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+}
+
+.ep-section-head h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.2px;
+    color: var(--ink);
+}
+
+.ep-sub {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: var(--mute);
+}
+
+.ep-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.ep-span-2 {
+    grid-column: span 2;
+}
+
+/* ---------- FIELDS ---------- */
+
+.ep-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.ep-req {
+    margin-left: 2px;
+    color: var(--danger);
+}
+
+.ep-field .form-control {
+    display: block;
+    width: 100%;
+    height: 48px;
+    padding: 0 15px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    background-color: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    box-shadow: none;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+
+.ep-field textarea.form-control {
+    height: 96px;
+    padding-top: 13px;
+    resize: vertical;
+}
+
+.ep-field .form-control::placeholder {
+    color: #9aa5c8;
+    font-weight: 400;
+}
+
+.ep-field .form-control:hover {
+    border-color: var(--line-2);
+}
+
+.ep-field .form-control:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(47, 91, 234, .14);
+}
+
+.ep-field .form-control[readonly] {
+    color: var(--mute);
+    background-color: #eef1fa;
+    border-color: var(--line);
+    cursor: not-allowed;
+}
+
+.ep-field .input-validation-error {
+    border-color: var(--danger);
+    background-color: #fffafa;
+}
+
+.validation-message,
+.field-validation-error {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--danger);
+}
+
+.ep-note {
+    display: block;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: var(--mute);
+}
+
+/* ---------- FILE INPUT ---------- */
+
+.ep-file {
+    display: block;
+    width: 100%;
+    height: 48px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mute);
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+    .ep-file:hover {
+        border-color: var(--line-2);
+    }
+
+    .ep-file:focus {
+        outline: 0;
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(47, 91, 234, .14);
+    }
+
+    .ep-file::file-selector-button {
+        height: 45px;
+        margin-right: 14px;
+        padding: 0 18px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--blue);
+        background: var(--sky);
+        border: 0;
+        border-right: 1.5px solid var(--line);
+        cursor: pointer;
+        transition: background .2s;
+    }
+
+        .ep-file::file-selector-button:hover {
+            background: #dbe5ff;
+        }
+
+/* ---------- LOGO PREVIEW ---------- */
+
+.ep-preview {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 82px;
+    padding: 6px 12px;
+    background: #fff;
+    border: 1.5px dashed var(--line-2);
+    border-radius: 14px;
+}
+
+.logo-size {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mute);
+}
+
+.logo-preview {
+    width: 70px;
+    height: 70px;
+    margin-left: auto;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+/* ---------- ACTION BAR ---------- */
+
+.ep-submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px 14px 26px;
+    background: rgba(255, 255, 255, .88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: 0 24px 50px -16px rgba(17, 28, 78, .35);
+}
+
+    .ep-submit p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--mute);
+    }
+
+.save-btn {
+    position: relative;
+    height: 48px;
+    padding: 0 34px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--grad);
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 14px 26px -10px rgba(47, 91, 234, .75);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+    .save-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -60%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .3), transparent);
+        transform: skewX(-20deg);
+        transition: left .6s;
+    }
+
+    .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 32px -10px rgba(47, 91, 234, .85);
+    }
+
+        .save-btn:hover::before {
+            left: 120%;
+        }
+
+    .save-btn:active {
+        transform: translateY(0);
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .ep-page * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    .ep-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+
+    .ep-page {
+        padding: 22px 14px 28px;
+    }
+
+    .ep-header h1 {
+        font-size: 28px;
+    }
+
+    .ep-section {
+        padding: 22px 16px;
+        border-radius: 20px;
+    }
+
+        .ep-section::after {
+            font-size: 44px;
+            right: 16px;
+        }
+
+    .ep-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ep-span-2 {
+        grid-column: auto;
+    }
+
+    .ep-submit {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+    }
+
+    .save-btn {
+        width: 100%;
+    }
+}
+
+ 
