@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Internship Post";
+}
+
+<link rel="stylesheet" href="~/css/HuntCV-Post.css" />
+
+<div class="hc-post-page">
+
+    <!-- ===== floating tools: home / print / download ===== -->
+    <div class="hc-tools">
+        <a class="hc-tool" asp-controller="Candidate" asp-action="Index" data-tip="Home" aria-label="Home">
+            <i class="fas fa-home"></i>
+        </a>
+
+        <button type="button" class="hc-tool" data-tip="Print" aria-label="Print" onclick="window.print()">
+            <i class="fas fa-print"></i>
+        </button>
+
+        <!-- Download: opens print dialog -> choose "Save as PDF" -->
+        <button type="button" class="hc-tool" data-tip="Download PDF" aria-label="Download" onclick="window.print()">
+            <i class="fas fa-download"></i>
+        </button>
+    </div>
+
+    <!-- ===== previous / next =====
+         Change href to your pages. Add the word "disabled" to the class to fade an arrow. -->
+    <a class="hc-nav prev disabled" href="#" aria-label="Previous post" title="Previous post">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="hc-nav next" href="#" aria-label="Next post" title="Next post">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+
+    <!-- ===== card ===== -->
+    <div class="hc-post-card">
+
+        <div class="hc-post-head">
+            <div class="hc-post-logo">
+                <img src="~/images/logo/networkz.png" alt="IT-NetworkZ logo" />
+            </div>
+
+            <div class="hc-post-title">
+                <h1>IT-NetworkZ Infosystems Pvt Ltd</h1>
+                <div class="hc-post-tags">
+                    <span><i class="fas fa-briefcase"></i> Assistant Trainee</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bhusawal, Maharashtra</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hc-post-body">
+            <div class="hc-post-grid">
+
+                <div class="hc-field"><label>Post Created</label><p>29-09-2026</p></div>
+                <div class="hc-field"><label>Post Validity</label><p>29-12-2026</p></div>
+
+                <div class="hc-field"><label>Position</label><p>Assistant Trainee</p></div>
+                <div class="hc-field"><label>Required Trainees</label><p>7</p></div>
+
+                <div class="hc-field"><label>Gender</label><p>Any</p></div>
+                <div class="hc-field"><label>Minimum Qualification</label><p>SSC / 10th</p></div>
+
+                <div class="hc-field"><label>Country</label><p>India</p></div>
+                <div class="hc-field"><label>State</label><p>Maharashtra</p></div>
+
+                <div class="hc-field"><label>City</label><p>Bhusawal</p></div>
+                <div class="hc-field"><label>Working Hrs / Day</label><p>Up to 4 Hrs</p></div>
+
+                <div class="hc-field"><label>Internship Type</label><p>Full Time</p></div>
+                <div class="hc-field"><label>Working Shift</label><p>Day</p></div>
+
+                <div class="hc-field"><label>Internship / Fellowship Type</label><p>Any (Free/Paid/Stipend/Sponsored)</p></div>
+                <div class="hc-field"><label>Internship Duration</label><p>4 Weeks</p></div>
+
+                <div class="hc-field"><label>Training Involved</label><p>Yes</p></div>
+                <div class="hc-field"><label>Completion Date</label><p>27-10-2026</p></div>
+
+                <div class="hc-field"><label>Start Date</label><p>29-09-2026</p></div>
+                <div class="hc-field"><label>Divyang (Allowed)</label><p>No</p></div>
+
+                <div class="hc-field"><label>Internship Mode</label><p>Online</p></div>
+                <div class="hc-field"><label>Weekly Working Days</label><p>Monday, Sunday</p></div>
+
+                <div class="hc-field"><label>Language Known</label><p>English</p></div>
+                <div class="hc-field"></div>
+
+                <div class="hc-field full">
+                    <label>Technical Skills Required</label>
+                    <p>ASP.Net, C# / .Net, CSS, Dot Net, GIT, Github, HTML, SQL</p>
+                </div>
+
+                <div class="hc-field full">
+                    <label>Facilities Available</label>
+                    <div class="hc-post-facilities">
+                        <img src="~/images/facilities/certificate.png" alt="Certificate" />
+                        <!-- add more icons: <img src="~/images/facilities/xyz.png" alt="..." /> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="hc-post-apply">
+            <a href="#" class="hc-btn hc-btn-primary">
+                <i class="fas fa-paper-plane"></i> Apply Now
+            </a>
+        </div>
+
+        <div class="hc-post-footer">
+            Powered by <a href="https://www.1trainee.com" target="_blank" rel="noopener">www.1trainee.com</a>
+        </div>
+
+    </div>
+
+    <div class="hc-post-copy">
+        Copyright &copy; 2026 - All Rights Reserved with <a href="#">IIPL</a>
+    </div>
+
+</div>
