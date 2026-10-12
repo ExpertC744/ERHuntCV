@@ -1,0 +1,466 @@
+/* =========================================================
+   HuntCV – MASTER TABLE  (reusable on every page)
+   Place at: wwwroot/css/HuntCV-Table.css
+   Works with Bootstrap 5 + DataTables (bootstrap5 theme).
+
+   HOW TO USE ON ANY PAGE
+   1. Wrap the table in   <div class="hc-card"> ... </div>
+   2. Put the title in    <div class="hc-card-header"> ... </div>
+   3. Give the table      class="table hc-table hc-datatable"
+   That's it – no extra CSS per page.
+   ========================================================= */
+
+:root {
+    --hc-ink: #0b1437;
+    --hc-navy: #111c4e;
+    --hc-blue: #2f5bea;
+    --hc-indigo: #5b3df0;
+    --hc-sky: #e8eeff;
+    --hc-mist: #f4f7ff;
+    --hc-line: #dfe5f5;
+    --hc-text: #1b2447;
+    --hc-muted: #66719a;
+    --hc-danger: #e5484d;
+    --hc-warn: #f59e0b;
+    --hc-ok: #12b886;
+    --hc-grad: linear-gradient(120deg, #2f5bea 0%, #5b3df0 100%);
+    --hc-radius: 14px;
+}
+
+/* ---------- PAGE TITLE ---------- */
+
+.hc-page-title {
+    margin: 0 0 16px;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    color: var(--hc-ink);
+}
+
+/* ---------- CARD ---------- */
+
+.hc-card {
+    overflow: hidden;
+    margin-bottom: 24px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--hc-text);
+    background: #fff;
+    border: 1px solid var(--hc-line);
+    border-radius: 22px;
+    box-shadow: 0 2px 4px rgba(17, 28, 78, .04), 0 16px 34px -18px rgba(17, 28, 78, .2);
+}
+
+.hc-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    background: var(--hc-mist);
+    border-bottom: 1px solid var(--hc-line);
+}
+
+    .hc-card-header .hc-card-icon {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        font-size: 15px;
+        color: #fff;
+        background: var(--hc-grad);
+        border-radius: 10px;
+        box-shadow: 0 8px 14px -6px rgba(47, 91, 234, .6);
+    }
+
+    .hc-card-header h5,
+    .hc-card-header h4,
+    .hc-card-header h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -.2px;
+        color: var(--hc-ink);
+    }
+
+    /* optional right-side button area in header */
+    .hc-card-header .hc-header-actions {
+        margin-left: auto;
+        display: flex;
+        gap: 8px;
+    }
+
+.hc-card-body {
+    padding: 22px;
+}
+
+/* ---------- DATATABLES TOP BAR (entries + search) ---------- */
+
+.hc-card .dataTables_wrapper {
+    font-size: 14px;
+}
+
+    .hc-card .dataTables_length label,
+    .hc-card .dataTables_filter label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        font-weight: 600;
+        color: var(--hc-muted);
+    }
+
+    .hc-card .dataTables_length select,
+    .hc-card .dataTables_filter input {
+        height: 42px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--hc-ink);
+        background-color: #fbfcff;
+        border: 1.5px solid var(--hc-line);
+        border-radius: 12px;
+        box-shadow: none;
+        transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    .hc-card .dataTables_length select {
+        width: auto;
+        padding: 0 34px 0 14px;
+    }
+
+    .hc-card .dataTables_filter input {
+        width: 260px;
+        margin-left: 0 !important;
+        padding: 0 14px;
+    }
+
+        .hc-card .dataTables_length select:focus,
+        .hc-card .dataTables_filter input:focus {
+            background-color: #fff;
+            border-color: var(--hc-blue);
+            box-shadow: 0 0 0 4px rgba(47, 91, 234, .14);
+            outline: 0;
+        }
+
+.hc-card .dataTables_filter input::placeholder {
+    color: #9aa5c8;
+}
+
+/* ---------- TABLE ---------- */
+
+.hc-table {
+    width: 100% !important;
+    margin-bottom: 0;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    border: 1px solid var(--hc-line);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+    .hc-table thead th {
+        position: relative;
+        padding: 14px 30px 14px 16px;
+        font-size: 13.5px;
+        font-weight: 700;
+        text-align: center;
+        white-space: nowrap;
+        color: var(--hc-ink);
+        background: linear-gradient(180deg, #f6f8ff 0%, #eef2ff 100%);
+        border-bottom: 1.5px solid var(--hc-line);
+        border-right: 1px solid var(--hc-line);
+        vertical-align: middle;
+    }
+
+        .hc-table thead th:last-child {
+            border-right: 0;
+        }
+
+    .hc-table tbody td {
+        padding: 14px 16px;
+        font-size: 14px;
+        text-align: center;
+        color: var(--hc-text);
+        vertical-align: top;
+        background: #fff;
+        border-bottom: 1px solid var(--hc-line);
+        border-right: 1px solid var(--hc-line);
+    }
+
+        .hc-table tbody td:last-child {
+            border-right: 0;
+        }
+
+    .hc-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    /* zebra + hover */
+    .hc-table tbody tr:nth-child(even) td {
+        background: #fbfcff;
+    }
+
+    .hc-table tbody tr:hover td {
+        background: var(--hc-sky);
+    }
+
+    /* links inside cells */
+    .hc-table a:not(.hc-btn) {
+        font-weight: 600;
+        color: var(--hc-blue);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(47, 91, 234, .3);
+        transition: .2s;
+    }
+
+        .hc-table a:not(.hc-btn):hover {
+            color: var(--hc-indigo);
+            border-bottom-color: var(--hc-indigo);
+        }
+
+/* alignment helpers */
+.hc-table .text-start,
+.hc-table td.hc-left {
+    text-align: left;
+}
+
+.hc-table td.hc-middle {
+    vertical-align: middle;
+}
+
+/* sort arrows (replace DataTables default icons) */
+.hc-table thead th.sorting,
+.hc-table thead th.sorting_asc,
+.hc-table thead th.sorting_desc {
+    cursor: pointer;
+}
+
+    .hc-table thead th.sorting::before,
+    .hc-table thead th.sorting::after,
+    .hc-table thead th.sorting_asc::before,
+    .hc-table thead th.sorting_asc::after,
+    .hc-table thead th.sorting_desc::before,
+    .hc-table thead th.sorting_desc::after {
+        position: absolute;
+        right: 10px;
+        display: block;
+        font-size: 9px;
+        line-height: 1;
+        color: #b3bddd;
+        opacity: 1;
+    }
+
+    .hc-table thead th.sorting::before,
+    .hc-table thead th.sorting_asc::before,
+    .hc-table thead th.sorting_desc::before {
+        content: "\25B2";
+        top: calc(50% - 10px);
+    }
+
+    .hc-table thead th.sorting::after,
+    .hc-table thead th.sorting_asc::after,
+    .hc-table thead th.sorting_desc::after {
+        content: "\25BC";
+        top: calc(50% + 1px);
+    }
+
+    .hc-table thead th.sorting_asc::before,
+    .hc-table thead th.sorting_desc::after {
+        color: var(--hc-blue);
+    }
+
+/* ---------- FACILITY ICONS ---------- */
+
+.hc-facilities {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    min-width: 200px;
+}
+
+    .hc-facilities img {
+        width: 38px;
+        height: 38px;
+        padding: 4px;
+        object-fit: contain;
+        background: #fff;
+        border: 1px solid var(--hc-line);
+        border-radius: 10px;
+        transition: .2s;
+    }
+
+        .hc-facilities img:hover {
+            transform: translateY(-2px);
+            border-color: #b5c3f5;
+            box-shadow: 0 8px 14px -8px rgba(47, 91, 234, .5);
+        }
+
+/* ---------- STATUS / ACTION BUTTONS (use on any page) ---------- */
+
+.hc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 110px;
+    height: 40px;
+    padding: 0 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+
+    .hc-btn:hover {
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+.hc-btn-primary {
+    background: var(--hc-grad);
+    box-shadow: 0 10px 20px -8px rgba(47, 91, 234, .65);
+}
+
+.hc-btn-applied,
+.hc-btn-success {
+    background: var(--hc-ok);
+    box-shadow: 0 10px 20px -10px rgba(18, 184, 134, .8);
+}
+
+.hc-btn-warning {
+    background: var(--hc-warn);
+}
+
+.hc-btn-danger {
+    background: var(--hc-danger);
+}
+
+.hc-btn:disabled,
+.hc-btn.disabled {
+    cursor: not-allowed;
+    opacity: .75;
+    transform: none;
+}
+
+/* small round badges for text statuses */
+.hc-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 99px;
+}
+
+.hc-badge-success {
+    color: #0b8f6a;
+    background: #e3f8f1;
+}
+
+.hc-badge-warning {
+    color: #b7791f;
+    background: #fff3dc;
+}
+
+.hc-badge-info {
+    color: var(--hc-blue);
+    background: var(--hc-sky);
+}
+
+.hc-badge-danger {
+    color: #c0392b;
+    background: #ffe9e9;
+}
+
+/* ---------- BOTTOM BAR (info + pagination) ---------- */
+
+.hc-card .dataTables_info {
+    padding-top: 0 !important;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--hc-muted);
+}
+
+.hc-card .dataTables_wrapper > .row:last-child {
+    margin-top: 18px;
+    padding-top: 16px;
+    align-items: center;
+    border-top: 1px solid var(--hc-line);
+}
+
+.hc-card .pagination {
+    margin: 0;
+    gap: 6px;
+}
+
+    .hc-card .pagination .page-link {
+        min-width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        padding: 0 12px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--hc-muted);
+        background: #fff;
+        border: 1.5px solid var(--hc-line);
+        border-radius: 10px !important;
+        box-shadow: none;
+        transition: .2s;
+    }
+
+        .hc-card .pagination .page-link:hover {
+            color: var(--hc-blue);
+            border-color: #b5c3f5;
+            background: var(--hc-sky);
+        }
+
+    .hc-card .pagination .page-item.active .page-link {
+        color: #fff;
+        background: var(--hc-grad);
+        border-color: transparent;
+        box-shadow: 0 8px 14px -6px rgba(47, 91, 234, .6);
+    }
+
+    .hc-card .pagination .page-item.disabled .page-link {
+        color: #b3bddd;
+        background: var(--hc-mist);
+    }
+
+/* ---------- EMPTY ROW ---------- */
+
+.hc-table td.dataTables_empty {
+    padding: 30px;
+    font-weight: 600;
+    color: var(--hc-muted);
+    vertical-align: middle;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 767px) {
+    .hc-card-body {
+        padding: 14px;
+    }
+
+    .hc-card .dataTables_filter input {
+        width: 100%;
+    }
+
+    .hc-card .dataTables_filter,
+    .hc-card .dataTables_length {
+        margin-bottom: 10px;
+    }
+
+    .hc-card .dataTables_filter label {
+        display: flex;
+        width: 100%;
+    }
+
+    /* wide tables scroll inside the card instead of breaking the page */
+    .hc-table-scroll {
+        overflow-x: auto;
+    }
+}
