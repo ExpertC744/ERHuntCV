@@ -1,0 +1,137 @@
+/* =========================================================
+   HuntCV – MASTER CHART CARD  (reusable on every page)
+   Place at: wwwroot/css/HuntCV-Chart.css
+   Used together with HuntCV-Chart.js
+   Markup:
+     <div class="hc-chart-card">
+       <div class="hc-chart-head">
+         <div>
+           <div class="hc-chart-title">Title</div>
+           <div class="hc-chart-number">42</div>
+           <div class="hc-chart-sub">Sub text</div>
+         </div>
+         <div class="hc-chart-icon"><i class="fas fa-chart-line"></i></div>
+       </div>
+       <div class="hc-chart-body">
+         <canvas class="hc-chart" data-type="line" data-values="[1,2,3]"></canvas>
+       </div>
+       <div class="hc-chart-foot"><i class="fas fa-chart-line"></i> Footer text</div>
+     </div>
+   ========================================================= */
+
+:root {
+    --hc-ink: #0b1437;
+    --hc-blue: #2f5bea;
+    --hc-indigo: #5b3df0;
+    --hc-line: #dfe5f5;
+    --hc-muted: #66719a;
+    --hc-grad: linear-gradient(120deg, #2f5bea 0%, #5b3df0 100%);
+}
+
+.hc-chart-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 24px 24px 18px;
+    overflow: hidden;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #fff;
+    border: 1px solid var(--hc-line);
+    border-radius: 22px;
+    box-shadow: 0 2px 4px rgba(17, 28, 78, .04), 0 16px 34px -18px rgba(17, 28, 78, .22);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+    .hc-chart-card:hover {
+        transform: translateY(-3px);
+        border-color: #c3cdee;
+        box-shadow: 0 2px 4px rgba(17, 28, 78, .04), 0 26px 44px -18px rgba(17, 28, 78, .3);
+    }
+
+.hc-chart-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.hc-chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--hc-muted);
+}
+
+.hc-chart-number {
+    margin-top: 7px;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--hc-ink);
+}
+
+.hc-chart-sub {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--hc-muted);
+}
+
+.hc-chart-icon {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    color: #fff;
+    background: var(--hc-grad);
+    border-radius: 15px;
+    box-shadow: 0 12px 22px -8px rgba(47, 91, 234, .65);
+}
+
+.hc-chart-body {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    margin-top: 16px;
+}
+
+    .hc-chart-body canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+.hc-chart-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--hc-muted);
+}
+
+    .hc-chart-foot i {
+        color: var(--hc-blue);
+    }
+
+@media (max-width: 767px) {
+    .hc-chart-card {
+        padding: 20px 16px 16px;
+        border-radius: 18px;
+    }
+
+    .hc-chart-number {
+        font-size: 30px;
+    }
+
+    .hc-chart-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .hc-chart-body {
+        height: 230px;
+    }
+}

@@ -2,195 +2,130 @@
 
 @{
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
-
-    ViewData["Title"] = "Organization Dashboard";
+    ViewData["Title"] = "Organization Registration List";
     ViewData["Panel"] = "Organization";
     ViewData["UserName"] = "Organization";
 }
 
+@* External master files (add once in _DashboardLayout.cshtml instead, if you prefer) *@
+<link rel="stylesheet" href="~/css/HuntCV-Table.css" />
 
 <div class="container-fluid">
 
-    <!-- MASTER TABLE CARD -->
+    <!-- ===== page head: title + back button ===== -->
+    <div class="hc-page-head">
+        <div>
+            <h2 class="hc-page-title">Organization Registration List</h2>
+            <p class="hc-page-sub">View and manage registered organizations</p>
+        </div>
 
-    <div class="master-table-container">
+        <a asp-controller="Organization"
+           asp-action="Dashboard"
+           class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i>  
+        </a>
+    </div>
 
-        <!-- MASTER TABLE HEADER -->
+    <!-- ===== master table card ===== -->
+    <div class="hc-card">
 
-        <div class="master-table-title">
+        <div class="hc-card-header">
+            <span class="hc-card-icon"><i class="fas fa-building"></i></span>
+            <h5>Registered Organizations</h5>
+        </div>
 
-            <div>
+        <div class="hc-card-body">
+            <div class="hc-table-scroll">
 
-                <h2>
-                    Organization Registration List
-                </h2>
+                @if (Model != null && Model.Count > 0)
+                {
+                    <!-- search + entries (10/25/50/100) + sort + paging come from HuntCV-Table.js -->
+                    <table id="organizationTable"
+                           class="table hc-table hc-nowrap hc-datatable"
+                           data-page-length="10"
+                           data-order-col="0"
+                           data-order-dir="asc"
+                           data-no-sort="2,8">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Organization</th>
+                                <th>URL</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Registration Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
 
-                <p>
-                    View and manage registered organizations
-                </p>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.nID</td>
+                                    <td>@item.sOrgName</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.sOrgUrl))
+                                        {
+                                            <a href="@item.sOrgUrl" target="_blank" rel="noopener">
+                                                Visit <i class="fas fa-up-right-from-square"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span>-</span>
+                                        }
+                                    </td>
+                                    <td>@item.sName</td>
+                                    <td>@item.sDesignation</td>
+                                    <td>@item.sMobile</td>
+                                    <td>@item.sEmail</td>
+                                    <td>@item.RegDate?.ToString("dd-MM-yyyy")</td>
+                                    <td>
+                                        <button type="button"
+                                                class="hc-btn hc-btn-primary hc-view-btn"
+                                                data-id="@item.nID">
+                                            <i class="fas fa-eye"></i>  
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <!-- no records: plain table (no hc-datatable) so the empty row isn't counted as data -->
+                    <table id="organizationTable" class="table hc-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Organization</th>
+                                <th>URL</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Registration Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="9" class="hc-empty">No organization registrations found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
 
             </div>
-
-
-            <a asp-controller="SuperAdmin"
-               asp-action="Dashboard"
-               class="btn btn-secondary">
-
-                Back to Dashboard
-
-            </a>
-
         </div>
-
-
-        <!-- MASTER TABLE -->
-
-        <div class="table-responsive">
-
-            <table id="organizationTable"
-                   class="master-data-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Organization</th>
-
-                        <th>URL</th>
-
-                        <th>Name</th>
-
-                        <th>Designation</th>
-
-                        <th>Mobile</th>
-
-                        <th>Email</th>
-
-                        <th>Registration Date</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    @if (Model != null && Model.Count > 0)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-
-                                <td class="master-id">
-
-                                    @item.nID
-
-                                </td>
-
-
-                                <td>
-
-                                    @item.sOrgName
-
-                                </td>
-
-
-                                <td>
-
-                                    @if (!string.IsNullOrEmpty(item.sOrgUrl))
-                                    {
-                                        <a href="@item.sOrgUrl"
-                                           target="_blank">
-
-                                            Visit
-
-                                        </a>
-                                    }
-
-                                </td>
-
-
-                                <td>
-
-                                    @item.sName
-
-                                </td>
-
-
-                                <td>
-
-                                    @item.sDesignation
-
-                                </td>
-
-
-                                <td>
-
-                                    @item.sMobile
-
-                                </td>
-
-
-                                <td>
-
-                                    @item.sEmail
-
-                                </td>
-
-
-                                <td>
-
-                                    @item.RegDate?.ToString("dd-MM-yyyy")
-
-                                </td>
-
-
-                                <td>
-
-                                    <button type="button"
-                                            class="master-view-btn"
-                                            data-id="@item.nID">
-
-                                        View
-
-                                    </button>
-
-                                </td>
-
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-
-                            <td colspan="11"
-                                class="text-center">
-
-                                No organization registrations found.
-
-                            </td>
-
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-        <!-- MASTER PAGE INFO -->
-
-        <div id="organizationPageInfo"
-             class="master-page-info text-center">
-        </div>
-
     </div>
 
 </div>
+
+<script src="~/js/HuntCV-Table.js"></script>
+
+ 

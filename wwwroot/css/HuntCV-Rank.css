@@ -1,0 +1,421 @@
+/* =========================================================
+   HuntCV – MASTER RANK CARDS, DESIGN 3  ("ring + list")
+   Place at: wwwroot/css/HuntCV-Rank2.css
+   Each card: a big progress ring for #1, compact rings for #2 / #3.
+   Neutral page, colour only as a per-card accent:
+        hr2-acc-blue | hr2-acc-green | hr2-acc-amber
+
+   Card markup:
+     <section class="hr2-card hr2-acc-green">
+       <header class="hr2-head">
+         <span class="hr2-ico"><i class="fas fa-code"></i></span>
+         <div><h3>Top Skills</h3><p>Most preferred trainee skills</p></div>
+       </header>
+
+       <div class="hr2-first" style="--pct:39.26">
+         <div class="hr2-ring"><b>39.26%</b></div>
+         <span class="hr2-tag">No. 1</span>
+         <strong>C / C++</strong>
+       </div>
+
+       <ul class="hr2-rest">
+         <li class="hr2-row" style="--pct:33.73">
+           <span class="hr2-mini"><b>2</b></span>
+           <span class="hr2-name">HTML</span>
+           <span class="hr2-val">33.73%</span>
+         </li>
+       </ul>
+     </section>
+   Ring / bar size = style="--pct:39.26" (number only, no % sign).
+   ========================================================= */
+
+:root {
+    --hc-ink: #0b1437;
+    --hc-line: #e6e9f2;
+    --hc-muted: #6b7599;
+    --hc-surface: #f7f8fc;
+}
+
+.hr2-acc-blue {
+    --acc: #2f5bea;
+    --acc-soft: #eaf0ff;
+    --acc-ink: #2f5bea;
+}
+
+.hr2-acc-green {
+    --acc: #12b886;
+    --acc-soft: #e3f8f1;
+    --acc-ink: #0b8f6a;
+}
+
+.hr2-acc-amber {
+    --acc: #f59e0b;
+    --acc-soft: #fff3dc;
+    --acc-ink: #b7791f;
+}
+
+/* ---------- PAGE ---------- */
+
+.hr2-page {
+    min-height: calc(100vh - 70px);
+    padding: 18px 14px 40px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--hc-ink);
+    -webkit-font-smoothing: antialiased;
+    background: var(--hc-surface);
+}
+
+/* ---------- TOP BAR ---------- */
+
+.hr2-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+    .hr2-top h2 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -.6px;
+    }
+
+    .hr2-top p {
+        margin: 4px 0 0;
+        font-size: 14.5px;
+        color: var(--hc-muted);
+    }
+
+.hr2-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--hc-ink);
+    text-decoration: none;
+    background: #fff;
+    border: 1.5px solid var(--hc-line);
+    border-radius: 12px;
+    transition: .2s;
+}
+
+    .hr2-back:hover {
+        color: var(--hc-ink);
+        border-color: #c9cfe3;
+        transform: translateX(-3px);
+    }
+
+/* ---------- GRID ---------- */
+
+.hr2-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ---------- CARD ---------- */
+
+.hr2-card {
+    position: relative;
+    overflow: hidden;
+    padding: 22px 22px 8px;
+    background: #fff;
+    border: 1px solid var(--hc-line);
+    border-radius: 24px;
+    box-shadow: 0 1px 2px rgba(17, 28, 78, .04), 0 14px 30px -22px rgba(17, 28, 78, .3);
+    transition: transform .25s ease, box-shadow .25s ease;
+    animation: hr2Rise .5s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+    .hr2-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 5px;
+        background: var(--acc);
+    }
+
+    .hr2-card:nth-child(2) {
+        animation-delay: .08s;
+    }
+
+    .hr2-card:nth-child(3) {
+        animation-delay: .16s;
+    }
+
+    .hr2-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 1px 2px rgba(17, 28, 78, .04), 0 26px 44px -24px rgba(17, 28, 78, .4);
+    }
+
+.hr2-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+    .hr2-head h3 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -.2px;
+    }
+
+    .hr2-head p {
+        margin: 1px 0 0;
+        font-size: 12.5px;
+        color: var(--hc-muted);
+    }
+
+.hr2-ico {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    color: var(--acc-ink);
+    background: var(--acc-soft);
+    border-radius: 12px;
+}
+
+/* ---------- #1 : BIG RING ---------- */
+
+.hr2-first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 0 20px;
+    text-align: center;
+    border-bottom: 1px dashed var(--hc-line);
+}
+
+.hr2-ring {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: conic-gradient(var(--acc) calc(var(--pct, 0) * 1%), #eceef6 0);
+}
+
+    /* hole */
+    .hr2-ring::before {
+        content: "";
+        position: absolute;
+        inset: 14px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(17, 28, 78, .08) inset;
+    }
+
+    .hr2-ring b {
+        position: relative;
+        font-size: 27px;
+        font-weight: 800;
+        letter-spacing: -.8px;
+    }
+
+.hr2-tag {
+    margin-top: 14px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: var(--acc-ink);
+    background: var(--acc-soft);
+    border-radius: 99px;
+}
+
+.hr2-first strong {
+    margin-top: 8px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -.3px;
+}
+
+/* ---------- #2 / #3 : MINI RINGS ---------- */
+
+.hr2-rest {
+    margin: 0;
+    padding: 6px 0 4px;
+    list-style: none;
+}
+
+.hr2-row {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--hc-line);
+}
+
+    .hr2-row:last-child {
+        border-bottom: 0;
+    }
+
+.hr2-mini {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: conic-gradient(var(--acc) calc(var(--pct, 0) * 1%), #eceef6 0);
+    opacity: .8;
+}
+
+    .hr2-mini::before {
+        content: "";
+        position: absolute;
+        inset: 5px;
+        background: #fff;
+        border-radius: 50%;
+    }
+
+    .hr2-mini b {
+        position: relative;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--hc-muted);
+    }
+
+.hr2-name {
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.hr2-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--acc-ink);
+}
+
+@keyframes hr2Rise {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .hr2-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .hr2-top h2 {
+            font-size: 24px;
+        }
+
+    .hr2-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hr2-card {
+        animation: none !important;
+    }
+
+    * {
+        transition: none !important;
+    }
+}
+
+.hc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: auto;
+    height: 40px;
+    padding: 0 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+
+    .hc-btn:hover {
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+.hc-btn-primary {
+    background: var(--hc-grad);
+    box-shadow: 0 10px 20px -8px rgba(47, 91, 234, .65);
+}
+
+.hc-btn-applied,
+.hc-btn-success {
+    background: var(--hc-ok);
+    box-shadow: 0 10px 20px -10px rgba(18, 184, 134, .8);
+}
+
+.hc-btn-warning {
+    background: var(--hc-warn);
+}
+
+.hc-btn-danger {
+    background: var(--hc-danger);
+}
+
+.hc-btn:disabled,
+.hc-btn.disabled {
+    cursor: not-allowed;
+    opacity: .75;
+    transform: none;
+}
+
+/* small round badges for text statuses */
+.hc-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 99px;
+}
+
+.hc-badge-success {
+    color: #0b8f6a;
+    background: #e3f8f1;
+}
+
+.hc-badge-warning {
+    color: #b7791f;
+    background: #fff3dc;
+}
+
+.hc-badge-info {
+    color: var(--hc-blue);
+    background: var(--hc-sky);
+}
+
+.hc-badge-danger {
+    color: #c0392b;
+    background: #ffe9e9;
+}
