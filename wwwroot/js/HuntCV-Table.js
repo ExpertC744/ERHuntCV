@@ -11,6 +11,9 @@
    Optional attributes on the <table>:
      data-page-length="25"   default rows per page (10, 25, 50 or 100)
      data-no-sort="5,6"      column indexes that can't be sorted
+     data-order-col="3"      column to sort by on load (optional)
+     data-order-dir="desc"   asc | desc (optional)
+     Dates like "12 Aug 2026" and "12-08-2026" sort as real dates.
    ========================================================= */
 
 (function () {
@@ -23,6 +26,20 @@
         if (cls) e.className = cls;
         if (html !== undefined) e.innerHTML = html;
         return e;
+    }
+
+    var MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+    /* "12 Aug 2026" or "12-08-2026" -> timestamp, otherwise null */
+    function toTime(s) {
+        var m = s.match(/^(\d{1,2})[ -]([A-Za-z]{3})[A-Za-z]*[ ,-]+(\d{4})$/);
+        if (m) {
+            var mo = MONTHS.indexOf(m[2].toLowerCase());
+            if (mo > -1) return new Date(+m[3], mo, +m[1]).getTime();
+        }
+        m = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+        if (m) return new Date(+m[3], +m[2] - 1, +m[1]).getTime();
+        return null;
     }
 
     function cellValue(row, col) {
@@ -50,6 +67,13 @@
         };
         if (LENGTHS.indexOf(state.length) === -1) state.length = 25;
 
+        /* optional starting sort:  data-order-col="3" data-order-dir="desc" */
+        var oc = parseInt(table.getAttribute("data-order-col"), 10);
+        if (!isNaN(oc) && oc >= 0 && oc < colCount && noSort.indexOf(oc) === -1) {
+            state.sortCol = oc;
+            state.sortDir = (table.getAttribute("data-order-dir") || "asc").toLowerCase() === "desc" ? "desc" : "asc";
+        }
+
         /* pre-compute searchable text once */
         var searchText = allRows.map(function (r) {
             return r.textContent.replace(/\s+/g, " ").toLowerCase();
@@ -57,8 +81,16 @@
         var rowObjs = allRows.map(function (r, i) { return { row: r, text: searchText[i], idx: i }; });
 
         /* ---------- build wrapper ---------- */
+        /* the scroll box holds ONLY the table, so search / entries / paging stay in place */
+        var scroll = table.closest(".hc-table-scroll");
+        if (!scroll) {
+            scroll = el("div", "hc-table-scroll");
+            table.parentNode.insertBefore(scroll, table);
+            scroll.appendChild(table);
+        }
+
         var wrapper = el("div", "dataTables_wrapper");
-        table.parentNode.insertBefore(wrapper, table);
+        scroll.parentNode.insertBefore(wrapper, scroll);
 
         /* top bar */
         var top = el("div", "row mb-3 align-items-center");
@@ -104,7 +136,7 @@
         bottom.appendChild(colPage);
 
         wrapper.appendChild(top);
-        wrapper.appendChild(table);
+        wrapper.appendChild(scroll);
         wrapper.appendChild(bottom);
 
         /* ---------- sorting setup ---------- */
@@ -134,7 +166,10 @@
             var nx = parseFloat(x.replace(/,/g, ""));
             var ny = parseFloat(y.replace(/,/g, ""));
             var r;
-            if (!isNaN(nx) && !isNaN(ny) && /^[\d.,\s-]+$/.test(x) && /^[\d.,\s-]+$/.test(y)) {
+            var tx = toTime(x), ty = toTime(y);
+            if (tx !== null && ty !== null) {
+                r = tx - ty;
+            } else if (!isNaN(nx) && !isNaN(ny) && /^[\d.,\s-]+$/.test(x) && /^[\d.,\s-]+$/.test(y)) {
                 r = nx - ny;
             } else {
                 r = x.localeCompare(y, undefined, { sensitivity: "base", numeric: true });

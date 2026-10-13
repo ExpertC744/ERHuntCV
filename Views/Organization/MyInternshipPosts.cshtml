@@ -1,0 +1,182 @@
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "My Internship Posts";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+@* master files – or add once in _DashboardLayout.cshtml *@
+<link rel="stylesheet" href="~/css/HuntCV-Table.css" />
+
+<div class="container-fluid">
+
+    <!-- ===== page head ===== -->
+    <div class="hc-page-head">
+        <div>
+            <h2 class="hc-page-title">My Internship Posts</h2>
+            <p class="hc-page-sub">View and manage all your internship posts</p>
+        </div>
+
+        <a asp-controller="Organization" asp-action="Dashboard" class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i>  
+        </a>
+    </div>
+
+    <!-- ===== master table card ===== -->
+    <div class="hc-card">
+
+        <div class="hc-card-header">
+            <span class="hc-card-icon"><i class="fas fa-briefcase"></i></span>
+            <h5>Internship Post List</h5>
+        </div>
+
+        <div class="hc-card-body">
+            <div class="hc-table-scroll">
+
+                <!-- 19 columns: only the table scrolls sideways.
+                     data-order-col="1" data-order-dir="desc"  -> newest post first
+                     data-no-sort="3,15"                       -> Action + Facilities -->
+                <table id="myPostsTable"
+                       class="table hc-table hc-nowrap hc-datatable"
+                       data-page-length="10"
+                       data-order-col="1"
+                       data-order-dir="desc"
+                       data-no-sort="3,15"
+                       data-empty-text="No internship posts found">
+                    <thead>
+                        <tr>
+                            <th>Sr.<br />No</th>
+                            <th>Post<br />Creation<br />Date</th>
+                            <th>Position</th>
+                            <th>Action</th>
+                            <th>No. of<br />Required<br />Trainee</th>
+                            <th>Eligible<br />Trainee</th>
+                            <th>Gender</th>
+                            <th>Minimum<br />Qualification</th>
+                            <th>Location</th>
+                            <th>Working<br />Hours Per<br />Day</th>
+                            <th>Weekly Working<br />Days</th>
+                            <th>Internship<br />Type</th>
+                            <th>Internship / Fellowship<br />Type</th>
+                            <th>Training<br />Involved</th>
+                            <th>Internship<br />Duration</th>
+                            <th>Facilities<br />Available</th>
+                            <th>Internship<br />Mode</th>
+                            <th>Divyang<br />Allowed</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>29-09-2026</td>
+                            <td>Assistant Trainee</td>
+                            <td>
+                                <div class="hc-actions">
+                                    <a asp-controller="Organization" asp-action="ViewMyOrgPost" class="hc-icon-btn view" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="hc-icon-btn edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                    
+                                </div>
+                            </td>
+                            <td> <a asp-controller="Organization" asp-action="EligibleTrainees">
+            7 
+        </a></td>
+                            <td><span class="hc-badge hc-badge-info">12</span></td>
+                            <td>Any</td>
+                            <td>SSC / 10th</td>
+                            <td>India<br />Maharashtra<br />Bhusawal</td>
+                            <td>Up to 4 Hrs</td>
+                            <td>Monday, Sunday</td>
+                            <td>Full Time</td>
+                            <td>Any (Free/Paid/Stipend/Sponsored)</td>
+                            <td>Yes</td>
+                            <td>4 Weeks</td>
+                            <td>
+                                <div class="hc-facilities sm">
+                                    <img src="~/images/facilities/certificate.png" alt="Certificate" />
+                                </div>
+                            </td>
+                            <td>Online</td>
+                            <td>No</td>
+                            <td><span class="hc-badge hc-badge-success">Active</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>15-09-2026</td>
+                            <td>.Net Trainee</td>
+                            <td>
+                                <div class="hc-actions">
+                                    <a asp-controller="Organization" asp-action="ViewMyOrgPost" class="hc-icon-btn view" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="hc-icon-btn edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                    
+                                </div>
+                            </td>
+                            <td>5</td>
+                            <td><span class="hc-badge hc-badge-info">8</span></td>
+                            <td>Any</td>
+                            <td>Graduate</td>
+                            <td>India<br />Maharashtra<br />Nagpur</td>
+                            <td>Up to 6 Hrs</td>
+                            <td>Monday to Friday</td>
+                            <td>Part Time</td>
+                            <td>Free</td>
+                            <td>Yes</td>
+                            <td>8 Weeks</td>
+                            <td>
+                                <div class="hc-facilities sm">
+                                    <img src="~/images/facilities/building.png" alt="Office" />
+                                    <img src="~/images/facilities/certificate.png" alt="Certificate" />
+                                </div>
+                            </td>
+                            <td>Offline</td>
+                            <td>Yes</td>
+                            <td><span class="hc-badge hc-badge-success">Active</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>01-08-2026</td>
+                            <td>Trainee Full Stack</td>
+                            <td>
+                                <div class="hc-actions">
+                                    <a asp-controller="Organization" asp-action="ViewMyOrgPost" class="hc-icon-btn view" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="hc-icon-btn edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                  
+                                </div>
+                            </td>
+                            <td>10</td>
+                            <td><span class="hc-badge hc-badge-info">20</span></td>
+                            <td>Male</td>
+                            <td>Graduate</td>
+                            <td>India<br />Maharashtra<br />Nagpur</td>
+                            <td>Up to 8 Hrs</td>
+                            <td>Monday to Saturday</td>
+                            <td>Full Time</td>
+                            <td>Stipend</td>
+                            <td>No</td>
+                            <td>12 Weeks</td>
+                            <td>
+                                <div class="hc-facilities sm">
+                                    <img src="~/images/facilities/wfh.png" alt="Work from home" />
+                                    <img src="~/images/facilities/letter.png" alt="Offer letter" />
+                                    <img src="~/images/facilities/training.png" alt="Training" />
+                                </div>
+                            </td>
+                            <td>Hybrid</td>
+                            <td>No</td>
+                            <td><span class="hc-badge hc-badge-danger">Closed</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/HuntCV-Table.js"></script>

@@ -98,51 +98,51 @@
     font-size: 14px;
 }
 
-    .hc-card .dataTables_length label,
-    .hc-card .dataTables_filter label {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin: 0;
-        font-weight: 600;
-        color: var(--hc-muted);
-    }
-
-    .hc-card .dataTables_length select,
-    .hc-card .dataTables_filter input {
-        height: 42px;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--hc-ink);
-        background-color: #fbfcff;
-        border: 1.5px solid var(--hc-line);
-        border-radius: 12px;
-        box-shadow: none;
-        transition: border-color .2s, box-shadow .2s, background .2s;
-    }
-
-    .hc-card .dataTables_length select {
-        width: auto;
-        padding: 0 34px 0 14px;
-    }
-
-    .hc-card .dataTables_filter input {
-        width: 260px;
-        margin-left: 0 !important;
-        padding: 0 14px;
-    }
-
-        .hc-card .dataTables_length select:focus,
-        .hc-card .dataTables_filter input:focus {
-            background-color: #fff;
-            border-color: var(--hc-blue);
-            box-shadow: 0 0 0 4px rgba(47, 91, 234, .14);
-            outline: 0;
-        }
-
-.hc-card .dataTables_filter input::placeholder {
-    color: #9aa5c8;
+.hc-card .dataTables_length label,
+.hc-card .dataTables_filter label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-weight: 600;
+    color: var(--hc-muted);
 }
+
+.hc-card .dataTables_length select,
+.hc-card .dataTables_filter input {
+    height: 42px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--hc-ink);
+    background-color: #fbfcff;
+    border: 1.5px solid var(--hc-line);
+    border-radius: 12px;
+    box-shadow: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.hc-card .dataTables_length select {
+    width: auto;
+    padding: 0 34px 0 14px;
+}
+
+.hc-card .dataTables_filter input {
+    width: 260px;
+    margin-left: 0 !important;
+    padding: 0 14px;
+}
+
+    .hc-card .dataTables_length select:focus,
+    .hc-card .dataTables_filter input:focus {
+        background-color: #fff;
+        border-color: var(--hc-blue);
+        box-shadow: 0 0 0 4px rgba(47, 91, 234, .14);
+        outline: 0;
+    }
+
+    .hc-card .dataTables_filter input::placeholder {
+        color: #9aa5c8;
+    }
 
 /* ---------- TABLE ---------- */
 
@@ -179,7 +179,7 @@
         font-size: 14px;
         text-align: center;
         color: var(--hc-text);
-        vertical-align: top;
+        vertical-align: middle;
         background: #fff;
         border-bottom: 1px solid var(--hc-line);
         border-right: 1px solid var(--hc-line);
@@ -216,56 +216,56 @@
             border-bottom-color: var(--hc-indigo);
         }
 
-/* alignment helpers */
-.hc-table .text-start,
-.hc-table td.hc-left {
-    text-align: left;
-}
-
-.hc-table td.hc-middle {
-    vertical-align: middle;
-}
-
-/* sort arrows (replace DataTables default icons) */
-.hc-table thead th.sorting,
-.hc-table thead th.sorting_asc,
-.hc-table thead th.sorting_desc {
-    cursor: pointer;
-}
-
-    .hc-table thead th.sorting::before,
-    .hc-table thead th.sorting::after,
-    .hc-table thead th.sorting_asc::before,
-    .hc-table thead th.sorting_asc::after,
-    .hc-table thead th.sorting_desc::before,
-    .hc-table thead th.sorting_desc::after {
-        position: absolute;
-        right: 10px;
-        display: block;
-        font-size: 9px;
-        line-height: 1;
-        color: #b3bddd;
-        opacity: 1;
+    /* alignment helpers */
+    .hc-table .text-start,
+    .hc-table td.hc-left {
+        text-align: left;
     }
 
-    .hc-table thead th.sorting::before,
-    .hc-table thead th.sorting_asc::before,
-    .hc-table thead th.sorting_desc::before {
-        content: "\25B2";
-        top: calc(50% - 10px);
+    .hc-table td.hc-middle {
+        vertical-align: middle;
     }
 
-    .hc-table thead th.sorting::after,
-    .hc-table thead th.sorting_asc::after,
-    .hc-table thead th.sorting_desc::after {
-        content: "\25BC";
-        top: calc(50% + 1px);
+    /* sort arrows (replace DataTables default icons) */
+    .hc-table thead th.sorting,
+    .hc-table thead th.sorting_asc,
+    .hc-table thead th.sorting_desc {
+        cursor: pointer;
     }
 
-    .hc-table thead th.sorting_asc::before,
-    .hc-table thead th.sorting_desc::after {
-        color: var(--hc-blue);
-    }
+        .hc-table thead th.sorting::before,
+        .hc-table thead th.sorting::after,
+        .hc-table thead th.sorting_asc::before,
+        .hc-table thead th.sorting_asc::after,
+        .hc-table thead th.sorting_desc::before,
+        .hc-table thead th.sorting_desc::after {
+            position: absolute;
+            right: 10px;
+            display: block;
+            font-size: 9px;
+            line-height: 1;
+            color: #b3bddd;
+            opacity: 1;
+        }
+
+        .hc-table thead th.sorting::before,
+        .hc-table thead th.sorting_asc::before,
+        .hc-table thead th.sorting_desc::before {
+            content: "\25B2";
+            top: calc(50% - 10px);
+        }
+
+        .hc-table thead th.sorting::after,
+        .hc-table thead th.sorting_asc::after,
+        .hc-table thead th.sorting_desc::after {
+            content: "\25BC";
+            top: calc(50% + 1px);
+        }
+
+        .hc-table thead th.sorting_asc::before,
+        .hc-table thead th.sorting_desc::after {
+            color: var(--hc-blue);
+        }
 
 /* ---------- FACILITY ICONS ---------- */
 
@@ -273,6 +273,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: 10px 14px;
     min-width: 200px;
 }
@@ -301,7 +302,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    min-width: 110px;
+    min-width: auto;
     height: 40px;
     padding: 0 18px;
     font-size: 14px;
@@ -454,13 +455,186 @@
         margin-bottom: 10px;
     }
 
-    .hc-card .dataTables_filter label {
-        display: flex;
-        width: 100%;
-    }
+        .hc-card .dataTables_filter label {
+            display: flex;
+            width: 100%;
+        }
 
     /* wide tables scroll inside the card instead of breaking the page */
     .hc-table-scroll {
         overflow-x: auto;
     }
+}
+
+/* =========================================================
+   PAGE HEAD (title + sub-text + back button) and EMPTY ROW
+   Use at the top of any list / details page.
+   ========================================================= */
+
+.hc-page-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+    .hc-page-head .hc-page-title {
+        margin-bottom: 2px;
+    }
+
+.hc-page-sub {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .3px;
+    color: var(--hc-muted);
+}
+
+.hc-back-btn {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    background: var(--hc-grad);
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 12px 22px -10px rgba(47, 91, 234, .7);
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+    .hc-back-btn:hover {
+        color: #fff;
+        transform: translateX(-3px);
+        box-shadow: 0 16px 26px -10px rgba(47, 91, 234, .75);
+    }
+
+/* "No matching jobs found." row for plain (non-DataTable) tables */
+.hc-table td.hc-empty {
+    padding: 22px 16px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--hc-muted);
+    vertical-align: middle;
+    background: #fff;
+}
+
+/* ---------- table modifiers ---------- */
+.hc-table.hc-middle tbody td {
+    vertical-align: middle;
+}
+
+.hc-table.hc-nowrap tbody td,
+.hc-table.hc-nowrap thead th {
+    white-space: nowrap;
+}
+
+.hc-table tbody td:first-child.hc-left,
+.hc-table.hc-first-left tbody td:first-child,
+.hc-table.hc-first-left thead th:first-child {
+    text-align: left;
+}
+
+/* =========================================================
+   CENTER EVERYTHING  (all records, horizontal + vertical)
+   Applies to every .hc-table. Add class "hc-left" on a td/th
+   only if one specific cell must stay left-aligned.
+   ========================================================= */
+
+.hc-table thead th,
+.hc-table tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+    .hc-table thead th:first-child,
+    .hc-table tbody td:first-child {
+        text-align: center;
+    }
+
+    .hc-table tbody td.hc-left,
+    .hc-table thead th.hc-left {
+        text-align: left;
+    }
+
+/* flex content inside cells is centred too */
+.hc-table .hc-facilities,
+.hc-table .job-info,
+.hc-table .hc-cell-flex {
+    justify-content: center;
+}
+
+.hc-table .job-info {
+    min-width: 0;
+}
+
+    .hc-table .job-info > div:last-child {
+        text-align: left;
+    }
+
+.hc-table .hc-btn,
+.hc-table .hc-badge,
+.hc-table .job-status {
+    margin: 0 auto;
+}
+
+.hc-table td.hc-empty,
+.hc-table td.dataTables_empty {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   HORIZONTAL SCROLL  (all screen sizes)
+   When a table has many columns / wide data, only the table
+   scrolls sideways. Search, entries and paging stay in place.
+   ========================================================= */
+
+.hc-card,
+.hc-card-body,
+.hc-card .dataTables_wrapper {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.hc-table-scroll {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+    .hc-table-scroll > .hc-table {
+        min-width: 640px;
+    }
+
+    /* nice thin scrollbar */
+    .hc-table-scroll::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .hc-table-scroll::-webkit-scrollbar-track {
+        background: var(--hc-mist);
+        border-radius: 10px;
+    }
+
+    .hc-table-scroll::-webkit-scrollbar-thumb {
+        background: #c3cdee;
+        border-radius: 10px;
+    }
+
+        .hc-table-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--hc-blue);
+        }
+
+.hc-table-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #c3cdee var(--hc-mist);
 }

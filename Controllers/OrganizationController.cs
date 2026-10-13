@@ -1099,6 +1099,39 @@ namespace HuntCV_Portal.Controllers
         {
             return View();
         }
+        //radhika13-10
+        public IActionResult OrgTopSearch()
+        {
+            return View();
+        }
+        public IActionResult AppliedTrainees()
+        {
+            return View();
+        }
+        public IActionResult MyInternshipPosts()
+        {
+            return View();
+        }
+        public IActionResult EligibleTrainees()
+        {
+            return View();
+        }
+        public IActionResult SelectedTrainees()
+        {
+            return View();
+        }
+        public IActionResult PreviousPost()
+        {
+            return View();
+        }
+        public IActionResult OrgCharts()
+        {
+            return View();
+        }
+        public IActionResult TraineeProfilesList()
+        {
+            return View();
+        }
 
         //khushi 12-10-26
         [HttpGet]

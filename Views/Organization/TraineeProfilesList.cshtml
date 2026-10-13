@@ -1,0 +1,75 @@
+﻿ 
+@model List<SATraineeListM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Trainee Skills";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+<link rel="stylesheet" href="~/css/HuntCV-Table.css" />
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="hc-page-head">
+        <div>
+            <h2 class="hc-page-title">Trainee Skills</h2>
+            <p class="hc-page-sub">View trainee skills and location details</p>
+        </div>
+
+        <a asp-controller="Organization"
+           asp-action="Dashboard"
+           class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <!-- Trainee Skills Master Table -->
+    <div class="hc-card">
+
+        <div class="hc-card-header">
+            <span class="hc-card-icon">
+                <i class="fas fa-user-graduate"></i>
+            </span>
+            <h5>Trainee Skills</h5>
+        </div>
+
+        <div class="hc-card-body">
+            <div class="hc-table-scroll">
+
+                <table id="traineeSkillsTable"
+                       class="table hc-table hc-nowrap hc-datatable"
+                       data-page-length="10"
+                       data-order-col="0"
+                       data-order-dir="asc">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                Sr.<br />No
+                            </th>
+                            <th>Name</th>
+                            <th>Photo</th>
+                            <th>Technical Skill</th>
+                            <th>Non-Technical Skill</th>
+                            <th>Medical Skill</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @* No records currently available *@
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/HuntCV-Table.js"></script>
+ 
