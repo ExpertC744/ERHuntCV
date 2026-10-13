@@ -872,5 +872,16 @@ namespace HuntCV_Portal.Controllers
 
             return RedirectToAction("Profile");
         }
+
+        //radhika10-10
+        public IActionResult Internshippostview()
+        {
+            return Internshippostview();
+        }
+        //radhika10-10
+        public IActionResult ViewMyOrgPost()
+        {
+            return View();
+        }
     }
 }
