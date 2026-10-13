@@ -362,7 +362,7 @@
     </div>
 
 
-    <!-- =====================================================
+  <!-- =====================================================
          DASHBOARD CARDS
     ====================================================== -->
 
@@ -404,10 +404,11 @@
                 </span>
 
                 <a asp-controller="SuperAdmin"
-                   asp-action="SATrainees"
+                   asp-action="CandidateRegistrationList"
+                   asp-route-id="1"
                    class="sa-view-btn">
 
-                    View
+                    View Details
 
                     <i class="fas fa-arrow-right"></i>
 
@@ -451,8 +452,19 @@
                 <span class="sa-card-info">
                     Total profiles
                 </span>
+                 <a asp-controller="SuperAdmin"
+                   asp-action="TraineeProfileList"
+                   asp-route-id="1"
+                   class="sa-view-btn">
 
+                    View Details
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
             </div>
+
+            
 
         </div>
 
@@ -492,10 +504,11 @@
                 </span>
 
                 <a asp-controller="SuperAdmin"
-                   asp-action="SAOrganizations"
+                   asp-action="OrganizationRegistrationList"
+                   asp-route-id="1"
                    class="sa-view-btn">
 
-                    View
+                    View Details
 
                     <i class="fas fa-arrow-right"></i>
 
@@ -540,6 +553,17 @@
                     Total profiles
                 </span>
 
+                 <a asp-controller="SuperAdmin"
+                   asp-action="OrganizationProfileList"
+                   asp-route-id="1"
+                   class="sa-view-btn">
+
+                    View Details
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
             </div>
 
         </div>
@@ -579,6 +603,16 @@
                     Platform objectives
                 </span>
 
+                <a asp-controller="SuperAdmin"
+                   asp-action="ViewObjective"
+                   asp-route-id="1"
+                   class="sa-view-btn">
+
+                    View Details
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
             </div>
 
         </div>
@@ -618,6 +652,17 @@
                     Active advertisements
                 </span>
 
+                 <a asp-controller="SuperAdmin"
+       asp-action="SAInvoiceDetails"
+       asp-route-id="1"
+       class="sa-view-btn">
+
+        View Details
+
+        <i class="fas fa-arrow-right"></i>
+
+    </a>
+
             </div>
 
         </div>
@@ -656,6 +701,16 @@
                 <span class="sa-card-info">
                     Search activities
                 </span>
+                 <a asp-controller="SuperAdmin"
+       asp-action="SuperAdminTopSkills"
+       asp-route-id="1"
+       class="sa-view-btn">
+
+        View Details
+
+        <i class="fas fa-arrow-right"></i>
+
+    </a>
 
             </div>
 
@@ -692,9 +747,27 @@
 
             <div class="sa-card-footer">
 
-                <span class="sa-card-info">
-                    User feedback
-                </span>
+                
+                 <a asp-controller="SuperAdmin"
+       asp-action="CandidateFeedback"
+       asp-route-id="1"
+       class="sa-view-btn">
+
+        Trainee Details
+
+        <i class="fas fa-arrow-right"></i>
+
+    </a> 
+    <a asp-controller="SuperAdmin"
+       asp-action="OrganizationFeedback"
+       asp-route-id="1"
+       class="sa-view-btn">
+
+        Org Details
+
+        <i class="fas fa-arrow-right"></i>
+
+    </a>
 
             </div>
 
