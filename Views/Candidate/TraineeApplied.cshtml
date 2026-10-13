@@ -1,0 +1,220 @@
+﻿@using ERHuntCV.Models
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Trainee Applied";
+    ViewData["Panel"] = "Candidate";
+    ViewData["UserName"] = "Candidate";
+
+    var traineeAppliedPosts = ViewBag.TraineeAppliedPosts as List<OrgPostM> ?? new List<OrgPostM>();
+
+    string candidateCode = ViewBag.CandidateCode?.ToString() ?? "";
+}
+<div class="master-table-container">
+
+    <!-- HEADER -->
+
+    <div class="feedback-title-row">
+
+        <div>
+
+            <h1 class="feedback-title">
+                Trainee Applied
+            </h1>
+
+            <div class="feedback-subtitle">
+                @candidateCode
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MASTER TABLE -->
+
+    <div class="table-responsive trainee-applied-responsive">
+
+        <table id="traineeAppliedTable"
+               class="master-data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Sr. No</th>
+
+                    <th>
+                        Organization Name
+                    </th>
+
+                    <th>
+                        Position
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Internship / Fellowship Type
+                    </th>
+
+                    <th>
+                        Facilities
+                    </th>
+
+                    <th>
+                        Apply Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                @if (traineeAppliedPosts.Any())
+                {
+                    int srNo = 1;
+
+                    foreach (var post in traineeAppliedPosts)
+                    {
+                        <tr>
+
+                            <!-- SR NO -->
+
+                            <td>
+                                @srNo
+                            </td>
+
+
+                            <!-- ORGANIZATION -->
+
+                            <td>
+                                <a asp-controller="Account" asp-action="ViewOrgPost" asp-route-id="@post.nID" asp-route-nOrgID="@post.nOrgID" class="organization-link">
+                                    @post.sName
+                                </a>
+                            </td>
+
+
+                            <!-- POSITION -->
+
+                            <td>
+                                @post.sPositionName
+                            </td>
+
+
+                            <!-- LOCATION -->
+
+                            <td>
+
+                                @post.sCountryName
+                                <br />
+
+                                @post.sStateName
+                                <br />
+
+                                @post.nCityName
+
+                            </td>
+
+
+                            <!-- INTERNSHIP / FELLOWSHIP -->
+
+                            <td>
+                                @post.sInternshipFellowshipTypeName
+                            </td>
+
+
+                            <!-- FACILITIES -->
+
+                            <td>
+
+                                @if (!string.IsNullOrWhiteSpace(post.sFacilities))
+                                {
+                                    <span title="@post.sFacilities">
+                                        <i class="fas fa-building"></i>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+
+                            </td>
+
+
+                            <!-- APPLY STATUS -->
+
+                            <td>
+
+                                @if (post.IsApplied)
+                                {
+                                    <span class="master-status master-status-active">
+                                        Applied
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="master-status master-status-disabled">
+                                        Not Applied
+                                    </span>
+                                }
+
+                            </td>
+
+                        </tr>
+
+                        srNo++;
+                    }
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<style>
+
+    /*
+               Only responsive behavior.
+               Master 1Trainee CSS remains untouched.
+            */
+
+    .trainee-applied-responsive {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .trainee-applied-responsive table {
+            min-width: 1050px;
+        }
+
+
+    @@media (max-width: 768px) {
+
+        .trainee-applied-responsive {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+            .trainee-applied-responsive table {
+                min-width: 1050px;
+            }
+
+            .trainee-applied-responsive th,
+            .trainee-applied-responsive td {
+                white-space: nowrap;
+            }
+    }
+
+</style>

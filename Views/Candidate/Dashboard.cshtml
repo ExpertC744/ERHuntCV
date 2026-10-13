@@ -124,9 +124,12 @@
                     25
                 </div>
 
-                <div class="stat-bottom">
-                    <span>5</span> awaiting response
-                </div>
+                <a asp-controller="Candidate"
+                   asp-action="TraineeApplied"
+                   class="stat-link">
+                    View Details
+                    <i class="fas fa-arrow-right"></i>
+                </a>
 
             </div>
         </div>
@@ -265,6 +268,212 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="~/js/huntcv-table.js"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+    // =====================================================
+    // MONTHS
+    // =====================================================
+
+    const chartMonths = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const chartYear = @ViewBag.ChartYear;
+
+    // =====================================================
+    // SUITABLE OPENINGS
+    // =====================================================
+
+    const suitableOpeningsMonthly =
+    @Html.Raw(
+        System.Text.Json.JsonSerializer.Serialize(
+                ViewBag.SuitableOpeningsMonthly ?? new int[12]
+        )
+        );
+
+    // =====================================================
+    // INTERNSHIP POST DATA
+    // =====================================================
+
+    const internshipPostData =
+    @Html.Raw(
+                System.Text.Json.JsonSerializer.Serialize(
+                        Model?.InternshipPostData ??
+                        new List<ERHuntCV.Models.SAChartData>()
+                )
+        );
+
+    // =====================================================
+    // CONVERT POST DATA TO MONTHLY VALUES
+    // =====================================================
+
+    const internshipPostsMonthly = new Array(12).fill(0);
+
+    internshipPostData
+    .filter(item => Number(item.Year) === Number(chartYear))
+    .forEach(item => {
+
+    const monthIndex = Number(item.Month) - 1;
+
+    if (monthIndex >= 0 && monthIndex < 12) {
+    internshipPostsMonthly[monthIndex] =
+    Number(item.TotalCount) || 0;
+    }
+    });
+
+    // =====================================================
+    // COMMON CHART DESIGN
+    // =====================================================
+
+    Chart.defaults.font.family =
+    'Inter, system-ui, -apple-system, "Segoe UI", sans-serif';
+
+    Chart.defaults.color = "#66719a";
+
+    function getChartOptions(title) {
+    return {
+    responsive: true,
+    maintainAspectRatio: false,
+
+    interaction: {
+    intersect: false,
+    mode: "index"
+    },
+
+    plugins: {
+    legend: {
+    display: true,
+    position: "top",
+    labels: {
+    usePointStyle: true,
+    pointStyle: "rectRounded",
+    padding: 15,
+    color: "#0b1437"
+    }
+    },
+
+    tooltip: {
+    backgroundColor: "#0b1437",
+    padding: 10,
+    cornerRadius: 8
+    },
+
+    title: {
+    display: false,
+    text: title
+    }
+    },
+
+    scales: {
+    x: {
+    grid: {
+    color: "#e6ebf8"
+    },
+    title: {
+    display: true,
+    text: "Months"
+    },
+    ticks: {
+    maxRotation: 0,
+    autoSkip: false
+    }
+    },
+
+    // Y AXIS: 0 TO 100
+    y: {
+    min: 0,
+    max: 100,
+    beginAtZero: true,
+
+    ticks: {
+    stepSize: 25,
+    precision: 0
+    },
+
+    grid: {
+    color: "#e6ebf8"
+    }
+    }
+    }
+    };
+    }
+
+    // =====================================================
+    // SUITABLE OPENINGS - LINE / AREA CHART
+    // =====================================================
+
+    const suitableCanvas =
+    document.getElementById("suitableOpeningsChart");
+
+    if (suitableCanvas) {
+    new Chart(suitableCanvas, {
+    type: "line",
+
+    data: {
+    labels: chartMonths,
+
+    datasets: [{
+    label: "Suitable Openings",
+    data: suitableOpeningsMonthly,
+
+    fill: true,
+    tension: 0,
+
+    borderColor: "#2f5bea",
+    backgroundColor: "rgba(47, 91, 234, 0.18)",
+
+    borderWidth: 2.5,
+
+    pointRadius: 3.5,
+    pointHoverRadius: 6,
+
+    pointBackgroundColor: "#ffffff",
+    pointBorderColor: "#5b3df0",
+    pointBorderWidth: 2
+    }]
+    },
+
+    options: getChartOptions("Suitable Openings")
+    });
+    }
+
+    // =====================================================
+    // INTERNSHIP POSTS - BAR CHART
+    // =====================================================
+
+    const internshipCanvas =
+    document.getElementById("internshipPostsChart");
+
+    if (internshipCanvas) {
+    new Chart(internshipCanvas, {
+    type: "bar",
+
+    data: {
+    labels: chartMonths,
+
+    datasets: [{
+    label: "Internship Posts",
+    data: internshipPostsMonthly,
+
+    backgroundColor: "#2f5bea",
+    hoverBackgroundColor: "#5b3df0",
+
+    borderRadius: 4,
+    borderSkipped: false,
+
+    categoryPercentage: 0.9,
+    barPercentage: 0.7
+    }]
+    },
+
+    options: getChartOptions("Internship Posts")
+    });
+    }
+
+    });
+</script>
+@* <script>
 
     /* ---------- last 10 months as "Jan 26" labels ---------- */
     function lastMonthLabels(count) {
@@ -368,4 +577,4 @@
         options: baseOptions("No. of post")
     });
 
-</script>
+</script> *@

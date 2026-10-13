@@ -1038,9 +1038,9 @@ namespace HuntCV_Portal.Controllers
                 .UpdateOrganizationLocation(
                     model.nID,
                     orgId,
-                    model.CountryID,
-                    model.StateID,
-                    model.CityID);
+                    model.sCountryName,
+                    model.sStateName,
+                    model.nCityName);
 
 
             TempData["Success"] =
@@ -1098,6 +1098,127 @@ namespace HuntCV_Portal.Controllers
         public IActionResult ViewProfile()
         {
             return View();
+        }
+
+        //khushi 12-10-26
+        [HttpGet]
+        [Route("Organization/PostDetails/{id}")]
+        public IActionResult PostDetails(string? id)
+        {
+            int? orgId = HttpContext.Session.GetInt32("OrgID");
+
+            if (orgId == null)
+            {
+                return RedirectToAction("OrganizationLogin", "Account");
+            }
+            //int? sessionOrgID = HttpContext.Session.GetInt32("OrgID");
+
+            //if (sessionOrgID == null)
+            //{
+            //    return RedirectToAction("OrganizationLogin", "Account");
+            //}
+            //int orgID = sessionOrgID.Value;
+            var organization = _repository.GetOrganizationRegistrationDetails(orgId.Value);
+
+            if (organization == null)
+            {
+                return NotFound("Organization registration not found.");
+            }
+
+            // =====================================================
+            // CHECK REGISTRATION DATE
+            // =====================================================
+
+            if (organization.Value.RegDate == null)
+            {
+                return BadRequest("Organization Registration Date is missing.");
+            }
+
+            // =====================================================
+            // CREATE ORGANIZATION CODE
+            //
+            // Example:
+            // RegDate = 26/07/2026
+            // nID     = 1
+            //
+            // Result = OR26072601
+            // =====================================================
+
+            string organizationCode = "OR" + organization.Value.RegDate.Value.ToString("ddMMyy") + organization.Value.OrganizationID.ToString("D2");
+
+            // =====================================================
+            // IF ID IS NOT PRESENT
+            // REDIRECT TO CODE URL
+            // =====================================================
+
+            //if (string.IsNullOrEmpty(id))
+            //{
+            //    return RedirectToAction("Dashboard", "Organization", new { id = organizationCode });
+            //}
+
+            // =====================================================
+            // CHECK ORGANIZATION CODE
+            // =====================================================
+
+            if (!string.Equals(id, organizationCode, StringComparison.OrdinalIgnoreCase))
+            {
+                return NotFound();
+            }
+
+            ViewBag.OrgCode = organizationCode;
+
+            List<OrgPostM> posts = new List<OrgPostM>();
+            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_GetOrgPostsWithMatchingTraineeCount", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@nOrgID", orgId);
+                    con.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            OrgPostM item = new OrgPostM();
+                            item.nID = Convert.ToInt32(dr["nID"]);
+                            item.nPositionID = Convert.ToInt32(dr["nPositionID"]);
+                            item.sPositionName = dr["sPositionName"]?.ToString() ?? "";
+                            item.nRequiredTrainees = Convert.ToInt32(dr["nRequiredTrainees"]);
+                            item.MatchingTraineeCount = Convert.ToInt32(dr["MatchingTraineeCount"]);
+                            item.nGenderID = Convert.ToInt32(dr["nGenderID"]);
+                            item.sGenderName = dr["sGenderName"]?.ToString() ?? "";
+                            item.nMinimumQualificationID = Convert.ToInt32(dr["nMinimumQualificationID"]);
+                            item.sMinimumQualificationName = dr["sMinimumQualificationName"]?.ToString() ?? "";
+                            item.sCountryName = dr["sCountryName"]?.ToString() ?? "";
+                            item.sStateName = dr["sStateName"]?.ToString() ?? "";
+                            item.nCityName = dr["nCityName"]?.ToString() ?? "";
+                            item.sWorkingHours = dr["sWorkingHours"]?.ToString() ?? "";
+                            item.nInternshipTypeID = Convert.ToInt32(dr["nInternshipTypeID"]);
+                            item.sInternshipTypeName = dr["sInternshipTypeName"]?.ToString() ?? "";
+                            item.sWorkingShift = dr["sWorkingShift"]?.ToString() ?? "";
+                            item.nInternshipFellowshipTypeID = Convert.ToInt32(dr["nInternshipFellowshipTypeID"]);
+                            item.sInternshipFellowshipTypeName = dr["sInternshipFellowshipTypeName"]?.ToString() ?? "";
+                            item.nTrainingInvolvedID = Convert.ToInt32(dr["nTrainingInvolvedID"]);
+                            item.sTrainingInvolvedName = dr["sTrainingInvolvedName"]?.ToString() ?? "";
+                            item.nInternshipDurationID = Convert.ToInt32(dr["nInternshipDurationID"]);
+                            item.sInternshipDurationName = dr["sInternshipDurationName"]?.ToString() ?? "";
+                            item.nInternshipModeID = Convert.ToInt32(dr["nInternshipModeID"]);
+                            item.sInternshipModeName = dr["sInternshipModeName"]?.ToString() ?? "";
+                            item.sDivyang = dr["sDivyang"]?.ToString() ?? "";
+                            item.sWorkingDays = dr["sWorkingDays"]?.ToString() ?? "";
+                            item.sFacilities = dr["sFacilities"]?.ToString() ?? "";
+                            item.dRegisterDate = dr["dRegisterDate"] == DBNull.Value ? null : Convert.ToDateTime(dr["dRegisterDate"]);
+                            item.dModDate = dr["dModDate"] == DBNull.Value ? null : Convert.ToDateTime(dr["dModDate"]);
+                            item.nBit = dr["nBit"] != DBNull.Value && Convert.ToBoolean(dr["nBit"]);
+                            item.nSABit = dr["nSABit"] != DBNull.Value && Convert.ToBoolean(dr["nSABit"]);
+                            item.nOrgID = Convert.ToInt32(dr["nOrgID"]);
+                            posts.Add(item);
+                        }
+                    }
+                }
+            }
+            ViewBag.OrgCode = id;
+            return View(posts);
         }
 
     }

@@ -70,21 +70,21 @@ namespace ERHuntCV.Repositories
 
             cmd.Parameters.AddWithValue(
      "@sCountryCode",
-     string.IsNullOrWhiteSpace(model.CountryID)
+     string.IsNullOrWhiteSpace(model.sCountryName)
          ? DBNull.Value
-         : model.CountryID);
+         : model.sCountryName);
 
             cmd.Parameters.AddWithValue(
                 "@sStateCode",
-                string.IsNullOrWhiteSpace(model.StateID)
+                string.IsNullOrWhiteSpace(model.sStateName)
                     ? DBNull.Value
-                    : model.StateID);
+                    : model.sStateName);
 
             cmd.Parameters.AddWithValue(
                 "@nCityID",
-                string.IsNullOrWhiteSpace(model.CityID)
+                string.IsNullOrWhiteSpace(model.nCityName)
                     ? DBNull.Value
-                    : model.CityID);
+                    : model.nCityName);
 
             // =====================================================
             // WORK TERMS
@@ -553,17 +553,17 @@ namespace ERHuntCV.Repositories
                 // LOCATION IDS
                 // =====================================================
 
-                model.CountryID =
+                model.sCountryName =
                     reader["CountryID"] == DBNull.Value
                         ? null
                         : reader["CountryID"].ToString();
 
-                model.StateID =
+                model.sStateName =
                     reader["StateID"] == DBNull.Value
                         ? null
                         : reader["StateID"].ToString();
 
-                model.CityID =
+                model.nCityName =
                     reader["CityID"] == DBNull.Value
                         ? null
                         : reader["CityID"].ToString();
@@ -757,13 +757,13 @@ namespace ERHuntCV.Repositories
 
                     // LOCATION
                     cmd.Parameters.Add("@sCountryCode", SqlDbType.NVarChar, 10)
-                        .Value = model.CountryID ?? "";
+                        .Value = model.sCountryName ?? "";
 
                     cmd.Parameters.Add("@sStateCode", SqlDbType.NVarChar, 20)
-                        .Value = model.StateID ?? "";
+                        .Value = model.sStateName ?? "";
 
                     cmd.Parameters.Add("@nCityID", SqlDbType.Int)
-                        .Value = model.CityID;
+                        .Value = model.nCityName;
 
 
                     cmd.Parameters.Add("@sWorkingHours", SqlDbType.NVarChar, 50)
