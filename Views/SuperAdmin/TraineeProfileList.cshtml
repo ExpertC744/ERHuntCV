@@ -1,0 +1,77 @@
+﻿ 
+@model List<SATraineeListM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Trainee Profile List";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+<div class="container-fluid">
+
+    <!-- MASTER TABLE -->
+    <div class="master-table-container">
+
+        <div class="master-table-title">
+            <div>
+                <h2>Trainee Profile List</h2>
+                <p>View and manage trainee profiles and resume details</p>
+            </div>
+
+            <a asp-controller="SuperAdmin"
+               asp-action="Dashboard"
+               class="btn btn-secondary">
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="table-responsive">
+
+            <table id="traineeProfileTable" class="master-data-table">
+
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Profile Created Date</th>
+                        <th>Trainee Name</th>
+                        <th>Action</th>
+                        <th>Photo</th>
+                        <th>Location</th>
+                        <th>Pin Code</th>
+                        <th>SSC Year</th>
+                        <th>SSC Division</th>
+                        <th>HSC / Diploma Year</th>
+                        <th>HSC / Diploma Division</th>
+                        <th>Graduation Year</th>
+                        <th>Graduation Division</th>
+                        <th>Graduation Stream</th>
+                        <th>PG Year</th>
+                        <th>PG Division</th>
+                        <th>PG Stream</th>
+                        <th>PhD Year</th>
+                        <th>PhD Status</th>
+                        <th>PhD Topic</th>
+                        <th>Preferred Location</th>
+                        <th>Internship Type</th>
+                        <th>Uploaded Resume</th>
+                        <th>Resume Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @* No records currently available *@
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div id="traineeProfilePageInfo"
+             class="master-page-info text-center">
+        </div>
+
+    </div>
+
+</div>
+ 

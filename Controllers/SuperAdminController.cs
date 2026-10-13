@@ -3,6 +3,7 @@ using HuntCV_Portal.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERHuntCV.Controllers
 {
@@ -1621,6 +1622,23 @@ ORDER BY SAF.nID DESC, OFB.nID DESC;
 
                 return View(contactList);
             }
+        }
+        //radhika13-10
+        public IActionResult CandidateRegistrationList()
+        {
+            return View();
+        }
+        public IActionResult TraineeProfileList()
+        {
+            return View();
+        }
+        public IActionResult OrganizationRegistrationList()
+        {
+            return View();
+        }
+        public IActionResult OrganizationProfileList()
+        {
+            return View();
         }
 
     }

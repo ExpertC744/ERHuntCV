@@ -1,0 +1,67 @@
+﻿ 
+@model List<SATraineeListM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Organization Profile List";
+    ViewData["Panel"] = "SuperAdmin";
+    ViewData["UserName"] = "Super Admin";
+}
+
+<div class="container-fluid">
+
+    <!-- MASTER TABLE -->
+    <div class="master-table-container">
+
+        <div class="master-table-title">
+            <div>
+                <h2>Organization Profile List</h2>
+                <p>View and manage organization profiles</p>
+            </div>
+
+            <a asp-controller="SuperAdmin"
+               asp-action="Dashboard"
+               class="btn btn-secondary">
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="table-responsive">
+
+            <table id="organizationProfileTable"
+                   class="master-data-table">
+
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Profile Creation Date</th>
+                        <th>Organization Name</th>
+                        <th>Action</th>
+                        <th>Organization Logo</th>
+                        <th>Organization Address</th>
+                        <th>Verification Email</th>
+                        <th>GST NO.</th>
+                        <th>CIN NO.</th>
+                        <th>Current Employee Strength</th>
+                        <th>DOB</th>
+                        <th>Establishment Year</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @* No records currently available *@
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div id="organizationProfilePageInfo"
+             class="master-page-info text-center">
+        </div>
+
+    </div>
+
+</div>
+ 
