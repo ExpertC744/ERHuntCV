@@ -1,9 +1,9 @@
 /* =========================================================
-   HuntCV – POST DETAIL PAGE  (CSS only)
+   HuntCV – POST DETAIL PAGE  (matches the "1trainee" post layout)
    Place at: wwwroot/css/HuntCV-Post.css
-   Uses the same --hc-* variables as the other HuntCV files.
-   Floating tools (home / print / download) on the right,
-   previous / next arrows on both sides of the card.
+   Light card with a gradient top line, logo + company name,
+   two-column details, floating Home / Print / Download buttons
+   on the right, and Previous / Next arrows.
    ========================================================= */
 
 :root {
@@ -16,7 +16,6 @@
     --hc-line: #dfe5f5;
     --hc-text: #1b2447;
     --hc-muted: #66719a;
-    --hc-ok: #12b886;
     --hc-grad: linear-gradient(120deg, #2f5bea 0%, #5b3df0 100%);
 }
 
@@ -25,7 +24,7 @@
 .hc-post-page {
     position: relative;
     min-height: 100vh;
-    padding: 36px 16px 20px;
+    padding: 30px 16px 20px;
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     color: var(--hc-text);
     -webkit-font-smoothing: antialiased;
@@ -63,15 +62,27 @@
 .hc-post-card {
     position: relative;
     z-index: 1;
-    max-width: 780px;
+    max-width: 740px;
     margin: 0 auto;
+    padding: 28px 30px 16px;
     overflow: hidden;
-    background: #fff;
+    background: linear-gradient(160deg, #ffffff 0%, #f4f7ff 55%, #eaf0ff 100%);
     border: 1px solid var(--hc-line);
-    border-radius: 26px;
-    box-shadow: 0 2px 4px rgba(17, 28, 78, .04), 0 30px 70px -22px rgba(17, 28, 78, .3);
+    border-radius: 22px;
+    box-shadow: 0 2px 4px rgba(17, 28, 78, .04), 0 30px 70px -26px rgba(17, 28, 78, .32);
     animation: hcPostRise .55s cubic-bezier(.2, .8, .2, 1) both;
 }
+
+    /* gradient line on top (like the blue line in the original) */
+    .hc-post-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 5px;
+        background: var(--hc-grad);
+    }
 
 @keyframes hcPostRise {
     from {
@@ -85,43 +96,26 @@
     }
 }
 
-/* header band */
+/* ---------- HEAD: logo + company name ---------- */
+
 .hc-post-head {
-    position: relative;
     display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 30px 36px 34px;
-    color: #fff;
-    overflow: hidden;
-    background: radial-gradient(circle at 92% 0%, rgba(91, 61, 240, .65), transparent 45%), radial-gradient(circle at 0% 100%, rgba(47, 91, 234, .45), transparent 50%), linear-gradient(135deg, var(--hc-ink), var(--hc-navy));
+    align-items: flex-start;
+    gap: 28px;
+    margin-bottom: 10px;
 }
 
-    .hc-post-head::after {
-        content: "";
-        position: absolute;
-        right: -40px;
-        top: -40px;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, .12);
-        box-shadow: 0 0 0 26px rgba(255, 255, 255, .03), 0 0 0 52px rgba(255, 255, 255, .02);
-        pointer-events: none;
-    }
-
 .hc-post-logo {
-    position: relative;
-    z-index: 1;
-    flex: 0 0 150px;
-    width: 150px;
+    flex: 0 0 184px;
+    width: 184px;
     height: 110px;
     display: grid;
     place-items: center;
-    padding: 10px;
+    padding: 8px;
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 16px 30px -12px rgba(0, 0, 0, .5);
+    border: 1px solid var(--hc-line);
+    border-radius: 16px;
+    box-shadow: 0 14px 26px -14px rgba(17, 28, 78, .35);
 }
 
     .hc-post-logo img {
@@ -130,41 +124,16 @@
         object-fit: contain;
     }
 
-.hc-post-title {
-    position: relative;
-    z-index: 1;
+.hc-post-title h1 {
+    margin: 8px 0 0;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -.6px;
+    line-height: 1.2;
+    color: var(--hc-ink);
 }
 
-    .hc-post-title h1 {
-        margin: 0 0 8px;
-        font-size: 28px;
-        font-weight: 800;
-        letter-spacing: -.6px;
-        line-height: 1.2;
-        color: #fff;
-    }
-
-.hc-post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-    .hc-post-tags span {
-        padding: 4px 12px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #fff;
-        background: rgba(255, 255, 255, .14);
-        border: 1px solid rgba(255, 255, 255, .22);
-        border-radius: 99px;
-    }
-
-/* ---------- FIELDS ---------- */
-
-.hc-post-body {
-    padding: 30px 36px 12px;
-}
+/* ---------- DETAILS ---------- */
 
 .hc-post-grid {
     display: grid;
@@ -173,8 +142,7 @@
 }
 
 .hc-field {
-    padding: 14px 0;
-    border-bottom: 1px dashed var(--hc-line);
+    padding: 9px 0;
 }
 
     .hc-field.full {
@@ -183,38 +151,35 @@
 
     .hc-field label {
         display: block;
-        margin: 0 0 3px;
-        font-size: 12px;
+        margin: 0 0 1px;
+        font-size: 15px;
         font-weight: 700;
-        letter-spacing: .5px;
-        text-transform: uppercase;
-        color: var(--hc-muted);
+        color: var(--hc-ink);
     }
 
     .hc-field p {
         margin: 0;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 1.45;
-        color: var(--hc-ink);
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--hc-muted);
     }
 
-/* facilities */
 .hc-post-facilities {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 6px;
+    gap: 10px;
+    margin-top: 5px;
 }
 
     .hc-post-facilities img {
-        width: 44px;
-        height: 44px;
-        padding: 5px;
+        width: 38px;
+        height: 38px;
+        padding: 4px;
         object-fit: contain;
         background: #fff;
         border: 1px solid var(--hc-line);
-        border-radius: 12px;
+        border-radius: 10px;
         transition: .2s;
     }
 
@@ -224,29 +189,25 @@
             box-shadow: 0 10px 16px -10px rgba(47, 91, 234, .55);
         }
 
-/* apply bar + footer */
-.hc-post-apply {
-    display: flex;
-    justify-content: center;
-    padding: 18px 36px 6px;
-}
-
 .hc-post-footer {
-    padding: 14px 36px 22px;
+    padding: 10px 0 0;
     font-size: 12.5px;
-    color: var(--hc-muted);
+    color: #9aa5c8;
 }
 
     .hc-post-footer a {
-        font-weight: 600;
-        color: var(--hc-blue);
+        color: inherit;
         text-decoration: none;
     }
+
+        .hc-post-footer a:hover {
+            color: var(--hc-blue);
+        }
 
 .hc-post-copy {
     position: relative;
     z-index: 1;
-    max-width: 780px;
+    max-width: 740px;
     margin: 18px auto 0;
     font-size: 13px;
     color: var(--hc-muted);
@@ -272,16 +233,16 @@
 .hc-tool {
     position: relative;
     width: 46px;
-    height: 46px;
+    height: 42px;
     display: grid;
     place-items: center;
     padding: 0;
-    font-size: 16px;
+    font-size: 15px;
     color: #fff;
     text-decoration: none;
     background: var(--hc-grad);
     border: 0;
-    border-radius: 14px;
+    border-radius: 12px;
     box-shadow: 0 14px 24px -10px rgba(47, 91, 234, .75);
     cursor: pointer;
     transition: transform .2s, box-shadow .2s;
@@ -293,7 +254,6 @@
         box-shadow: 0 20px 28px -10px rgba(47, 91, 234, .8);
     }
 
-    /* tooltip on hover */
     .hc-tool::after {
         content: attr(data-tip);
         position: absolute;
@@ -323,11 +283,11 @@
     position: fixed;
     top: 50%;
     z-index: 15;
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     display: grid;
     place-items: center;
-    font-size: 20px;
+    font-size: 19px;
     color: var(--hc-blue);
     text-decoration: none;
     background: #fff;
@@ -369,7 +329,6 @@
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 1100px) {
-    /* put tools + arrows into one bar at the bottom */
     .hc-post-page {
         padding-bottom: 96px;
     }
@@ -415,29 +374,22 @@
 }
 
 @media (max-width: 640px) {
+    .hc-post-card {
+        padding: 22px 18px 14px;
+    }
+
     .hc-post-head {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 24px 20px 28px;
+        gap: 14px;
     }
 
     .hc-post-title h1 {
-        font-size: 23px;
-    }
-
-    .hc-post-body {
-        padding: 20px 20px 8px;
+        margin-top: 0;
+        font-size: 22px;
     }
 
     .hc-post-grid {
         grid-template-columns: 1fr;
-    }
-
-    .hc-post-apply,
-    .hc-post-footer {
-        padding-left: 20px;
-        padding-right: 20px;
     }
 }
 
@@ -447,8 +399,7 @@
     .hc-tools,
     .hc-nav,
     .hc-post-page::before,
-    .hc-post-page::after,
-    .hc-post-apply {
+    .hc-post-page::after {
         display: none !important;
     }
 
@@ -463,9 +414,6 @@
         border-radius: 0;
         box-shadow: none;
         animation: none;
-    }
-
-    .hc-post-head {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
@@ -481,30 +429,3 @@
         transition: none !important;
     }
 }
-
-/* ---------- APPLY BUTTON (self-contained, no need for HuntCV-Table.css) ---------- */
-
-.hc-post-apply .hc-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-width: 200px;
-    height: 48px;
-    padding: 0 26px;
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-    text-decoration: none;
-    background: var(--hc-grad);
-    border: 0;
-    border-radius: 14px;
-    box-shadow: 0 16px 28px -12px rgba(47, 91, 234, .7);
-    transition: transform .2s, box-shadow .2s;
-}
-
-    .hc-post-apply .hc-btn:hover {
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 22px 32px -12px rgba(47, 91, 234, .75);
-    }
