@@ -1,0 +1,77 @@
+﻿@model List<OrgPostM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Previous Post";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+<link rel="stylesheet" href="~/css/HuntCV-Chart.css" asp-append-version="true" />
+   @* =========================== BLOCK A ===========================
+   TRAINEE CHARTS  (master chart)
+   ============================================================== *@
+
+<div class="row g-4 mb-4">
+
+    <!-- CHART 1 : eligible trainees (area / line) -->
+    <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="hc-chart-card">
+
+            <div class="hc-chart-head">
+                <div>
+                    <div class="hc-chart-title">No. of Trainee Eligible for Internship</div>
+                    <div class="hc-chart-number">@ViewBag.InternshipEligibleCount</div>
+                    <div class="hc-chart-sub">Current eligible trainees</div>
+                </div>
+                <div class="hc-chart-icon"><i class="fas fa-user-graduate"></i></div>
+            </div>
+
+            <div class="hc-chart-body">
+                @* data-values = one number per month (last N months are labelled automatically).
+                   Later: data-values="@Json.Serialize(ViewBag.EligibleMonthly)" *@
+                <canvas class="hc-chart"
+                        data-type="line"
+                        data-values="[0,0,2,3,5,4,8,9,12,10]"
+                        data-label="No. of eligible trainees"
+                        data-y-title="No. of trainees"></canvas>
+            </div>
+
+            <div class="hc-chart-foot">
+                <i class="fas fa-chart-line"></i> Monthly eligible trainee trend
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CHART 2 : registrations per month (bar) -->
+    <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="hc-chart-card">
+
+            <div class="hc-chart-head">
+                <div>
+                    <div class="hc-chart-title">Total Registration Per Month</div>
+                    <div class="hc-chart-number">@ViewBag.TraineeRegistrationCount</div>
+                    <div class="hc-chart-sub">Total trainee registrations</div>
+                </div>
+                <div class="hc-chart-icon"><i class="fas fa-building"></i></div>
+            </div>
+
+            <div class="hc-chart-body">
+                <canvas class="hc-chart"
+                        data-type="bar"
+                        data-values="[4,9,16,15,40,12,21,8,14,18]"
+                        data-label="No. of registrations"
+                        data-y-title="No. of registrations"></canvas>
+            </div>
+
+            <div class="hc-chart-foot">
+                <i class="fas fa-chart-line"></i> Monthly trainee registration trend
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="~/js/HuntCV-Chart.js"></script>

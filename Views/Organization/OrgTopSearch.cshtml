@@ -1,0 +1,126 @@
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Top Search";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+@* master file – or add once in _DashboardLayout.cshtml *@
+<link rel="stylesheet" href="~/css/HuntCV-Rank.css" />
+
+<div class="hr2-page">
+
+    <!-- ===== top bar ===== -->
+    <div class="hr2-top">
+        <div>
+            <h2>Top Search</h2>
+            <p>What trainees are searching and choosing the most.</p>
+        </div>
+
+        <a asp-controller="Organization" asp-action="Dashboard" class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i>  
+        </a>
+    </div>
+
+    <!-- ===== rank cards ===== -->
+    <div class="hr2-grid">
+
+        <!-- TOP SKILLS -->
+        <section class="hr2-card hr2-acc-blue">
+            <header class="hr2-head">
+                <span class="hr2-ico"><i class="fas fa-code"></i></span>
+                <div>
+                    <h3>Top Skills</h3>
+                    <p>Most preferred trainee skills</p>
+                </div>
+            </header>
+
+            <div class="hr2-first" style="--pct:39.26">
+                <div class="hr2-ring"><b>39.26%</b></div>
+                <span class="hr2-tag">No. 1 Skill</span>
+                <strong>C / C++</strong>
+            </div>
+
+            <ul class="hr2-rest">
+                <li class="hr2-row" style="--pct:33.73">
+                    <span class="hr2-mini"><b>2</b></span>
+                    <span class="hr2-name">HTML</span>
+                    <span class="hr2-val">33.73%</span>
+                </li>
+                <li class="hr2-row" style="--pct:27.01">
+                    <span class="hr2-mini"><b>3</b></span>
+                    <span class="hr2-name">JAVA</span>
+                    <span class="hr2-val">27.01%</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- TOP CITIES -->
+        <section class="hr2-card hr2-acc-green">
+            <header class="hr2-head">
+                <span class="hr2-ico"><i class="fas fa-location-dot"></i></span>
+                <div>
+                    <h3>Top Cities</h3>
+                    <p>Locations with maximum trainees</p>
+                </div>
+            </header>
+
+            <div class="hr2-first" style="--pct:63">
+                <div class="hr2-ring"><b>63%</b></div>
+                <span class="hr2-tag">No. 1 City</span>
+                <strong>Nagpur</strong>
+            </div>
+
+            <ul class="hr2-rest">
+                <li class="hr2-row" style="--pct:48">
+                    <span class="hr2-mini"><b>2</b></span>
+                    <span class="hr2-name">Mumbai</span>
+                    <span class="hr2-val">48%</span>
+                </li>
+                <li class="hr2-row" style="--pct:36">
+                    <span class="hr2-mini"><b>3</b></span>
+                    <span class="hr2-name">Pune</span>
+                    <span class="hr2-val">36%</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- TOP FIELDS -->
+        <section class="hr2-card hr2-acc-amber">
+            <header class="hr2-head">
+                <span class="hr2-ico"><i class="fas fa-layer-group"></i></span>
+                <div>
+                    <h3>Top Fields</h3>
+                    <p>Most selected candidate skill categories</p>
+                </div>
+            </header>
+
+            <div class="hr2-first" style="--pct:71.82">
+                <div class="hr2-ring"><b>71.82%</b></div>
+                <span class="hr2-tag">No. 1 Field</span>
+                <strong>Technical Skill</strong>
+            </div>
+
+            <ul class="hr2-rest">
+                <li class="hr2-row" style="--pct:14.62">
+                    <span class="hr2-mini"><b>2</b></span>
+                    <span class="hr2-name">Non-Technical Skill</span>
+                    <span class="hr2-val">14.62%</span>
+                </li>
+                <li class="hr2-row" style="--pct:13.56">
+                    <span class="hr2-mini"><b>3</b></span>
+                    <span class="hr2-name">Medical Skill</span>
+                    <span class="hr2-val">13.56%</span>
+                </li>
+            </ul>
+        </section>
+
+    </div>
+
+    @* ---------------------------------------------------------
+       NEW CARD? copy a <section class="hr2-card hr2-acc-blue"> block
+       (accent: hr2-acc-blue | hr2-acc-green | hr2-acc-amber).
+       Change the names and numbers; --pct and the % text must match.
+       --------------------------------------------------------- *@
+
+</div>

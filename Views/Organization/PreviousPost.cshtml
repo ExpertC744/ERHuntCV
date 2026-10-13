@@ -1,0 +1,85 @@
+﻿ 
+@model List<OrgPostM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Previous Post";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+<link rel="stylesheet" href="~/css/HuntCV-Table.css" />
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="hc-page-head">
+        <div>
+            <h2 class="hc-page-title">Internship Posts</h2>
+            <p class="hc-page-sub">View and manage internship and fellowship posts</p>
+        </div>
+
+        <a asp-controller="Organization"
+           asp-action="Dashboard"
+           class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <!-- Internship Posts Master Table -->
+    <div class="hc-card">
+
+        <div class="hc-card-header">
+            <span class="hc-card-icon">
+                <i class="fas fa-briefcase"></i>
+            </span>
+            <h5>Internship Posts</h5>
+        </div>
+
+        <div class="hc-card-body">
+            <div class="hc-table-scroll">
+
+                <table id="internshipPostsTable"
+                       class="table hc-table hc-nowrap hc-datatable"
+                       data-page-length="10"
+                       data-order-col="0"
+                       data-order-dir="asc"
+                       data-no-sort="2">
+
+                    <thead>
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Position</th>
+                            <th>Action</th>
+                            <th>No. of Trainee</th>
+                            <th>Gender</th>
+                            <th>Minimum Qualification</th>
+                            <th>Location</th>
+                            <th>Working Hrs / Day</th>
+                            <th>Weekly Working Days</th>
+                            <th>Internship Type</th>
+                            <th>Internship / Fellowship Type</th>
+                            <th>Total Charges</th>
+                            <th>Training Involved</th>
+                            <th>Duration</th>
+                            <th>Facilities Available</th>
+                            <th>Internship Mode</th>
+                            <th>Divyang (Allowed)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @* No records currently available *@
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/HuntCV-Table.js"></script>
+ 

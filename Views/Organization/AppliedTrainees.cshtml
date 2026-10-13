@@ -1,0 +1,87 @@
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Applied Trainees";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+@* master files – or add once in _DashboardLayout.cshtml *@
+<link rel="stylesheet" href="~/css/HuntCV-Table.css" />
+
+<div class="container-fluid">
+
+    <!-- ===== page head: title + back button ===== -->
+    <div class="hc-page-head">
+        <div>
+            <h2 class="hc-page-title">Applied Trainees</h2>
+            <p class="hc-page-sub">Trainees who applied to your internship posts</p>
+        </div>
+
+        <a asp-controller="Organization" asp-action="Dashboard" class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- ===== master table card ===== -->
+    <div class="hc-card">
+
+        <div class="hc-card-header">
+            <span class="hc-card-icon"><i class="fas fa-user-check"></i></span>
+            <h5>Applied Trainees List</h5>
+        </div>
+
+        <div class="hc-card-body">
+            <div class="hc-table-scroll">
+
+                <!-- 0 records: tbody is empty, the master script shows the
+                     search / entries bar and the "No records found" row -->
+                <table id="appliedTraineesTable"
+                       class="table hc-table hc-nowrap hc-datatable"
+                       data-page-length="10"
+                       data-order-col="0"
+                       data-order-dir="asc"
+                       data-no-sort="3,4"
+                       data-empty-text="No records found">
+                    <thead>
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Date</th>
+                            <th>Position</th>
+                            <th>View Post</th>
+                            <th>Applied Trainees</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @* ---------------------------------------------------------
+                           When you have data, add rows here, for example:
+
+                           <tr>
+                               <td>1</td>
+                               <td>29-09-2026</td>
+                               <td>Assistant Trainee</td>
+                               <td>
+                                   <a asp-controller="Organization" asp-action="ViewMyOrgPost"
+                                      class="hc-btn hc-btn-primary">
+                                       <i class="fas fa-eye"></i> View Post
+                                   </a>
+                               </td>
+                               <td>
+                                   <a href="#" class="hc-btn hc-btn-applied">
+                                       <i class="fas fa-users"></i> 5
+                                   </a>
+                               </td>
+                           </tr>
+                           --------------------------------------------------------- *@
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/HuntCV-Table.js"></script>

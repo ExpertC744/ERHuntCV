@@ -1,0 +1,76 @@
+﻿@model List<SATraineeListM>
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Eligible Trainees";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+}
+
+<link rel="stylesheet" href="~/css/HuntCV-Table.css" />
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="hc-page-head">
+        <div>
+            <h2 class="hc-page-title">Eligible Trainees</h2>
+            <p class="hc-page-sub">View and manage eligible trainees</p>
+        </div>
+
+        <a asp-controller="Organization"
+           asp-action="Dashboard"
+           class="hc-btn hc-btn-primary">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <!-- Eligible Trainees Table -->
+    <div class="hc-card">
+
+        <div class="hc-card-header">
+            <span class="hc-card-icon">
+                <i class="fas fa-users"></i>
+            </span>
+            <h5>Eligible Trainees</h5>
+        </div>
+
+        <div class="hc-card-body">
+            <div class="hc-table-scroll">
+
+                <table id="eligibleTraineesTable"
+                       class="table hc-table hc-nowrap hc-datatable"
+                       data-page-length="10"
+                       data-order-col="0"
+                       data-order-dir="asc"
+                       data-no-sort="2,11">
+
+                    <thead>
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Name</th>
+                            <th>View Resume</th>
+                            <th>Email</th>
+                            <th>Gender</th>
+                            <th>DOB</th>
+                            <th>Skills</th>
+                            <th>Apply Status</th>
+                            <th>Status</th>
+                            <th>Final Result</th>
+                            <th>Comment</th>
+                            <th>Update Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @* No records currently available *@
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/HuntCV-Table.js"></script>
