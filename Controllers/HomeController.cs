@@ -1,5 +1,6 @@
 using ERHuntCV.Models;
 using ERHuntCV.Services;
+using HuntCV_Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -9,7 +10,6 @@ namespace ERHuntCV.Controllers
 {
     public class HomeController : Controller
     {
-
         private readonly EmailService _emailService;
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
@@ -134,6 +134,104 @@ namespace ERHuntCV.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        // Organization Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OrganizationLogin(OrganizationLoginM model)
+        {
+            if (model == null ||
+                string.IsNullOrWhiteSpace(model.sEmail) ||
+                string.IsNullOrWhiteSpace(model.sPassword))
+            {
+                TempData["LoginError"] = "Please enter email and password.";
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "DefaultConnection connection string not found.");
+            }
+
+            try
+            {
+                OrganizationRegisterM? organization = null;
+
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(
+                    "SP_OrganizationLogin", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue(
+                        "@sEmail", model.sEmail.Trim());
+
+                    cmd.Parameters.AddWithValue(
+                        "@sPassword", model.sPassword);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            organization = new OrganizationRegisterM
+                            {
+                                nID = Convert.ToInt32(dr["nID"]),
+                                sOrgName = dr["sOrgName"]?.ToString(),
+                                sName = dr["sName"]?.ToString(),
+                                sEmail = dr["sEmail"]?.ToString(),
+                                sMobile = dr["sMobile"]?.ToString()
+                            };
+                        }
+                    }
+                }
+
+                if (organization == null)
+                {
+                    TempData["LoginError"] =
+                        "Invalid email or password.";
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                // Store organization session
+                HttpContext.Session.SetInt32("OrgID", organization.nID);
+
+                HttpContext.Session.SetString(
+                    "OrgName",
+                    organization.sOrgName ?? string.Empty);
+
+                HttpContext.Session.SetString(
+                    "OrgEmail",
+                    organization.sEmail ?? string.Empty);
+
+                HttpContext.Session.SetString(
+                    "OrgUserName",
+                    organization.sName ?? string.Empty);
+
+                HttpContext.Session.SetString(
+                    "OrgMobile",
+                    organization.sMobile ?? string.Empty);
+
+                // Redirect after successful login
+                return RedirectToAction("OrganizationDashboard", "Organization");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during organization login.");
+
+                TempData["LoginError"] =
+                    "Something went wrong during login. Please try again.";
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         //khushi 19/09/26
         public IActionResult Contact()
         {
@@ -142,10 +240,10 @@ namespace ERHuntCV.Controllers
         }
 
 
-        
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> ContactUs(ViewModelTrainee rg)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ContactUs(ViewModelTrainee rg)
         {
             try
             {

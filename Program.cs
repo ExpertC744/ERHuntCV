@@ -1,8 +1,9 @@
 using ERHuntCV.Repositories;
-using HuntCV_Portal.Repositories;
 using System.Data.Common;
 using ERHuntCV.Services;
 using Microsoft.Data.SqlClient;
+using HuntCV_Portal.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,8 +29,7 @@ builder.Services.AddScoped<DbConnection>(sp =>
         sp.GetRequiredService<IConfiguration>();
 
     var connectionString =
-        configuration.GetConnectionString(
-            "DefaultConnection");
+        configuration.GetConnectionString("DefaultConnection");
 
     return new SqlConnection(connectionString);
 });
@@ -44,22 +44,34 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout =
-        TimeSpan.FromMinutes(60);
-
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
     options.Cookie.HttpOnly = true;
-
     options.Cookie.IsEssential = true;
 });
+
+// =========================================================
+// AUTHENTICATION
+// =========================================================
+
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LoginPath = "/Home/Index";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
+    });
+
+builder.Services.AddAuthorization();
 
 // =========================================================
 // REPOSITORIES
 // =========================================================
 
 builder.Services.AddScoped<AccountRepository>();
-
 builder.Services.AddScoped<CandidateProfileRepository>();
-
 builder.Services.AddScoped<OrganizationRepository>();
 
 // =========================================================
@@ -75,19 +87,17 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 
 app.UseRouting();
 
-// Session must be before controller routes
+// Middleware order matters.
 app.UseSession();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 // =========================================================

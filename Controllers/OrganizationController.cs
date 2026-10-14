@@ -1077,15 +1077,11 @@ namespace HuntCV_Portal.Controllers
             return Json(skills);
         }
 
-
-
-
-
-
         public IActionResult ViewOrgProfile()
         {
             return View();
         }
+
         [HttpGet]
         [Route("Organization/ViewOrgPost/{id?}")]
         [ResponseCache(
@@ -1095,6 +1091,7 @@ namespace HuntCV_Portal.Controllers
         {
             return View();
         }
+
         public IActionResult ViewProfile()
         {
             return View();
@@ -1253,6 +1250,85 @@ namespace HuntCV_Portal.Controllers
             ViewBag.OrgCode = id;
             return View(posts);
         }
+
+        [HttpGet]
+        [Route("Organization/ViewOrgProfile/{id?}")]
+        public IActionResult ViewOrgProfile(string? id)
+        {
+            // Get the logged-in organization's ID from the session.
+            int? sessionOrgID = HttpContext.Session.GetInt32("OrgID");
+
+            // Redirect to login if the organization is not logged in.
+            if (!sessionOrgID.HasValue)
+            {
+                return RedirectToAction("OrganizationLogin", "Account");
+            }
+
+            // Use the requested profile ID, or the logged-in organization's ID.
+            string profileId = string.IsNullOrWhiteSpace(id)
+                ? sessionOrgID.Value.ToString()
+                : id.Trim();
+
+            // Retrieve the organization profile.
+            OrgProfileM? model =
+                _organizationRepository.GetOrganizationProfileByCode(profileId);
+
+            if (model == null)
+            {
+                return NotFound("Organization profile not found.");
+            }
+
+            // Ensure the logged-in organization can view only its own profile.
+            //if (model.nOrgID != sessionOrgID.Value)
+            //{
+            //    return StatusCode(
+            //        StatusCodes.Status403Forbidden,
+            //        "You are not authorized to view this organization profile.");
+            //}
+
+            ViewData["Title"] = "View Organization Profile";
+            ViewData["Panel"] = "Organization";
+            ViewData["UserName"] = model.sOrganizationName;
+
+            return View("~/Views/Organization/ViewOrgProfile.cshtml", model);
+        }
+
+
+        //[HttpGet]
+        //[Route("Organization/ViewOrgProfile/{id?}")]
+        //public IActionResult ViewOrgProfile(string? id)
+        //{
+        //    int? sessionOrgID = HttpContext.Session.GetInt32("OrgID");
+        //    HttpContext.Session.SetString("OrganizationId", OrgID);
+        //    if (!sessionOrgID.HasValue)
+        //    {
+        //        return RedirectToAction("OrganizationLogin", "Account");
+        //    }
+
+        //    string profileId = string.IsNullOrWhiteSpace(id)
+        //        ? sessionOrgID.Value.ToString()
+        //        : id.Trim();
+
+        //    OrgProfileM? model =
+        //        _organizationRepository.GetOrganizationProfileByCode(profileId);
+
+        //    if (model == null)
+        //    {
+        //        return NotFound("Organization profile not found.");
+        //    }
+
+        //    // Organization can view only its own profile.
+        //    if (model.nOrgID != sessionOrgID.Value)
+        //    {
+        //        return Forbid();
+        //    }
+
+        //    ViewData["Title"] = "View Organization Profile";
+        //    ViewData["Panel"] = "Organization";
+        //    ViewData["UserName"] = model.sOrganizationName;
+
+        //    return View("~/Views/Organization/ViewOrgProfile.cshtml", model);
+        //}
 
     }
 }
