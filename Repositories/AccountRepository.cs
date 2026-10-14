@@ -6,17 +6,12 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
 using System.Data.Common;
-using ERHuntCV.Models;
-using System.Data;
-
 
 namespace HuntCV_Portal.Repositories
 {
     public class AccountRepository
     {
         private readonly IConfiguration _configuration;
-
-
 
         public AccountRepository(IConfiguration configuration)
         {

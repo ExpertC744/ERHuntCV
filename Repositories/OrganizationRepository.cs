@@ -862,5 +862,122 @@ namespace ERHuntCV.Repositories
                 }
             }
         }
+
+        public OrgProfileM? GetOrganizationProfileByCode(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return null;
+
+            id = id.Trim();
+
+            int orgId;
+
+            // Numeric organization ID, for example: 1
+            if (int.TryParse(id, out int numericId))
+            {
+                orgId = numericId;
+            }
+            // Organization code: OR07082601 or OR0910261002
+            else if (id.StartsWith("OR", StringComparison.OrdinalIgnoreCase) &&
+                     id.Length > 2 &&
+                     id.Substring(2).All(char.IsDigit) &&
+                     int.TryParse(id.Substring(id.Length - 2), out int codeId))
+            {
+                orgId = codeId;
+            }
+            else
+            {
+                return null;
+            }
+
+            if (orgId <= 0)
+                return null;
+
+            string connectionString =
+                _configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException(
+                    "DefaultConnection is missing from appsettings.json.");
+
+            using SqlConnection cn = new SqlConnection(connectionString);
+
+            using SqlCommand cmd =
+                new SqlCommand("SP_GetOrganizationProfile", cn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@nOrgID", SqlDbType.Int).Value = orgId;
+
+            cn.Open();
+
+            using SqlDataReader dr = cmd.ExecuteReader();
+
+            if (!dr.Read())
+                return null;
+
+            string GetString(string column)
+            {
+                int index = dr.GetOrdinal(column);
+
+                return dr.IsDBNull(index)
+                    ? string.Empty
+                    : Convert.ToString(dr.GetValue(index)) ?? string.Empty;
+            }
+
+            int GetInt(string column)
+            {
+                int index = dr.GetOrdinal(column);
+
+                return dr.IsDBNull(index)
+                    ? 0
+                    : Convert.ToInt32(dr.GetValue(index));
+            }
+
+            DateTime? GetDate(string column)
+            {
+                int index = dr.GetOrdinal(column);
+
+                return dr.IsDBNull(index)
+                    ? null
+                    : Convert.ToDateTime(dr.GetValue(index));
+            }
+
+            bool GetBool(string column)
+            {
+                int index = dr.GetOrdinal(column);
+
+                return !dr.IsDBNull(index) &&
+                       Convert.ToBoolean(dr.GetValue(index));
+            }
+
+            return new OrgProfileM
+            {
+                nID = GetInt("nID"),
+                nOrgID = GetInt("nOrgID"),
+
+                sOrganizationName = GetString("sName"),
+                sOrganizationEmail = GetString("sEmail"),
+                sMobile = GetString("sMobile"),
+                sDesignation = GetString("sDesignation"),
+
+                dDateOfBirth = GetDate("dDateOfBirth"),
+
+                sCompanyLogo = GetString("sCompanyLogo"),
+                sCompanyAddress = GetString("sCompanyAddress"),
+
+                nEstablishmentYear = GetInt("nEstablishmentYear"),
+
+                sGSTNo = GetString("sGSTNo"),
+                sCINNo = GetString("sCINNo"),
+
+                nEmployeeStrength = GetString("nEmployeeStrength"),
+
+                dCreatedDate = GetDate("dCreatedDate") ?? DateTime.MinValue,
+                dModifiedDate = GetDate("dModifiedDate"),
+
+                nBit = GetBool("nBit"),
+                nSABit = GetBool("nSABit")
+            };
+        }
+
     }
 }

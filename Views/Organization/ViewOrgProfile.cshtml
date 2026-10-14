@@ -1,0 +1,578 @@
+﻿@model ERHuntCV.Models.OrgProfileM
+
+@{
+    Layout = null;
+    ViewData["Title"] = "View Organization Profile";
+    ViewData["Panel"] = "Organization";
+    ViewData["UserName"] = "Organization";
+
+    string organizationName = string.IsNullOrWhiteSpace(Model.sOrganizationName)
+        ? "Organization"
+        : Model.sOrganizationName;
+
+    string logoPath = "~/images/it-networkz-logo.png";
+
+    if (!string.IsNullOrWhiteSpace(Model.sCompanyLogo))
+    {
+        string savedLogo = Model.sCompanyLogo.Trim();
+
+        if (savedLogo.StartsWith("~/"))
+        {
+            logoPath = savedLogo;
+        }
+        else if (savedLogo.StartsWith("/"))
+        {
+            logoPath = savedLogo;
+        }
+        else
+        {
+            logoPath = "~/uploads/organization/" + savedLogo;
+        }
+    }
+
+    string DisplayValue(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? "Not provided" : value;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - 1Trainee</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                font-family: "Segoe UI", Arial, sans-serif;
+                background: #f3f7f7;
+                color: #12213a;
+            }
+
+            .profile-actions {
+                position: fixed;
+                top: 18px;
+                right: 18px;
+                display: flex;
+                gap: 10px;
+                z-index: 100;
+            }
+
+            .action-button {
+                width: 40px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #e2eeee;
+                border-radius: 10px;
+                background: #fff;
+                color: #087f78;
+                text-decoration: none;
+                cursor: pointer;
+                box-shadow: 0 3px 12px rgba(0, 0, 0, .04);
+                transition: .2s ease;
+            }
+
+                .action-button:hover {
+                    background: #e5faf6;
+                    color: #006e67;
+                    transform: translateY(-1px);
+                }
+
+            .profile-container {
+                width: min(945px, calc(100% - 40px));
+                margin: 64px auto 35px;
+                background: #fff;
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 15px 45px rgba(20, 45, 60, .10);
+            }
+
+            .profile-header {
+                position: relative;
+                overflow: hidden;
+                padding: 21px 27px 20px;
+                color: #fff;
+                background: linear-gradient(115deg, #28756f, #12bba8);
+            }
+
+                .profile-header::before,
+                .profile-header::after {
+                    content: "";
+                    position: absolute;
+                    width: 210px;
+                    height: 210px;
+                    border: 1px solid rgba(255, 255, 255, .12);
+                    border-radius: 50%;
+                    pointer-events: none;
+                }
+
+                .profile-header::before {
+                    right: -45px;
+                    top: -95px;
+                }
+
+                .profile-header::after {
+                    right: 105px;
+                    bottom: -155px;
+                }
+
+            .header-content {
+                position: relative;
+                z-index: 1;
+            }
+
+            .header-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 5px 9px;
+                border: 1px solid rgba(255, 255, 255, .25);
+                border-radius: 7px;
+                background: rgba(255, 255, 255, .14);
+                font-size: 9px;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+            .profile-header h1 {
+                margin: 10px 0 4px;
+                font-size: 23px;
+                line-height: 1.3;
+                font-weight: 800;
+            }
+
+            .profile-header p {
+                margin: 0;
+                font-size: 11px;
+                color: rgba(255, 255, 255, .88);
+            }
+
+            .profile-content {
+                padding: 18px 27px 25px;
+            }
+
+            .organization-summary {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #edf1f5;
+            }
+
+            .organization-logo {
+                width: 68px;
+                height: 68px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 15px;
+                background: #fff;
+                box-shadow: 0 5px 24px rgba(0, 0, 0, .09);
+                overflow: hidden;
+            }
+
+                .organization-logo img {
+                    width: 100%;
+                    height: 100%;
+                    padding: 5px;
+                    object-fit: contain;
+                }
+
+            .organization-name {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin: 0 0 6px;
+                color: #101d32;
+                font-size: 17px;
+                font-weight: 800;
+                overflow-wrap: anywhere;
+            }
+
+            .verified-icon {
+                color: #0da899;
+                font-size: 16px;
+            }
+
+            .organization-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                color: #64748b;
+                font-size: 10px;
+            }
+
+                .organization-meta i {
+                    color: #079d91;
+                    margin-right: 3px;
+                }
+
+            .section-title {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                margin: 18px 0 12px;
+                color: #101d32;
+                font-size: 14px;
+                font-weight: 800;
+            }
+
+            .section-icon {
+                width: 27px;
+                height: 27px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+                background: #d9faf3;
+                color: #078d82;
+                font-size: 12px;
+            }
+
+            .information-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 9px;
+            }
+
+            .information-card {
+                position: relative;
+                min-height: 76px;
+                padding: 13px 13px 12px 46px;
+                border: 1px solid #e0e9f1;
+                border-radius: 12px;
+                background: #fff;
+                overflow-wrap: anywhere;
+                transition: border-color .2s, box-shadow .2s;
+            }
+
+                .information-card::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 15px;
+                    bottom: 15px;
+                    width: 3px;
+                    border-radius: 0 4px 4px 0;
+                    background: #0ba69a;
+                }
+
+                .information-card:hover {
+                    border-color: #b6eae2;
+                    box-shadow: 0 5px 16px rgba(15, 118, 110, .06);
+                }
+
+            .information-icon {
+                position: absolute;
+                left: 13px;
+                top: 13px;
+                width: 25px;
+                height: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+                color: #078b80;
+                background: #effbf8;
+                font-size: 11px;
+            }
+
+            .information-label {
+                display: block;
+                margin: 0 0 10px;
+                color: #718096;
+                font-size: 9px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: .15px;
+            }
+
+            .information-value {
+                display: block;
+                color: #10203b;
+                font-size: 11px;
+                font-weight: 700;
+                line-height: 1.5;
+                overflow-wrap: anywhere;
+            }
+
+            .profile-footer {
+                padding: 17px 25px;
+                background: #fbfdfd;
+                border-top: 1px solid #edf2f4;
+                text-align: right;
+                color: #8a99a9;
+                font-size: 10px;
+            }
+
+                .profile-footer strong {
+                    color: #079e91;
+                }
+
+            @@media (max-width: 600px) {
+                .profile-actions {
+                    position: static;
+                    justify-content: flex-end;
+                    padding: 12px 14px 0;
+                }
+
+                .profile-container {
+                    width: calc(100% - 22px);
+                    margin: 15px auto 22px;
+                    border-radius: 13px;
+                }
+
+                .profile-header {
+                    padding: 20px 17px;
+                }
+
+                    .profile-header h1 {
+                        font-size: 20px;
+                    }
+
+                .profile-content {
+                    padding: 16px;
+                }
+
+                .organization-logo {
+                    width: 58px;
+                    height: 58px;
+                }
+
+                .organization-name {
+                    font-size: 15px;
+                }
+
+                .information-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .information-card {
+                    min-height: 73px;
+                }
+            }
+
+            @@media print {
+                body {
+                    background: #fff;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+
+                .profile-actions {
+                    display: none !important;
+                }
+
+                .profile-container {
+                    width: 100%;
+                    margin: 0;
+                    border-radius: 0;
+                    box-shadow: none;
+                }
+
+                .information-card {
+                    break-inside: avoid;
+                }
+
+                    .information-card:hover {
+                        box-shadow: none;
+                    }
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-actions">
+        <a class="action-button"
+           href="@Url.Action("Dashboard", "Organization")"
+           title="Home"
+           aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+        </a>
+
+        <button class="action-button"
+                type="button"
+                onclick="window.print()"
+                title="Print"
+                aria-label="Print">
+            <i class="fa-solid fa-print"></i>
+        </button>
+
+        <button class="action-button"
+                type="button"
+                onclick="window.print()"
+                title="Download or save as PDF"
+                aria-label="Download or save as PDF">
+            <i class="fa-solid fa-download"></i>
+        </button>
+    </div>
+
+    <main class="profile-container">
+
+        <header class="profile-header">
+            <div class="header-content">
+                <span class="header-badge">
+                    <i class="fa-solid fa-building"></i>
+                    Organization Profile
+                </span>
+
+                <h1>View Organization Profile</h1>
+
+                <p>Organization information on 1Trainee</p>
+            </div>
+        </header>
+
+        <section class="profile-content">
+
+            <div class="organization-summary">
+                <div class="organization-logo">
+                    <img src="@Url.Content(logoPath)"
+                         alt="Organization Logo"
+                         onerror="this.onerror=null;this.src='@Url.Content("~/images/it-networkz-logo.png")';" />
+                </div>
+
+                <div>
+                    <h2 class="organization-name">
+                        @organizationName
+                        <i class="fa-solid fa-circle-check verified-icon"
+                           title="Organization"></i>
+                    </h2>
+
+                    <div class="organization-meta">
+                        <span>
+                            <i class="fa-solid fa-building"></i>
+                            Organization
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            @DisplayValue(Model.sCompanyAddress)
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-globe"></i>
+                            1Trainee
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">
+                <span class="section-icon">
+                    <i class="fa-solid fa-list-ul"></i>
+                </span>
+                Organization Information
+            </h3>
+
+            <div class="information-grid">
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span class="information-label">Contact Person Name</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.sOrganizationName)
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </span>
+                    <span class="information-label">Designation</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.sDesignation)
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
+                    <span class="information-label">Company Address</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.sCompanyAddress)
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </span>
+                    <span class="information-label">Establishment Year</span>
+                    <span class="information-value">
+                        @(Model.nEstablishmentYear > 0
+                            ? Model.nEstablishmentYear.ToString()
+                            : "Not provided")
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                    <span class="information-label">Verification Email</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.sOrganizationEmail)
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </span>
+                    <span class="information-label">GST No.</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.sGSTNo)
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </span>
+                    <span class="information-label">CIN No.</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.sCINNo)
+                    </span>
+                </div>
+
+                <div class="information-card">
+                    <span class="information-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </span>
+                    <span class="information-label">Current Employee Strength</span>
+                    <span class="information-value">
+                        @DisplayValue(Model.nEmployeeStrength)
+                    </span>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="profile-footer">
+            Powered by <strong>1Trainee</strong>
+        </footer>
+
+    </main>
+
+</body>
+</html>
